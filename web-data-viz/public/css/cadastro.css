@@ -1,0 +1,123 @@
+body{
+    margin: 0;
+    padding: 0;
+    font-family: "Comic Relief", system-ui;
+}
+
+.header{
+    height: 85px;
+    width: 100%;
+    background-color: white;
+    border-bottom: solid 5px navy;
+}
+.header .container{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+.logo{
+    display: flex;
+    height: 100px;
+    width: 100px;
+}
+.acessos{
+    display: flex;
+    justify-content: space-between;
+    gap: 50px;
+    font-size: 20px;
+}
+
+
+
+.containerCadastro{
+    height: 800px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+/* .containerCadastro .imgCadastro{
+    background-image: url(../img/proCadastro.png);
+    height: 100%;
+    width: 50%;
+    background-repeat: no-repeat;
+    background-size: contain;
+    justify-content: start;
+} */
+
+.containerCadastro{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url(../img/taverna.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.formCadastro form{
+    background: rgba(255, 255, 255, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border: 2px solid black;
+    padding: 30px;
+    box-shadow: 0 20px 25px rgba(0, 0, 0, 1.5);
+    width: 100%;
+}
+
+.formCadastro label{
+    font-size: 1.3rem;
+}
+
+.formCadastro input {
+    border: 2px solid navy;
+    width: 450px;
+    height: 40px; 
+    color: black;
+    font-size: 1.3rem; 
+    font-family: "Comic Relief", system-ui;
+    padding: 3px;
+    background-color: rgba(255, 255, 255, 0.8); 
+    margin-bottom: 10px;
+ 
+}
+
+.buttonCadastro{
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: navy;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+.alerta_erro{
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .card_erro {
+    display: none;
+    background-color: #fff;
+    color: black;
+    width: 230px;
+    position: fixed;
+    border-radius: 4px;
+    border: #ED145B 3px solid;
+    padding: 10px;
+    margin-right: 10%;
+  }
+  
+  .card_erro #mensagem_erro{
+    font-weight: 500;
+    font-size: 20px;
+  }
+  #div_erros_login {
+    display: none
+  }

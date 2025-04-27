@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="./CSS/cadastro.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cascadia+Code:ital,wght@0,200..700;1,200..700&family=Comic+Relief:wght@400;700&display=swap" rel="stylesheet">
+  <title>Cadastro</title>
+  <script src="./js/sessao.js"></script>
+</head>
+
+<body>
+  <!--header inicio-->
+  <div class="header">
+    <div class="container">
+      <div class="logo">
+        <img src="./img/RPGin (1).png">
+      </div>
+      <div class="acessos">
+        <span><a href="index.html">Inicio</a></span>
+        <span><a href="login.html">Login</a></span>
+        <span><a href="#">cadastro</a></span>
+      </div>
+    </div>
+  </div>
+  <!--header fim-->
+
+  <div class="login">
+    <div class="alerta_erro">
+      <div class="card_erro" id="cardErro">
+        <span id="mensagem_erro"></span>
+      </div>
+    </div>
+    <div class="container">
+      <div class="card card-cadastro">
+        <div class="containerCadastro">
+          <div class="formCadastro">
+            <form onsubmit="return cadastrar()">
+              <label>Nome: <br>
+                <input type="text" id="nome_input">
+              </label>
+              <label>Telefone: <br>
+                <input type="text" id="tele_input">
+              </label>
+              <label>Email: <br>
+                <input type="text" id="email_input">
+              </label>
+              <label>Senha: <br>
+                <input type="password" id="senha_input">
+              </label>
+              <button type="submit" class="buttonCadastro">Cadastrar</button>
+            </form>
+          </div>  
+        </div>
+
+        <div id="div_erros_login"></div>
+      </div>
+    </div>
+  </div>
+
+</body>
+
+</html>
+
+<script>
+  function cadastrar() {
+    var nomeVar = nome_input.value;
+    var emailVar = email_input.value;
+    var senhaVar = senha_input.value;
+    var telefoneVar = tele_input.value;
+
+    if (nomeVar == "" || emailVar == "" || senhaVar == "" || telefoneVar == "") {
+      cardErro.style.display = "block";
+      mensagem_erro.innerHTML = "(Mensagem de erro para todos os campos em branco)";
+      setTimeout(sumirMensagem, 5000);
+      return false;
+    }
+
+    fetch("/usuarios/cadastrar", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        nomeServer: nomeVar,
+        emailServer: emailVar,
+        senhaServer: senhaVar,
+        telefoneServer: telefoneVar
+      }),
+    })
+      .then(function (resposta) {
+        console.log("resposta: ", resposta);
+
+        if (resposta.ok) {
+          cardErro.style.display = "block";
+          mensagem_erro.innerHTML = "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
+
+      
+          setTimeout(() => {
+            window.location.href = "login.html";  
+          }, 2000);
+
+          limparFormulario();
+          finalizarAguardar();
+        } else {
+          throw "Houve um erro ao tentar realizar o cadastro!";
+        }
+      })
+      .catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+        finalizarAguardar();  
+      });
+
+    return false;  
+  }
+
+  function sumirMensagem() {
+    cardErro.style.display = "none";
+  }
+</script>

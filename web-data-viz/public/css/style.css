@@ -1,0 +1,234 @@
+body{
+    margin: 0;
+    padding: 0;
+    font-family: "Comic Relief", system-ui;
+}
+  
+
+/* ------------------------------------------- NAVBAR ------------------------------------ */
+.header{
+    height: 85px;
+    width: 100%;
+    background-color: white;
+    border-bottom: solid 5px navy;
+}
+.header .container{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+.logo{
+    display: flex;
+    height: 100px;
+    width: 100px;
+}
+.acessos{
+    display: flex;
+    justify-content: space-between;
+    gap: 50px;
+    font-size: 20px;
+}
+
+/* ------------------------------------------- Banner ------------------------------------ */
+.Banner{
+    height: 600px;
+    width: 100%;
+    background-image: url(../img/image.png);
+    background-size: cover;
+    box-shadow: 0 20px 25px rgba(0, 0, 0, 0.3);
+}
+.Banner .mensagemInicio{
+    width: 20%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    padding: 20px;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+.msg{
+    color: white;
+    font-size: 45px;
+}
+
+/* ------------------------------------------- Contedo do INdex ------------------------------------ */
+
+.conteudo{
+    display: flex;
+    height: 400px;
+    width: 100%;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-top: 80px;
+}
+.gifInicio{
+    display: flex;
+    background-image: url(../img/8d8fac62449a3d08f039c906aa85e7a2.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+    width: 30%;
+    border-radius: 10px;
+    box-shadow: 0 20px 25px rgba(0, 0, 0, 0.3);
+
+}
+
+.mensagemOque{
+    display: flex;
+    text-align:left;
+    font-size: 20px;
+}
+
+/* ------------------------------------------- IDEAIS ------------------------------------ */
+
+.ideais {
+    background-color: black;
+    height: auto;
+    width: 100%;
+    margin-top: 80px;
+    display: flex;
+    justify-content: space-around;
+    align-items: stretch;
+    flex-direction: row;
+    gap: 30px;
+    padding: 50px 0;
+}
+
+.ideais .inovacao,
+.ideais .diversao,
+.ideais .criatividade {
+    background-color: black;
+    color: white;
+    height: 350px;
+    width: 350px;
+    border-radius: 10px;
+    border: 2px solid white;
+    padding: 20px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    justify-content: space-around;
+}
+.diversao span,
+.criatividade span,
+.inovacao span
+{
+    font-size: 2rem;
+    font-weight: bolder;
+}
+
+
+.ideais .imgInovacao,
+.ideais .imgCriatividade,
+.ideais .imgDiversao {
+    width: 80px;
+    height: 80px;
+    background-color: white;
+    border-radius: 50%;
+    padding: 10px;
+    margin-bottom: 20px;
+    background-size: 60%;
+    background-repeat: no-repeat;
+    background-position: center;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.ideais .mensagemInovacao,
+.ideais .mensagemCritividade,
+.ideais .mensagemDivesao {
+    font-size: 16px;
+    line-height: 1.5;
+}
+.imgInovacao{
+    background-image: url(../img/paper-plane.png);
+    color: white;
+}
+.imgCriatividade{
+    background-image: url(../img/settings.png);
+    color: white;
+}
+.imgDiversao{
+    background-image: url(../img/rocket-lunch.png);
+    color: white;
+}
+
+
+
+/* ------------------------------------------- FOOTER ------------------------------------ */
+
+footer {
+    background-color: white;
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 40px 0;
+    box-shadow: 0 20px 25px rgba(0, 0, 0, 0.3);
+  }
+  
+  form {
+    width: fit-content;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    color: black;
+    width: 25vw;
+  }
+  
+  form label {
+    font-size: 1.2rem;
+  }
+  
+  form button {
+    color: black;
+    background-color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 15px 0;
+    cursor: pointer;
+    font-size: 1.2rem;
+    border-radius: 10px;
+    font-weight: bolder;
+    border: 2px solid navy;
+  }
+  form button:hover{
+    background-color: #000080;
+    color: white;
+    transition: 1.5s;
+  }
+  
+  footer form input {
+    width: 100%;
+    height: 30px;
+    background-color: white;
+    border: 2px solid #000080;
+    color: black;
+    font-size: 1rem;
+    margin-bottom: 30px;
+    border-radius: 10px;
+  }
+  footer form input:focus {
+    outline: none;
+    border-bottom: 1px solid white;
+  }
+  
+  .faleConosco {
+    width: 35vw;
+    color: #000;
+  }
+  
+  .faleConosco h1 {
+    font-size: 4rem;
+  }
+  
+  .faleConosco p {
+    font-size: 1.5rem;
+    margin-top: 20px;
+  }
+  
