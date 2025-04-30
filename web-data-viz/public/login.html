@@ -10,7 +10,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cascadia+Code:ital,wght@0,200..700;1,200..700&family=Comic+Relief:wght@400;700&display=swap" rel="stylesheet">
     <title>Document</title>
-
     <script src="./js/sessao.js"></script>
 </head>
 
@@ -37,23 +36,12 @@
                 <label>Senha: <br>
                     <input type="password" id="senha_input">
                 </label><br>
-                <button class="buttonLogin">
+                <button type="button" class="buttonLogin" onclick="entrar()">
                     Logar
                 </button>
             </form>
         </div>
       </div>
-    
-
-    <!--footer inicio-->
-    <!-- <div class="footer">
-        <div class="container">
-            <h4>Feito com amor por aluno &hearts; SPTech &copy; 2023</h4>
-            <span class="version">v1.0.0</span>
-        </div>
-    </div> -->
-    <!--footer fim-->
-
 </body>
 
 </html>
@@ -62,15 +50,12 @@
 
 
     function entrar() {
-        aguardar();
-
         var emailVar = email_input.value;
         var senhaVar = senha_input.value;
 
         if (emailVar == "" || senhaVar == "") {
             cardErro.style.display = "block"
             mensagem_erro.innerHTML = "(Mensagem de erro para todos os campos em branco)";
-            finalizarAguardar();
             return false;
         }
         else {
@@ -94,38 +79,27 @@
 
             if (resposta.ok) {
                 console.log(resposta);
-
                 resposta.json().then(json => {
                     console.log(json);
                     console.log(JSON.stringify(json));
                     sessionStorage.EMAIL_USUARIO = json.email;
                     sessionStorage.NOME_USUARIO = json.nome;
                     sessionStorage.ID_USUARIO = json.id;
-                    sessionStorage.AQUARIOS = JSON.stringify(json.aquarios)
-
                     setTimeout(function () {
-                        window.location = "./dashboard/cards.html";
-                    }, 1000); // apenas para exibir o loading
-
+                        window.location = "areaUser.html";
+                    }, 1000); 
                 });
-
             } else {
-
                 console.log("Houve um erro ao tentar realizar o login!");
-
                 resposta.text().then(texto => {
                     console.error(texto);
-                    finalizarAguardar(texto);
-                });
+               });
             }
-
         }).catch(function (erro) {
             console.log(erro);
         })
-
         return false;
     }
-
     function sumirMensagem() {
         cardErro.style.display = "none"
     }
