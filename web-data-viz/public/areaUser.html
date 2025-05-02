@@ -17,10 +17,10 @@
 <body onload="exibrTodasPostagem()">
 
     <!--header inicio-->
-    <div class="header">    
+    <div class="header">
         <div class="container">
             <div class="logo">
-                <img src="./img/RPGin (1).png">
+                <img src="./img/RPGin (1).png">                                                  
             </div>
             <div class="pesquisa">
                 <input class="pesquisaAreaUser" type="text" placeholder="pesquisar no RPGin....">
@@ -33,40 +33,56 @@
 
     <div class="containerHome">
         <div class="areaPostagem">
-            <div class="areaPostagem">
-                <div id="postagem"></div>
-            </div>
+            <div id="postagem"></div>
         </div>
         <div class="areaLateral">
             <div class="informacaoLateral">
-               
+                <div class="inicialLateral">
+                    <p>Pagina inicial</p>
+                    <p>Populares</p>
+                    <p>Explorar</p>
+                    <p>Tudo</p>
+                </div>
+                <div class="meioLateral">
+                    
+                </div>
             </div>
         </div>
     </div>
 
 
 </body>
-</html>
 
+</html>
 <script>
-    function exibrTodasPostagem(){
-        fetch("/postagem/exibirPostagem",{
+    function exibrTodasPostagem() {
+        fetch("/postagem/exibirPostagem", {
             method: "GET",
             headers: {
                 "Content-Type": "application/json"
             },
-            })
-            .then(res => res.json())
-            .then(function(resultado) {
-            var postagem = document.getElementById("postagem");
-            resultado.forEach(function(post) {
-                postagem.innerHTML += `
-                        <h3>${post.nome}</h3>
-                        <h3>${post.titulo}</h3>
-                        <h3>${post.conteudo}</h3>
-                        <h3>${post.data_postagem}</h3>
-                `;
-            });
         })
+            .then(res => res.json())
+            .then(function (resultado) {
+                var postagem = document.getElementById("postagem");
+                resultado.forEach(function (post) {
+                    var dataCerta = new Date(post.data_postagem).toLocaleDateString('pt-BR', {
+                        hour: "2-digit",
+                        minute: "2-digit",
+                        hour12: false,
+                        timeZone: "America/Sao_Paulo"
+                    });
+                    postagem.innerHTML += `
+                        <div class="postagem">
+                            <div class="emcima">
+                                <span class="postagemNome">${post.nome}</span>
+                                <span class="postagemData">${dataCerta}</span>
+                            </div>
+                            <div class="postagemTitulo">${post.titulo}</div>
+                            <div class="postagemConteudo">${post.conteudo}</div>
+                        </div>
+                    `;
+                });
+            })
     }
 </script>

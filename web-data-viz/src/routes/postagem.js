@@ -5,7 +5,7 @@ var postagemController = require("../controllers/postagemController");
 
 
 router.post("/postar", function (req, res) {
-    postagemController.postagem(req, res);
+    postagemController.postar(req, res);
 })
 
 router.get("/exibirPostagem", function (req, res) {

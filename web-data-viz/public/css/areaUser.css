@@ -48,17 +48,68 @@ body{
 
 .areaPostagem{
     height: 100%;
-    width: 65%;
+    width: 60%;
     display: flex;
-    justify-content: center;
+    justify-content: start;
     align-items: center;
-
+    overflow-y: scroll;
+    overflow-x: hidden;
 }
+#postagem {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+    width: 90%;
+    height: 95%;
+}
+
+.postagem {
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    font-family: "Comic Relief", system-ui;
+}
+
+.emcima {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    color: #555;
+}
+
+.postagemNome {
+    font-weight: bold;
+    color: #2a2a2a;
+}
+
+.postagemData {
+    color: #888;
+}
+
+.postagemTitulo {
+    font-size: 18px;
+    font-weight: bold;
+    color: navy;
+}
+
+.postagemConteudo {
+    font-size: 16px;
+    color: #333;
+    white-space: pre-line;
+}
+
 .areaPostagem .postagem{
     display: flex;
-    height: 100%;
-    width: 80%;
+    height: 90%;
+    width: 100%;
     background-color:white;
+    color: white;
 }
 
 .areaLateral{
@@ -66,13 +117,21 @@ body{
     justify-content: start;
     align-items: center;
     height: 100%;
-    width: 35%;
+    width: 15%;
 
 }
 
 .areaLateral .informacaoLateral{
     display: flex;
-    background-color: black;
     height: 100%;
     width: 70%;
+    flex-direction: column;
+    
+}
+.inicialLateral{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border-bottom: 2px solid navy;
 }

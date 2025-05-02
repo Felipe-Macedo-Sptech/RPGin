@@ -29,11 +29,67 @@
 
 
     <div id="n_user"></div>
+
+    <button onclick="postarModal()">
+        POSTAR
+    </button>
+
+    <dialog>
+        <form id="formPostagem" onsubmit="event.preventDefault(); postar();">
+            <div id="campoTitulo">
+            Título da postagem: <br>
+            <input type="text" id="inp_titulo"><br><br>
+            </div>
+            <div id="campoConteudo">
+                Conteúdo do post:<br>
+                <textarea id="inp_postagem" rows="4" cols="50"></textarea>
+            </div>
+        </form>
+        <button onclick="postar()">VAMOO</button>
+        <button onclick="fecharModal()">Fechar</button>
+        
+    </dialog>
     
 </body>
 </html>
 
 <script>
+    
+    const modal = document.querySelector("dialog");
+    idSessao = sessionStorage.ID_USUARIO
 
+function postar(){
+    var titulo = inp_titulo.value;
+    var post = inp_postagem.value;
+    var id = Number(idSessao)
+
+    console.log(id)
+
+    fetch('/postagem/postar',{
+        method: 'POST',
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            tituloServer: titulo,
+            postServer: post,
+            id_userServer: id
+
+        })
+    }).then(function (resposta){
+        if(resposta.ok){
+            console.log("marcgha papai");
+            modal.close()
+        }  
+    })
+}
+
+
+    function postarModal(){
+        modal.showModal();
+    };
+    function fecharModal(){
+        modal.close();
+    };
 
 </script>
