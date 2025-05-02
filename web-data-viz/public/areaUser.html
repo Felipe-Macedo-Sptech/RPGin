@@ -1,13 +1,72 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cascadia+Code:ital,wght@0,200..700;1,200..700&family=Comic+Relief:wght@400;700&display=swap"
+        rel="stylesheet">
     <title>Área do Usuário</title>
     <script src="./js/sessao.js"></script>
     <link rel="stylesheet" href="./CSS/areaUser.css">
 </head>
-<body onload="validarSessao()">
-    <div id="n_user"></div>
+
+<body onload="exibrTodasPostagem()">
+
+    <!--header inicio-->
+    <div class="header">    
+        <div class="container">
+            <div class="logo">
+                <img src="./img/RPGin (1).png">
+            </div>
+            <div class="pesquisa">
+                <input class="pesquisaAreaUser" type="text" placeholder="pesquisar no RPGin....">
+            </div>
+            <div class="acessoPerfil">
+                <a href="perfil.html">ppp</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="containerHome">
+        <div class="areaPostagem">
+            <div class="areaPostagem">
+                <div id="postagem"></div>
+            </div>
+        </div>
+        <div class="areaLateral">
+            <div class="informacaoLateral">
+               
+            </div>
+        </div>
+    </div>
+
+
 </body>
 </html>
+
+<script>
+    function exibrTodasPostagem(){
+        fetch("/postagem/exibirPostagem",{
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            })
+            .then(res => res.json())
+            .then(function(resultado) {
+            var postagem = document.getElementById("postagem");
+            resultado.forEach(function(post) {
+                postagem.innerHTML += `
+                        <h3>${post.nome}</h3>
+                        <h3>${post.titulo}</h3>
+                        <h3>${post.conteudo}</h3>
+                        <h3>${post.data_postagem}</h3>
+                `;
+            });
+        })
+    }
+</script>
