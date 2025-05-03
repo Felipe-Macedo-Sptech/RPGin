@@ -26,13 +26,22 @@ function postar(req, res) {
 function exibirPostagem(req, res) {
     postagemModel.exibirPostagem()
         .then(function (resultado){
-            console.log("Resultado papai:", resultado);
-            res.status(200).json(resultado)
+            res.status(200).json(resultado);
         }
         )
 }
 
+function exibirPostagemPorId(req, res){
+    var idUSer = req.params.idUser;
+    postagemModel.exibirPostagemPorId(idUSer)
+    .then(function (resultado){
+        console.log("resultado do id:", resultado);
+        res.status(200).json(resultado)
+    })
+}
+
 module.exports = {
     postar,
-    exibirPostagem
+    exibirPostagem,
+    exibirPostagemPorId
 }

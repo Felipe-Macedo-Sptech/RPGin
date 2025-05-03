@@ -1,95 +1,141 @@
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link
-            href="https://fonts.googleapis.com/css2?family=Cascadia+Code:ital,wght@0,200..700;1,200..700&family=Comic+Relief:wght@400;700&display=swap"
-            rel="stylesheet">
-        <title>Área do Usuário</title>
-        <script src="./js/sessao.js"></script>
-        <link rel="stylesheet" href="./CSS/perfil.css">
-    </head>
-<body onload="validarSessao()">
+<html lang="pt-BR">
 
-    <div class="header">
-        <div class="container">
-            <a href="areaUser.html">
-            <div class="logo">
-               <img src="./img/RPGin (1).png">
-            </div>
-        </a>
-            <div class="pesquisa">
-                <input class="pesquisaAreaUser" type="text" placeholder="pesquisar no RPGin....">
-            </div>
-        </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Área do Usuário</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cascadia+Code:wght@400;700&family=Comic+Relief:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./CSS/perfil.css" />
+  <script defer src="./js/sessao.js"></script>
+</head>
+
+<body onload="iniciarPagina()">
+  <header class="header">
+    <div class="container">
+      <a href="areaUser.html" class="logo">
+        <img src="./img/RPGin (1).png" alt="Logo RPGin">
+      </a>
+      <input class="pesquisaAreaUser" type="text" placeholder="Pesquisar no RPGin..." />
     </div>
+  </header>
+  <div class="containerPerfil">
+    <aside class="areaLateral">
+      <nav class="acessoLateral">
+        <p>menu Lateral</p>
+      </nav>
+    </aside>
 
+    <section class="areaUsuario">
+      <div class="perfil">
+        <div class="bannerPerfl">
+          <div class="fotoUser"></div>
+        </div>
 
-    <div id="n_user"></div>
+        <div class="nomeEpostar">
+          <div id="n_user">Nome do usuário</div>
+          <div class="buttonPostar">
+            <button onclick="postarModal()">Postar</button>
+          </div>
 
-    <button onclick="postarModal()">
-        POSTAR
-    </button>
+          <dialog>
+            <form id="formPostagem" onsubmit="event.preventDefault(); postar();">
+              <label>Título da Postagem:<br>
+                <input type="text" id="inp_titulo" required>
+              </label><br><br>
+              <label>Conteúdo:<br>
+                <textarea id="inp_postagem" rows="4" cols="50" required></textarea>
+              </label><br><br>
+              <button type="submit">Publicar</button>
+              <button type="button" onclick="fecharModal()">Fechar</button>
+            </form>
+          </dialog>
+        </div>
 
-    <dialog>
-        <form id="formPostagem" onsubmit="event.preventDefault(); postar();">
-            <div id="campoTitulo">
-            Título da postagem: <br>
-            <input type="text" id="inp_titulo"><br><br>
-            </div>
-            <div id="campoConteudo">
-                Conteúdo do post:<br>
-                <textarea id="inp_postagem" rows="4" cols="50"></textarea>
-            </div>
-        </form>
-        <button onclick="postar()">VAMOO</button>
-        <button onclick="fecharModal()">Fechar</button>
-        
-    </dialog>
-    
-</body>
-</html>
+        <div class="postagemDoUser">
+          <h2>Suas Postagens:</h2>
+          <div id="postagem"></div>
+        </div>
+      </div>
+    </section>
+  </div>
 
-<script>
-    
+  <script>
+    function iniciarPagina(){
+      validarSessao();
+      exibirPostagemPorId();
+
+    }
     const modal = document.querySelector("dialog");
-    idSessao = sessionStorage.ID_USUARIO
+    const idSessao = sessionStorage.ID_USUARIO;
+    const idInt = Number(idSessao);
 
-function postar(){
-    var titulo = inp_titulo.value;
-    var post = inp_postagem.value;
-    var id = Number(idSessao)
+    function postar() {
+      const titulo = inp_titulo.value;
+      const post = inp_postagem.value;
 
-    console.log(id)
-
-    fetch('/postagem/postar',{
+      fetch('/postagem/postar', {
         method: 'POST',
-        headers: {
-            "Content-Type": "application/json"
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-            tituloServer: titulo,
-            postServer: post,
-            id_userServer: id
-
+          tituloServer: titulo,
+          postServer: post,
+          id_userServer: idInt
         })
-    }).then(function (resposta){
-        if(resposta.ok){
-            console.log("marcgha papai");
-            modal.close()
-        }  
-    })
-}
+      }).then(resposta => {
+        if (resposta.ok) {
+          console.log("marcha papai");
+          modal.close();
+        }
+      });
+    }
+
+    function postarModal() {
+      modal.showModal();
+    }
+
+    function fecharModal() {
+      modal.close();
+    }
 
 
-    function postarModal(){
-        modal.showModal();
-    };
-    function fecharModal(){
-        modal.close();
-    };
-
+    function exibirPostagemPorId() {
+      var idUser = idInt
+      fetch(`/postagem/exibirPostagem/${idUser}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+        .then(res => res.json())
+        .then(function (resultado) {
+          var postagem = document.getElementById("postagem");
+          resultado.forEach(function (post) {
+            var dataCerta = new Date(post.data_postagem).toLocaleDateString('pt-BR', {
+              hour: "2-digit",
+              minute: "2-digit",
+              hour12: false,
+              timeZone: "America/Sao_Paulo"
+            });
+            postagem.innerHTML += `
+        <div class="postagem">
+          <div class="emcima">
+            <span class="postagemNome">${post.nome}</span>
+            <span class="postagemData">${dataCerta}</span>
+          </div>
+          <div class="postagemTitulo">${post.titulo}</div>
+          <div class="postagemConteudo">${post.conteudo}</div>
+        </div>
+      `;
+          });
+        })
+        .catch(erro => {
+          console.error("Erro ao exibir postagens:", erro);
+        });
+    }
 </script>
+</body>
+
+</html>

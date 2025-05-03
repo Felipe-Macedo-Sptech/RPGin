@@ -2,13 +2,14 @@ body {
     margin: 0;
     padding: 0;
     font-family: "Comic Relief", system-ui;
+    
 }
 
 .header{
     height: 85px;
     width: 100%;
-    background-color: white;
-    border-bottom: solid 5px navy;
+    background-color: #14213d;
+    border-bottom: solid 3px #fca311;
 }
 .header .container{
     height: 100%;
@@ -31,12 +32,12 @@ body {
 }
 
 .containerLogin {
-    height: 800px;
+    height: 700px;
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-image: url(../img/login.jpeg);
+    background-image: url(../img/teste.jpg);
     background-repeat: no-repeat;
     background-size: cover;
 }
@@ -44,16 +45,18 @@ body {
 .formLogin {
     height: 300px;
     width: 300px;
-    background: rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.7);
     padding: 30px;
+    border: 2px solid #fca311;
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
 }
 .formLogin input{
-    border: 2px solid navy;
+    border: 2px solid #14213d;
     width: 290px;
     height: 40px; 
     color: black;
@@ -64,8 +67,11 @@ body {
     margin-bottom: 10px;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
 }
-
+.formLogin label{
+    font-size: 1.3rem;
+}
 .buttonLogin {
     margin-top: 10px;
     padding: 10px 20px;

@@ -7,13 +7,13 @@ body{
 .header{
     height: 85px;
     width: 100%;
-    background-color: white;
-    border-bottom: solid 5px navy;
+    background-color: #14213d;
+    border-bottom: solid 3px #fca311;
 }
 .header .container{
     height: 100%;
     width: 100%;
-    display: flex;
+    display: flex; 
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
@@ -58,15 +58,16 @@ body{
 }
 
 .formCadastro form{
-    background: rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.7);
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    border: 2px solid black;
+    border: 2px solid #fca311;
     padding: 30px;
     box-shadow: 0 20px 25px rgba(0, 0, 0, 1.5);
     width: 100%;
+    border-radius: 10px;
 }
 
 .formCadastro label{
@@ -74,7 +75,7 @@ body{
 }
 
 .formCadastro input {
-    border: 2px solid navy;
+    border: 2px solid #14213d;
     width: 450px;
     height: 40px; 
     color: black;
@@ -89,7 +90,7 @@ body{
 .buttonCadastro{
     margin-top: 10px;
     padding: 10px 20px;
-    background-color: navy;
+    background-color: #14213d;
     color: white;
     border: none;
     border-radius: 5px;

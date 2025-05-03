@@ -2,13 +2,14 @@ body{
     margin: 0;
     padding: 0;
     font-family: "Comic Relief", system-ui;
+    background-color: #14213d;
 }
 
 .header{
     height: 85px;
     width: 100%;
-    background-color: white;
-    border-bottom: solid 5px navy;
+    background-color: #14213d;
+    border-bottom: solid 3px  #fca311;
 }
 .header .container{
     height: 100%;
@@ -125,13 +126,30 @@ body{
     display: flex;
     height: 100%;
     width: 70%;
-    flex-direction: column;
-    
+    flex-direction: column; 
 }
 .inicialLateral{
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    border-bottom: 2px solid navy;
+    border-bottom: 2px solid #fca311;
+    color: #fff;
+}
+
+.meioLateral{
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border-bottom: 2px solid #fca311;
+}
+
+.fimLaretal{
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }

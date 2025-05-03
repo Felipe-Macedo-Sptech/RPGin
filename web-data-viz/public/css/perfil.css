@@ -1,39 +1,169 @@
-body{
+/* perfil.css */
+
+body {
     margin: 0;
-    padding: 0;
-    font-family: "Comic Relief", system-ui;
-}
-
-.header{
-    height: 85px;
-    width: 100%;
-    background-color: white;
-    border-bottom: solid 5px navy;
-}
-.header .container{
-    height: 100%;
-    width: 100%;
+    font-family: "Comic Relief", sans-serif;
+    background-color: #14213d;
+  }
+  
+  .header {
+    background-color: #14213d;
+    border-bottom: 3px solid #fca311;
+    padding: 10px 0;
+  }
+  
+  .header .container {
+    max-width: 1200px;
+    margin: auto;
     display: flex;
-    flex-direction: row;
-    justify-content: space-around;
     align-items: center;
-}
-.logo{
+    justify-content: space-between;
+  }
+  
+  .logo img {
+    height: 60px;
+  }
+  
+  .pesquisaAreaUser {
+    width: 400px;
+    padding: 10px;
+    border: 2px solid #444;
+    border-radius: 8px;
+    font-size: 16px;
+  }
+  
+  .containerPerfil {
     display: flex;
-    height: 100px;
-    width: 100px;
+    max-width: 1200px;
+    margin: 20px auto;
+    gap: 20px;
 }
-
-.pesquisaAreaUser{
-    height: 35px;
-    width: 470px;
+  
+  .areaLateral {
+    flex: 1;
+    background-color: #f5d6ab;
+    padding: 20px;
     border-radius: 10px;
-    border: 2px solid black;
-
-}
-
-.acessoPerfil{
-    border: 2px solid black;
-    height: 90px;
-    width: 90px;
-}
+    height: fit-content;
+  }
+  
+  .areaUsuario {
+    flex: 3;
+    background-color: whitesmoke;
+    padding: 20px;
+    border-radius: 10px;
+  }
+  
+  .perfil {
+    background-color: #14213d;
+    padding: 20px;
+    border-radius: 10px;
+    color: white;
+  }
+  
+  .bannerPerfl {
+    background-color: #fca311;
+    padding: 20px;
+    display: flex;
+    align-items: flex-end;
+    border-radius: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .fotoUser {
+    height: 80px;
+    width: 80px;
+    border-radius: 50%;
+    border: 3px solid #333;
+    background-color: #eee;
+  }
+  
+  .nomeEpostar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: aqua;
+    padding: 10px;
+    border-radius: 10px;
+    margin-top: 10px;
+  }
+  
+  .nomeEpostar button {
+    padding: 8px 12px;
+    background-color: navy;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .nomeEpostar button:hover {
+    background-color: #001f4d;
+  }
+  .postagemDoUser{
+    height: 500px;  
+    overflow-y: scroll;
+  }
+  .postagem {
+    background-color: #ffffff;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    padding: 15px 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    font-family: "Comic Relief", sans-serif;
+  }
+  
+  .emcima {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .postagemNome {
+    font-weight: bold;
+    color: navy;
+    font-size: 16px;
+  }
+  
+  .postagemData {
+    color: #888;
+    font-size: 14px;
+    font-style: italic;
+  }
+  
+  .postagemTitulo {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 8px;
+  }
+  
+  .postagemConteudo {
+    font-size: 15px;
+    line-height: 1.5;
+    color: #444;
+    white-space: pre-wrap; /* respeita quebras de linha */
+  }
+  
+  
+  dialog {
+    border: none;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.3);
+    font-family: "Comic Relief", sans-serif;
+  }
+  
+  dialog form input,
+  dialog form textarea {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #888;
+    border-radius: 5px;
+    font-size: 14px;
+  }
+  
