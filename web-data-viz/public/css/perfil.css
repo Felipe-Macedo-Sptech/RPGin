@@ -6,32 +6,33 @@ body {
     background-color: #14213d;
   }
   
-  .header {
+  .header{
+    height: 85px;
+    width: 100%;
     background-color: #14213d;
-    border-bottom: 3px solid #fca311;
-    padding: 10px 0;
-  }
-  
-  .header .container {
-    max-width: 1200px;
-    margin: auto;
+    border-bottom: solid 3px  #fca311;
+}
+.header .container{
+    height: 100%;
+    width: 100%;
     display: flex;
-    align-items: center;
+    flex-direction: row;
     justify-content: space-between;
-  }
-  
-  .logo img {
-    height: 60px;
-  }
-  
-  .pesquisaAreaUser {
-    width: 400px;
-    padding: 10px;
-    border: 2px solid #444;
-    border-radius: 8px;
-    font-size: 16px;
-  }
-  
+    align-items: center;
+}
+.logo{
+    display: flex;
+    height: 150px;
+    width: 100px;
+}
+
+.pesquisaAreaUser{
+    height: 35px;
+    width: 470px;
+    border-radius: 10px;
+    border: 2px solid black;
+
+}
   .containerPerfil {
     display: flex;
     max-width: 1200px;
@@ -103,16 +104,20 @@ body {
   }
   .postagemDoUser{
     height: 500px;  
+    width: 980px;
     overflow-y: scroll;
+
   }
   .postagem {
     background-color: #ffffff;
     border: 2px solid #ddd;
     border-radius: 10px;
+    width: 900px;
     padding: 15px 20px;
     margin-bottom: 20px;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
     font-family: "Comic Relief", sans-serif;
+    
   }
   
   .emcima {
@@ -145,7 +150,7 @@ body {
     font-size: 15px;
     line-height: 1.5;
     color: #444;
-    white-space: pre-wrap; /* respeita quebras de linha */
+    white-space: pre-wrap; 
   }
   
   

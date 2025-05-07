@@ -31,6 +31,15 @@ body{
     justify-content: space-between;
     gap: 50px;
     font-size: 20px;
+
+}
+.acessos span a{
+    color: #fff;
+    text-decoration: none;
+}
+.acessos span a:hover{
+    color: #fca311;
+    text-decoration:underline;
 }
 
 /* ------------------------------------------- BANNER ------------------------------------ */
@@ -49,6 +58,10 @@ body{
     justify-content: start;
     padding: 20px;
     font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.mensagemInicio span{
+    color: #fca311;
 }
 .msg{
     color: white;
@@ -88,7 +101,7 @@ body{
 /* ------------------------------------------- IDEAIS ------------------------------------ */
 
 .ideais {
-    background-color: black;
+    background-color:#14213d;
     height: auto;
     width: 100%;
     margin-top: 80px;

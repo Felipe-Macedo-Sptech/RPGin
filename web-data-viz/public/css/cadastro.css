@@ -29,7 +29,14 @@ body{
     gap: 50px;
     font-size: 20px;
 }
-
+.acessos span a{
+    color: #fff;
+    text-decoration: none;
+}
+.acessos span a:hover{
+    color: #fca311;
+    text-decoration:underline;
+}
 
 
 .containerCadastro{
@@ -69,7 +76,11 @@ body{
     width: 100%;
     border-radius: 10px;
 }
-
+.cadastroEmCima{
+    font-size: 1.3rem;
+    font-weight: bolder;
+    text-decoration: underline;
+}
 .formCadastro label{
     font-size: 1.3rem;
 }
@@ -88,15 +99,22 @@ body{
 }
 
 .buttonCadastro{
+    border: 2px solid #14213d;
+    width: 450px;
     margin-top: 10px;
     padding: 10px 20px;
-    background-color: #14213d;
+    background-color: navy;
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
     transition: background-color 0.3s;
+    font-weight: bolder;
+}
+.buttonCadastro:hover{
+    transition: 1s;
+    background-color: #fca311;
 }
 .alerta_erro{
     display: flex;

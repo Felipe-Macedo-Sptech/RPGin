@@ -35,7 +35,7 @@ function exibirPostagemPorId(req, res){
     var idUSer = req.params.idUser;
     postagemModel.exibirPostagemPorId(idUSer)
     .then(function (resultado){
-        console.log("resultado do id:", resultado);
+        console.log(`resultado do id: ${idUSer}`, resultado);
         res.status(200).json(resultado)
     })
 }

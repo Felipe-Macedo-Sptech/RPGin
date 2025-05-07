@@ -26,10 +26,21 @@ body {
 }
 .acessos{
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     gap: 50px;
     font-size: 20px;
+    width: 300px;
 }
+
+.acessos span a{
+    color: #fff;
+    text-decoration: none;
+}
+.acessos span a:hover{
+    color: #fca311;
+    text-decoration:underline;
+}
+
 
 .containerLogin {
     height: 700px;
@@ -40,6 +51,11 @@ body {
     background-image: url(../img/teste.jpg);
     background-repeat: no-repeat;
     background-size: cover;
+}
+.loginEmCima{
+    font-size: 1.3rem;
+    font-weight: bolder;
+    text-decoration: underline;
 }
 
 .formLogin {
@@ -82,8 +98,12 @@ body {
     cursor: pointer;
     font-size: 16px;
     transition: background-color 0.3s;
+    width: 100%;
+    font-family: "Comic Relief", system-ui;
+    font-weight: bolder;
 }
 
 .buttonLogin:hover {
-    background-color: purple;
+    background-color: #fca311;
+    transition: 1s;
 }

@@ -16,18 +16,18 @@ body{
     width: 100%;
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
 }
 .logo{
     display: flex;
-    height: 100px;
+    height: 150px;
     width: 100px;
 }
 
 .pesquisaAreaUser{
     height: 35px;
-    width: 470px;
+    width: 500px;
     border-radius: 10px;
     border: 2px solid black;
 
@@ -35,8 +35,12 @@ body{
 
 .acessoPerfil{
     border: 2px solid black;
-    height: 90px;
-    width: 90px;
+    border-radius: 50%;
+    height: 70px;
+    width: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .containerHome{

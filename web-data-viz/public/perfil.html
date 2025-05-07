@@ -9,18 +9,23 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cascadia+Code:wght@400;700&family=Comic+Relief:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./CSS/perfil.css" />
-  <script defer src="./js/sessao.js"></script>
+  <script src="./js/sessao.js"></script>
+  <script src="../public/img/firebase.js"></script>
 </head>
 
 <body onload="iniciarPagina()">
-  <header class="header">
+  <div class="header">
     <div class="container">
-      <a href="areaUser.html" class="logo">
-        <img src="./img/RPGin (1).png" alt="Logo RPGin">
+      <a href="areaUser.html">
+        <div class="logo">
+            <img src="./img/4.png">                                                  
+        </div>
       </a>
-      <input class="pesquisaAreaUser" type="text" placeholder="Pesquisar no RPGin..." />
+        <div class="pesquisa">
+            <input class="pesquisaAreaUser" type="text" placeholder="pesquisar no RPGin....">
+        </div>
     </div>
-  </header>
+</div>
   <div class="containerPerfil">
     <aside class="areaLateral">
       <nav class="acessoLateral">
@@ -39,19 +44,37 @@
           <div class="buttonPostar">
             <button onclick="postarModal()">Postar</button>
           </div>
-
           <dialog>
             <form id="formPostagem" onsubmit="event.preventDefault(); postar();">
               <label>Título da Postagem:<br>
                 <input type="text" id="inp_titulo" required>
               </label><br><br>
-              <label>Conteúdo:<br>
-                <textarea id="inp_postagem" rows="4" cols="50" required></textarea>
+          
+              <label>Tipo de conteúdo:<br>
+                <select id="tipoConteudo" onchange="tipo()">
+                  <option value="texto">Texto</option>
+                  <option value="imagem">Imagem</option>
+                </select>
               </label><br><br>
+          
+              <div id="areaTexto">
+                <label>Conteúdo (Texto):<br>
+                  <textarea id="inp_postagem" rows="4" cols="50"></textarea>
+                </label><br><br>
+              </div>
+          
+              <div id="areaImagem" style="display: none;">
+                <label>Imagem:<br>
+                  <input type="file" id="inp_imagem">
+                </label><br><br>
+              </div>
+          
               <button type="submit">Publicar</button>
               <button type="button" onclick="fecharModal()">Fechar</button>
             </form>
           </dialog>
+          
+          log>
         </div>
 
         <div class="postagemDoUser">
@@ -72,7 +95,22 @@
     const idSessao = sessionStorage.ID_USUARIO;
     const idInt = Number(idSessao);
 
-    function postar() {
+
+    function tipo() {
+  const tipo = document.getElementById("tipoConteudo").value;
+  const areaTexto = document.getElementById("areaTexto");
+  const areaImagem = document.getElementById("areaImagem");
+
+  if (tipo === "imagem") {
+    areaTexto.style.display = "none";
+    areaImagem.style.display = "block";
+  } else {
+    areaTexto.style.display = "block";
+    areaImagem.style.display = "none";
+  }
+}
+    function postar() { 
+        
       const titulo = inp_titulo.value;
       const post = inp_postagem.value;
 
