@@ -20,13 +20,13 @@
     <div class="header">
         <div class="container">
             <div class="logo">
-                <img src="./img/4.png">                                                  
+                <img src="./img/4.png">
             </div>
             <div class="pesquisa">
                 <input class="pesquisaAreaUser" type="text" placeholder="pesquisar no RPGin....">
             </div>
             <div class="acessoPerfil">
-                <a href="perfil.html">  PERFIL</a>
+                <a href="perfil.html"> PERFIL</a>
             </div>
         </div>
     </div>
@@ -54,10 +54,21 @@
                 </div>
             </div>
         </div>
+        <dialog>
+            <div class="containerComentarios">
+                <div id="comentarios"> 
+                    
+                </div>
+            </div>
+        </dialog>
     </div>
+    
+
 </body>
 </html>
 <script>
+    const idSessao = sessionStorage.ID_USUARIO;
+    const idInt = Number(idSessao);
     function exibrTodasPostagem() {
         fetch("/postagem/exibirPostagem", {
             method: "GET",
@@ -75,17 +86,79 @@
                         hour12: false,
                         timeZone: "America/Sao_Paulo"
                     });
+
+                    //     if(post.imagem != null){
+                    //         let imagemBase64 = post.imagem.toString('base64')
+                    //         console.log(imagem)
+                    //     }
+                    var idPostagem = post.id_postagem;
+                    var idDonoPostagem = post.id_user_fk;
+                    console.log(idPostagem);
                     postagem.innerHTML += `
                         <div class="postagem">
                             <div class="emcima">
-                                <span class="postagemNome">${post.nome}</span>
+                                <span class="postagemNome">${post.nome}, id:${post.id_postagem}</span>
                                 <span class="postagemData">${dataCerta}</span>
                             </div>
                             <div class="postagemTitulo">${post.titulo}</div>
                             <div class="postagemConteudo">${post.conteudo}</div>
+                                <button onclick="comentariosModal(${idPostagem}, ${idDonoPostagem})">
+                                         Comentarios
+                                </button>
+                                  
                         </div>
                     `;
                 });
             })
     }
+
+const modal = document.querySelector("dialog");
+    function comentariosModal(idPostagem, idDonoPostagem) {
+         var comentarios = document.getElementById('comentarios');
+            comentarios.innerHTML = ''
+        fetch(`/postagem/exibirComentario/${idPostagem}`,{
+            method: 'GET',
+            headers: {
+                "Content-Type": "application/json"
+            },
+        })
+        .then(res => res.json())
+        .then(function (resultado){
+           
+            resultado.forEach(function (comen){
+                var id_user_fk = comen.id_user_fk
+                comentarios.innerHTML += `
+                   <div class="nomeComentario">${comen.nome}</div><br>
+                    <div class="mensagemComentario">${comen.mensagem}</div>
+                    <br>
+                `
+            })
+            comentarios.innerHTML += `<div class="areaComentario">
+            <div class="inputComentario"><input type="text" id="inp_comentario"></div>
+            <div class="buttonComentario"><button onclick="comentar(${idPostagem})"> Comentar</button></div>
+            </div>`
+        })
+        modal.showModal();
+    }
+
+    function comentar(idPost){
+        var comentario = inp_comentario.value;
+        fetch(`/postagem/comentar/${idPost}`,{
+            method: 'POST',
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                mensagemServer: comentario,
+                idUserServer: idInt
+            })
+        }).then(resposta =>{
+            if(resposta.ok){
+                console.log('inserindo comentttttttttttttttttt')
+            }
+        })
+    }
+
+    function fecharModal() {
+        modal.close();
+    }
+
 </script>

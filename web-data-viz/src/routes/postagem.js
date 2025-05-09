@@ -15,4 +15,12 @@ router.get("/exibirPostagem", function (req, res) {
 router.get("/exibirPostagem/:idUser", function (req, res) {
     postagemController.exibirPostagemPorId(req, res);
 })
+
+router.get("/exibirComentario/:idPostagem", function (req, res) {
+    postagemController.exibirComentario(req, res);
+})
+
+    router.post("/comentar/:idPost", function (req, res) {
+        postagemController.comentar(req, res);
+    })
 module.exports = router;

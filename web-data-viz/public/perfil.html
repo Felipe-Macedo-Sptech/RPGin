@@ -73,8 +73,6 @@
               <button type="button" onclick="fecharModal()">Fechar</button>
             </form>
           </dialog>
-          
-          log>
         </div>
 
         <div class="postagemDoUser">
@@ -109,10 +107,25 @@
     areaImagem.style.display = "none";
   }
 }
-    function postar() { 
-        
+
+var img = null;
+  function converterImgBase64(event){
+    var arquivo = event.target.files[0];
+    const ler = new FileReader();
+
+    ler.onloadend = () =>{
+      img = ler.result.split(',')[1]
+      console.log(img)
+    }
+    if (arquivo) {
+    ler.readAsDataURL(arquivo);
+  }
+  }
+
+  function postar() { 
       const titulo = inp_titulo.value;
       const post = inp_postagem.value;
+      console.log(img);
 
       fetch('/postagem/postar', {
         method: 'POST',
@@ -120,7 +133,8 @@
         body: JSON.stringify({
           tituloServer: titulo,
           postServer: post,
-          id_userServer: idInt
+          id_userServer: idInt,
+          imgServer: img
         })
       }).then(resposta => {
         if (resposta.ok) {
