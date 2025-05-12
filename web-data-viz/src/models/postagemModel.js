@@ -13,12 +13,15 @@ function postar(titulo, conteudo, img, fkUser) {
 
 function exibirPostagem(){
     var instrucaoSql = `
-    SELECT p.id_user_fk, p.id_postagem, u.nome, p.titulo, p.conteudo, p.data_postagem 
+   SELECT p.id_user_fk, p.id_postagem, u.nome, p.titulo, p.conteudo, p.data_postagem, IF(COUNT(c.id_curtida) = 0, '0', COUNT(c.id_curtida)) as curtida
             FROM postagem AS p 
-                    join 
+                   left join 
                 usuario as u 
                     on 
-        p.id_user_fk = u.id_user ORDER BY p.id_postagem DESC;`;
+        p.id_user_fk = u.id_user 
+			left JOIN curtida as c ON p.id_postagem = c.id_postagem_fk
+        GROUP BY p.id_postagem ORDER BY p.id_postagem DESC;
+        `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
@@ -59,10 +62,27 @@ console.log("Executando a instrução SQL: \n" + instrucaoSql);
 return database.executar(instrucaoSql);
 }
 
+function curtir(idPost, idUser){
+    var instrucaoSql = `
+    INSERT INTO curtida (id_user_fk, id_postagem_fk) VALUES (${idPost}, ${idUser});
+`;
+console.log("Executando a instrução SQL: \n" + instrucaoSql);
+return database.executar(instrucaoSql);
+}
+
+function exibirContagemCurtida(idPost){
+    var instrucaoSql = `
+            SELECT COUNT(id_postagem_fk) FROM curtida WHERE id_postagem_fk = ${idPost};
+            `;
+console.log("Executando a instrução SQL: \n" + instrucaoSql);
+return database.executar(instrucaoSql);
+}
 module.exports = {
     postar,
     exibirPostagem,
     exibirPostagemPorId,
     exibiComentarios,
-    comentar
+    comentar,
+    curtir,
+    exibirContagemCurtida
 };

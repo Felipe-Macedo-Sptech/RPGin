@@ -1,17 +1,20 @@
-body{
+@import url('./botao.css');
+
+body {
     margin: 0;
     padding: 0;
     font-family: "Comic Relief", system-ui;
     background-color: #14213d;
 }
 
-.header{
+.header {
     height: 85px;
     width: 100%;
     background-color: #14213d;
-    border-bottom: solid 3px  #fca311;
+    border-bottom: solid 3px #fca311;
 }
-.header .container{
+
+.header .container {
     height: 100%;
     width: 100%;
     display: flex;
@@ -19,13 +22,14 @@ body{
     justify-content: space-between;
     align-items: center;
 }
-.logo{
+
+.logo {
     display: flex;
     height: 150px;
     width: 100px;
 }
 
-.pesquisaAreaUser{
+.pesquisaAreaUser {
     height: 35px;
     width: 500px;
     border-radius: 10px;
@@ -33,7 +37,7 @@ body{
 
 }
 
-.acessoPerfil{
+.acessoPerfil {
     border: 2px solid black;
     border-radius: 50%;
     height: 70px;
@@ -43,7 +47,7 @@ body{
     justify-content: center;
 }
 
-.containerHome{
+.containerHome {
     height: 650px;
     width: 100%;
     display: flex;
@@ -51,7 +55,7 @@ body{
     align-items: center;
 }
 
-.areaPostagem{
+.areaPostagem {
     height: 100%;
     width: 60%;
     display: flex;
@@ -60,6 +64,21 @@ body{
     overflow-y: scroll;
     overflow-x: hidden;
 }
+
+.areaPostagem::-webkit-scrollbar {
+    width: 5px;
+}
+
+.areaPostagem::-webkit-scrollbar-track {
+    background: #0e1a34;
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+.areaPostagem::-webkit-scrollbar-thumb {
+    background: #fca311;
+    border-radius: 5px;
+}
+
 #postagem {
     display: flex;
     flex-direction: column;
@@ -74,7 +93,7 @@ body{
     border: 1px solid #ccc;
     border-radius: 12px;
     padding: 16px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
     gap: 12px;
@@ -86,6 +105,7 @@ body{
     justify-content: space-between;
     font-size: 14px;
     color: #555;
+    width: 100%;
 }
 
 .postagemNome {
@@ -107,7 +127,9 @@ body{
     font-size: 16px;
     color: #333;
     white-space: pre-line;
+    padding-right: 20px;
 }
+
 .postagemImagem {
     display: block;
     margin: 12px auto;
@@ -129,6 +151,7 @@ dialog {
     max-height: 500px;
 }
 
+/* Estilo para a área de comentários */
 .containerComentarios {
     display: flex;
     flex-direction: column;
@@ -165,36 +188,194 @@ dialog {
     font-size: 14px;
 }
 
+.areaComentario {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 16px;
+}
+
+.buttonComentario button {
+    padding: 10px 15px;
+    background-color: #fca311;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.buttonComentario button:hover {
+    background-color: #ff8f00;
+}
+.acessoPerfil a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 16px;
+    padding: 10px;
+    border-radius: 50%;
+    background-color: #fca311;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+    width: 40px;
+    transition: background-color 0.3s ease;
+}
+
+.acessoPerfil a:hover {
+    background-color: #ff8f00;
+}
+
+
 dialog::backdrop {
     background-color: rgba(0, 0, 0, 0.6);
 }
 
+.postagemComentario {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    width: 100%;
+}
 
-
-.areaPostagem .postagem{
+.postagem {
     display: flex;
     height: 90%;
     width: 100%;
-    background-color:white;
+    background-color: white;
     color: white;
+    align-items: flex-start;
 }
 
-.areaLateral{
+.heart {
+    position: relative;
+    --size: 1em;
+    width: var(--size);
+    height: var(--size);
+    margin-left: 10px;
+}
+
+.heart__checkbox {
+    appearance: none;
+    position: absolute;
+    top: calc(var(--size) * -.4);
+    left: calc(var(--size) * -.2);
+    width: calc(var(--size) * 1.5);
+    height: calc(var(--size) * 1.5);
+    z-index: 2;
+    cursor: pointer;
+    transform: scale(1) rotate(45deg);
+}
+
+.heart__checkbox:focus {
+    outline: none;
+}
+
+.heart__checkbox:hover~.heart__icon {
+    transform: scale(1.1) rotate(45deg);
+}
+
+.heart__checkbox:checked~.heart__icon {
+    animation: heartAnimation forwards 1s;
+}
+
+.heart__icon {
+    width: var(--size);
+    height: var(--size);
+    background: #ffffb0;
+    transform: scale(1) rotate(45deg);
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: transform 200ms ease-out;
+}
+
+.heart__icon::before,
+.heart__icon::after {
+    content: '';
+    display: block;
+    background: inherit;
+    width: var(--size);
+    height: var(--size);
+    border-radius: 50%;
+    position: absolute;
+}
+
+.heart__icon::before {
+    top: 0;
+    left: -50%;
+}
+
+.heart__icon::after {
+    left: 0;
+    top: -50%;
+}
+
+@keyframes heartAnimation {
+    0% {
+        transform: scale(1.1) rotate(45deg);
+    }
+
+    25% {
+        transform: scale(0.7) rotate(45deg);
+    }
+
+    45% {
+        transform: scale(1.4) rotate(45deg);
+        background: rgb(252 163 17);
+    }
+
+    70% {
+        transform: scale(1) rotate(45deg);
+        background: rgb(252 163 17);
+    }
+
+    100% {
+        transform: scale(1.1) rotate(45deg);
+        background: rgb(252 163 17);
+    }
+}
+
+.areaLateral {
     display: flex;
     justify-content: start;
     align-items: center;
     height: 100%;
     width: 15%;
-
 }
 
-.areaLateral .informacaoLateral{
+
+.botaoFlultuante {
+    position: fixed;
+    bottom: 50px;
+    right: 50px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: #fca311;
+    border: 0;
+    font-size: 22px;
+    color: white;
+}
+
+.botaoFlultuante:hover {
+    cursor: pointer;
+}
+
+.ocultarAreaLateral {
+    display: none;
+}
+
+.areaLateral .informacaoLateral {
     display: flex;
     height: 100%;
     width: 70%;
-    flex-direction: column; 
+    flex-direction: column;
 }
-.inicialLateral{
+
+.inicialLateral {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -203,7 +384,7 @@ dialog::backdrop {
     color: #fff;
 }
 
-.meioLateral{
+.meioLateral {
     color: #fff;
     display: flex;
     justify-content: center;
@@ -212,7 +393,7 @@ dialog::backdrop {
     border-bottom: 2px solid #fca311;
 }
 
-.fimLaretal{
+.fimLaretal {
     color: #fff;
     display: flex;
     justify-content: center;

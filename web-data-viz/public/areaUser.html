@@ -2,163 +2,188 @@
 <html lang="pt-br">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Cascadia+Code:ital,wght@0,200..700;1,200..700&family=Comic+Relief:wght@400;700&display=swap"
-        rel="stylesheet">
-    <title>Área do Usuário</title>
-    <script src="./js/sessao.js"></script>
-    <link rel="stylesheet" href="./CSS/areaUser.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="./CSS/style.css">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cascadia+Code:ital,wght@0,200..700;1,200..700&family=Comic+Relief:wght@400;700&display=swap"
+    rel="stylesheet">
+  <title>Área do Usuário</title>
+  <script src="./js/sessao.js"></script>
+  <link rel="stylesheet" href="./CSS/areaUser.css">
+  <script src="https://kit.fontawesome.com/9f7414eb10.js" crossorigin="anonymous"></script>
 </head>
 
-<body onload="exibrTodasPostagem()">
+<body onload="exibrTodasPostagem();exibirOcultarAreaLateral();">
 
-    <!--header inicio-->
-    <div class="header">
-        <div class="container">
-            <div class="logo">
-                <img src="./img/4.png">
-            </div>
-            <div class="pesquisa">
-                <input class="pesquisaAreaUser" type="text" placeholder="pesquisar no RPGin....">
-            </div>
-            <div class="acessoPerfil">
-                <a href="perfil.html"> PERFIL</a>
-            </div>
-        </div>
+  <!--header inicio-->
+  <div class="header">
+    <div class="container">
+      <div class="logo">
+        <img src="./img/4.png">
+      </div>
+      <div class="pesquisa">
+        <input class="pesquisaAreaUser" type="text" placeholder="pesquisar no RPGin....">
+      </div>
+      <div class="acessoPerfil">
+        <a href="perfil.html"> PERFIL</a>
+      </div>
     </div>
+  </div>
 
-    <div class="containerHome">
-        <div class="areaPostagem">
-            <div id="postagem"></div>
-        </div>
-        <div class="areaLateral">
-            <div class="informacaoLateral">
-                <div class="inicialLateral">
-                    <p>Pagina inicial</p>
-                    <p>Populares</p>
-                    <p>Explorar</p>
-                    <p>Tudo</p>
-                </div>
-                <div class="meioLateral">
-                    <p>Assuntos</p>
-                    <p>RPG populares</p>
-                    <p>outros</p>
-                </div>
-                <div class="fimLaretal">
-                    <p>Denuncie</p>
-                    <p>Logout</p>
-                </div>
-            </div>
-        </div>
-        <dialog>
-            <div class="containerComentarios">
-                <div id="comentarios"> 
-                    
-                </div>
-            </div>
-        </dialog>
+  <div class="containerHome">
+    <div class="areaPostagem">
+      <div id="postagem"></div>
     </div>
-    
+    <div class="areaLateral ocultarAreaLateral">
+      <div class="informacaoLateral">
+        <div class="inicialLateral">
+          <p>Pagina inicial</p>
+          <p>Populares</p>
+          <p>Explorar</p>
+          <p>Tudo</p>
+        </div>
+        <div class="meioLateral">
+          <p>Assuntos</p>
+          <p>RPG populares</p>
+          <p>outros</p>
+        </div>
+        <div class="fimLaretal">
+          <p>Denuncie</p>
+          <p>Logout</p>
+        </div>
 
+      </div>
+    </div>
+    <dialog>
+      <div class="containerComentarios">
+        <div id="comentarios">
+
+        </div>
+      </div>
+    </dialog>
+  </div>
+  <button class="botaoFlultuante">+</button>
 </body>
+
 </html>
 <script>
-    const idSessao = sessionStorage.ID_USUARIO;
-    const idInt = Number(idSessao);
-    function exibrTodasPostagem() {
-        fetch("/postagem/exibirPostagem", {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json"
-            },
-        })
-            .then(res => res.json())
-            .then(function (resultado) {
-                var postagem = document.getElementById("postagem");
-                resultado.forEach(function (post) {
-                    var dataCerta = new Date(post.data_postagem).toLocaleDateString('pt-BR', {
-                        hour: "2-digit",
-                        minute: "2-digit",
-                        hour12: false,
-                        timeZone: "America/Sao_Paulo"
-                    });
-
-                    //     if(post.imagem != null){
-                    //         let imagemBase64 = post.imagem.toString('base64')
-                    //         console.log(imagem)
-                    //     }
-                    var idPostagem = post.id_postagem;
-                    var idDonoPostagem = post.id_user_fk;
-                    console.log(idPostagem);
-                    postagem.innerHTML += `
+  const idSessao = sessionStorage.ID_USUARIO;
+  const idInt = Number(idSessao);
+  function exibrTodasPostagem() {
+    fetch("/postagem/exibirPostagem", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json"
+      },
+    })
+      .then(res => res.json())
+      .then(function (resultado) {
+        var postagem = document.getElementById("postagem");
+        resultado.forEach(function (post) {
+          var dataCerta = new Date(post.data_postagem).toLocaleDateString('pt-BR', {
+            hour: "2-digit",
+            minute: "2-digit",
+            hour12: false,
+            timeZone: "America/Sao_Paulo"
+          });
+          var idPostagem = post.id_postagem;
+          var idDonoPostagem = post.id_user_fk;
+          console.log(idPostagem);
+          postagem.innerHTML += `
                         <div class="postagem">
                             <div class="emcima">
-                                <span class="postagemNome">${post.nome}, id:${post.id_postagem}</span>
+                                <span class="postagemNome">${post.nome}, id:${post.id_postagem} ${post.curtida}</span>
                                 <span class="postagemData">${dataCerta}</span>
                             </div>
                             <div class="postagemTitulo">${post.titulo}</div>
-                            <div class="postagemConteudo">${post.conteudo}</div>
-                                <button onclick="comentariosModal(${idPostagem}, ${idDonoPostagem})">
-                                         Comentarios
-                                </button>
-                                  
+                            <div class="postagemComentario">
+                              <div class="postagemConteudo">${post.conteudo}</div>
+                              <div class="heart">
+                                <input type="checkbox" class="heart__checkbox" onclick="curtida(${idPostagem}, ${idInt})"> 
+                                <div class="heart__icon"></div>
+                              </div> 
+                            </div>
+                            <button class="botao" onclick="comentariosModal(${idPostagem}, ${idDonoPostagem})">
+                              Comentarios
+                            </button>
                         </div>
                     `;
-                });
-            })
-    }
+        });
+      })
+  }
 
-const modal = document.querySelector("dialog");
-    function comentariosModal(idPostagem, idDonoPostagem) {
-         var comentarios = document.getElementById('comentarios');
-            comentarios.innerHTML = ''
-        fetch(`/postagem/exibirComentario/${idPostagem}`,{
-            method: 'GET',
-            headers: {
-                "Content-Type": "application/json"
-            },
-        })
-        .then(res => res.json())
-        .then(function (resultado){
-           
-            resultado.forEach(function (comen){
-                var id_user_fk = comen.id_user_fk
-                comentarios.innerHTML += `
+  var idPostagemAtual = null
+  var idDonoPostAtual = null
+  const modal = document.querySelector("dialog");
+  function comentariosModal(idPostagem, idDonoPostagem) {
+    idPostagemAtual = idPostagem
+    idDonoPostAtual = idDonoPostagem
+    var comentarios = document.getElementById('comentarios');
+    comentarios.innerHTML = ''
+    fetch(`/postagem/exibirComentario/${idPostagem}`, {
+      method: 'GET',
+      headers: {
+        "Content-Type": "application/json"
+      },
+    })
+      .then(res => res.json())
+      .then(function (resultado) {
+
+        resultado.forEach(function (comen) {
+          var id_user_fk = comen.id_user_fk
+          comentarios.innerHTML += `
                    <div class="nomeComentario">${comen.nome}</div><br>
                     <div class="mensagemComentario">${comen.mensagem}</div>
                     <br>
                 `
-            })
-            comentarios.innerHTML += `<div class="areaComentario">
+        })
+        comentarios.innerHTML += `<div class="areaComentario">
             <div class="inputComentario"><input type="text" id="inp_comentario"></div>
             <div class="buttonComentario"><button onclick="comentar(${idPostagem})"> Comentar</button></div>
             </div>`
-        })
-        modal.showModal();
-    }
+      })
+    modal.showModal();
+  }
 
-    function comentar(idPost){
-        var comentario = inp_comentario.value;
-        fetch(`/postagem/comentar/${idPost}`,{
-            method: 'POST',
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                mensagemServer: comentario,
-                idUserServer: idInt
-            })
-        }).then(resposta =>{
-            if(resposta.ok){
-                console.log('inserindo comentttttttttttttttttt')
-            }
-        })
-    }
+  function comentar(idPost) {
+    var comentario = inp_comentario.value;
+    fetch(`/postagem/comentar/${idPost}`, {
+      method: 'POST',
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        mensagemServer: comentario,
+        idUserServer: idInt
+      })
+    }).then(resposta => {
+      if (resposta.ok) {
+        inp_comentario.value = ""
+        comentariosModal(idPostagemAtual, idDonoPostAtual)
+      }
+    })
+  }
 
-    function fecharModal() {
-        modal.close();
-    }
+  function fecharModal() {
+    modal.close();
+  }
+
+  function curtida(idPostagem, idInt) {
+    fetch(`/postagem/curtir/${idPostagem}/${idInt}`, {
+      method: 'POST',
+      headers: { "Content-Type": "application/json" },
+    }).then(resposta => {
+      if (resposta.ok) {
+        console.log('toma')
+      }
+    })
+  };
+
+  document.querySelector('.botaoFlultuante').addEventListener('click', function(e) {
+    const ocultarAreaLateral = document.querySelector('.ocultarAreaLateral');
+    if (!ocultarAreaLateral) document.querySelector('.areaLateral').classList.add('ocultarAreaLateral');
+    else document.querySelector('.ocultarAreaLateral').classList.remove('ocultarAreaLateral')
+  });
 
 </script>

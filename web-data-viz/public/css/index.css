@@ -1,19 +1,22 @@
-body{
+@import url('./botao.css');
+
+body {
     margin: 0;
     padding: 0;
     font-family: "Comic Relief", system-ui;
     background-color: #14213d;
 }
-  
+
 
 /* ------------------------------------------- NAVBAR ------------------------------------ */
-.header{
+.header {
     height: 85px;
     width: 100%;
     background-color: #14213d;
-    border-bottom: solid 3px  #fca311;
+    border-bottom: solid 3px #fca311;
 }
-.header .container{
+
+.header .container {
     height: 100%;
     width: 100%;
     display: flex;
@@ -21,56 +24,62 @@ body{
     justify-content: space-around;
     align-items: center;
 }
-.logo{
-    display: flex; 
+
+.logo {
+    display: flex;
     height: 100px;
     width: 100px;
 }
-.acessos{
+
+.acessos {
     display: flex;
     justify-content: space-between;
     gap: 50px;
     font-size: 20px;
 
 }
-.acessos span a{
+
+.acessos span a {
     color: #fff;
     text-decoration: none;
 }
-.acessos span a:hover{
+
+.acessos span a:hover {
     color: #fca311;
-    text-decoration:underline;
+    text-decoration: underline;
 }
 
 /* ------------------------------------------- BANNER ------------------------------------ */
-.Banner{
+.Banner {
     height: 600px;
     width: 100%;
     background-image: url(../img/image.png);
     background-size: cover;
     box-shadow: 0 20px 25px rgba(0, 0, 0, 0.3);
 }
-.Banner .mensagemInicio{
+
+.Banner .mensagemInicio {
     width: 20%;
     height: 100%;
     display: flex;
     align-items: center;
     justify-content: start;
     padding: 20px;
-    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
-.mensagemInicio span{
+.mensagemInicio span {
     color: #fca311;
 }
-.msg{
+
+.msg {
     color: white;
     font-size: 45px;
 }
 
 /* ------------------------------------------- Contedo do INdex ------------------------------------ */
 
-.conteudo{
+.conteudo {
     display: flex;
     height: 400px;
     width: 100%;
@@ -79,7 +88,8 @@ body{
     margin-top: 80px;
     background-color: #14213d;
 }
-.gifInicio{
+
+.gifInicio {
     display: flex;
     background-image: url(../img/8d8fac62449a3d08f039c906aa85e7a2.jpg);
     background-repeat: no-repeat;
@@ -91,9 +101,9 @@ body{
 
 }
 
-.mensagemOque{
+.mensagemOque {
     display: flex;
-    text-align:left;
+    text-align: left;
     font-size: 20px;
     color: #fff;
 }
@@ -101,7 +111,7 @@ body{
 /* ------------------------------------------- IDEAIS ------------------------------------ */
 
 .ideais {
-    background-color:#14213d;
+    background-color: #14213d;
     height: auto;
     width: 100%;
     margin-top: 80px;
@@ -117,7 +127,7 @@ body{
 .ideais .diversao,
 .ideais .criatividade {
     background-color: black;
-    color: white;   
+    color: white;
     height: 350px;
     width: 350px;
     border-radius: 10px;
@@ -130,10 +140,10 @@ body{
     text-align: center;
     justify-content: space-around;
 }
+
 .diversao span,
 .criatividade span,
-.inovacao span
-{
+.inovacao span {
     font-size: 2rem;
     font-weight: bolder;
 }
@@ -160,15 +170,18 @@ body{
     font-size: 16px;
     line-height: 1.5;
 }
-.imgInovacao{
+
+.imgInovacao {
     background-image: url(../img/paper-plane.png);
     color: white;
 }
-.imgCriatividade{
+
+.imgCriatividade {
     background-image: url(../img/settings.png);
     color: white;
 }
-.imgDiversao{
+
+.imgDiversao {
     background-image: url(../img/rocket-lunch.png);
     color: white;
 }
@@ -186,22 +199,22 @@ footer {
     justify-content: space-around;
     padding: 40px 0;
     box-shadow: 0 20px 25px rgba(0, 0, 0, 0.3);
-  }
-  
-  form {
+}
+
+form {
     width: fit-content;
     height: fit-content;
     display: flex;
     flex-direction: column;
-    color:#fff;
+    color: #fff;
     width: 25vw;
-  }
-  
-  form label {
+}
+
+form label {
     font-size: 1.2rem;
-  }
-  
-  form button {
+}
+
+form button {
     color: black;
     background-color: white;
     border: none;
@@ -212,14 +225,15 @@ footer {
     border-radius: 10px;
     font-weight: bolder;
     border: 2px solid #fff;
-  }
-  form button:hover{
+}
+
+form button:hover {
     background-color: #14213d;
     color: white;
     transition: 1.5s;
-  }
-  
-  footer form input {
+}
+
+footer form input {
     width: 100%;
     height: 30px;
     background-color: #e5e5e5;
@@ -228,23 +242,23 @@ footer {
     font-size: 1rem;
     margin-bottom: 30px;
     border-radius: 10px;
-  }
-  footer form input:focus {
+}
+
+footer form input:focus {
     outline: none;
     border-bottom: 1px solid white;
-  }
-  
-  .faleConosco {
+}
+
+.faleConosco {
     width: 35vw;
     color: #fff;
-  }
-  
-  .faleConosco h1 {
+}
+
+.faleConosco h1 {
     font-size: 4rem;
-  }
-  
-  .faleConosco p {
+}
+
+.faleConosco p {
     font-size: 1.5rem;
     margin-top: 20px;
-  }
-  
+}

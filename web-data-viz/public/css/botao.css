@@ -1,0 +1,19 @@
+.botao {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: navy;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+    width: 100%;
+    font-family: "Comic Relief", system-ui;
+    font-weight: bolder;
+}
+
+.botao:hover {
+    background-color: #fca311;
+    transition: 1s;
+}

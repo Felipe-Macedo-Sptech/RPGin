@@ -7,7 +7,7 @@ function postar(req, res) {
     var post = req.body.postServer;
     var img = req.body.imgServer;
 
-        postagemModel.postar(titulo, post, img,fkUser)
+        postagemModel.postar(titulo, post, img, fkUser)
             .then(
                 function (resultado) {
                     res.json(resultado);
@@ -59,10 +59,30 @@ function comentar(req, res){
     })
 }
 
+function curtir (req, res){
+    var idPost = req.params.idPost;
+    var idUser = req.params.idUser;
+    postagemModel.curtir(idUser, idPost)
+    .then(function (resultado){
+        res.status(200).json(resultado)
+    })
+};
+
+function exibirContagemCurtida(req, res){
+    var idPost = req.params.idPost;
+    postagemModel.exibirContagemCurtida(idPost)
+    .then(function (resultado){
+        res.status(200).json(resultado)
+    })
+
+};
+
 module.exports = {
     postar,
     exibirPostagem,
     exibirPostagemPorId,
     exibirComentario,
-    comentar
+    comentar,
+    curtir,
+    exibirContagemCurtida
 }
