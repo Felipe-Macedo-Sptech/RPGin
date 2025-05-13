@@ -73,6 +73,8 @@
   const idSessao = sessionStorage.ID_USUARIO;
   const idInt = Number(idSessao);
   function exibrTodasPostagem() {
+    var postagem = document.getElementById("postagem");
+    postagem.innerHTML = ''
     fetch("/postagem/exibirPostagem", {
       method: "GET",
       headers: {
@@ -81,7 +83,7 @@
     })
       .then(res => res.json())
       .then(function (resultado) {
-        var postagem = document.getElementById("postagem");
+        console.log(resultado)
         resultado.forEach(function (post) {
           var dataCerta = new Date(post.data_postagem).toLocaleDateString('pt-BR', {
             hour: "2-digit",
@@ -89,14 +91,15 @@
             hour12: false,
             timeZone: "America/Sao_Paulo"
           });
+          sessionStorage.CURTIDA_USUARIO = post.curtida;
           var idPostagem = post.id_postagem;
           var idDonoPostagem = post.id_user_fk;
           console.log(idPostagem);
           postagem.innerHTML += `
                         <div class="postagem">
                             <div class="emcima">
-                                <span class="postagemNome">${post.nome}, id:${post.id_postagem} ${post.curtida}</span>
-                                <span class="postagemData">${dataCerta}</span>
+                              <span class="postagemNome">${post.nome}, id:${post.id_postagem} ${post.curtida}</span>
+                              <span class="postagemData">${dataCerta}</span>
                             </div>
                             <div class="postagemTitulo">${post.titulo}</div>
                             <div class="postagemComentario">
@@ -176,6 +179,7 @@
     }).then(resposta => {
       if (resposta.ok) {
         console.log('toma')
+        exibrTodasPostagem();
       }
     })
   };

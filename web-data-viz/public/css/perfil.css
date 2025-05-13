@@ -102,12 +102,28 @@ body {
   .nomeEpostar button:hover {
     background-color: #001f4d;
   }
-  .postagemDoUser{
+  .postagemDoUser {
     height: 500px;  
     width: 980px;
+    display: flex;
+    justify-content: start;
+    align-items: center;
     overflow-y: scroll;
+}
 
-  }
+.postagemDoUser::-webkit-scrollbar {
+    width: 5px;
+}
+
+.postagemDoUser::-webkit-scrollbar-track {
+    background: #0e1a34;
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+.postagemDoUser::-webkit-scrollbar-thumb {
+    background: #fca311;
+    border-radius: 5px;
+}
   .postagem {
     background-color: #ffffff;
     border: 2px solid #ddd;
