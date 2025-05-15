@@ -74,8 +74,15 @@ function exibirContagemCurtida(req, res){
     .then(function (resultado){
         res.status(200).json(resultado)
     })
-
 };
+
+function deletePostagem(req, res){
+    var idPost = req.params.idPost;
+    postagemModel.deletePostagem(idPost)
+      .then(function (resultado){
+        res.status(200).json(resultado)
+    })
+}
 
 module.exports = {
     postar,
@@ -84,5 +91,6 @@ module.exports = {
     exibirComentario,
     comentar,
     curtir,
-    exibirContagemCurtida
+    exibirContagemCurtida,
+    deletePostagem
 }

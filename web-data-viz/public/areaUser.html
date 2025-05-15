@@ -178,8 +178,11 @@
       headers: { "Content-Type": "application/json" },
     }).then(resposta => {
       if (resposta.ok) {
-        console.log('toma')
-        exibrTodasPostagem();
+        console.log('toma');
+        setTimeout(() => {
+          exibrTodasPostagem()
+        }, "1000");
+        
       }
     })
   };

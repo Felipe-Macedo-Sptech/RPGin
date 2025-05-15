@@ -30,7 +30,12 @@ router.post("/curtir/:idPost/:idUser", function (req, res) {
 
 router.get("/exibirContagemCurtida/:idPost", function (req, res) {
     postagemController.exibirContagemCurtida(req, res);
+});
+
+router.delete("/deletePostagem/:idPost", function (req, res) {
+    postagemController.deletePostagem(req, res);
 })
+
 
 
 module.exports = router;

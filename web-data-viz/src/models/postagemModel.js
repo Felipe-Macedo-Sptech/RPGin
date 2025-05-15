@@ -1,4 +1,4 @@
-var database = require("../database/config")
+var database = require("../database/config");
 
 function postar(titulo, conteudo, img, fkUser) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():", titulo, conteudo, img, fkUser);
@@ -13,7 +13,7 @@ function postar(titulo, conteudo, img, fkUser) {
 
 function exibirPostagem(){
     var instrucaoSql = `
-   SELECT p.id_user_fk, p.id_postagem, u.nome, p.titulo, p.conteudo, p.data_postagem, IF(COUNT(c.id_curtida) = 0, '0', COUNT(c.id_curtida)) as curtida
+   SELECT p.id_user_fk, p.id_postagem, u.nome, p.titulo, p.conteudo, p.data_postagem, IF(COUNT(c.id_postagem_fk) = 0, '0', COUNT(c.id_postagem_fk)) as curtida
             FROM postagem AS p 
                    left join 
                 usuario as u 
@@ -41,9 +41,9 @@ function exibirPostagemPorId(idUser){
 	p.id_user_fk = u.id_user WHERE u.id_user = ${idUser}
 		ORDER BY p.id_postagem DESC;
 `;
-console.log("Executando a instrução SQL: \n" + instrucaoSql);
-return database.executar(instrucaoSql);
-}
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+};
 
 function exibiComentarios(idPostagem){
     var instrucaoSql = `
@@ -72,10 +72,16 @@ return database.executar(instrucaoSql);
 
 function exibirContagemCurtida(idPost){
     var instrucaoSql = `
-            SELECT COUNT(id_postagem_fk) FROM curtida WHERE id_postagem_fk = ${idPost};
-            `;
+            SELECT COUNT(id_postagem_fk) FROM curtida WHERE id_postagem_fk = ${idPost};`;
 console.log("Executando a instrução SQL: \n" + instrucaoSql);
 return database.executar(instrucaoSql);
+}
+
+function deletePostagem(idPost){
+    var instrucaoSql = `
+            DELETE FROM postagem WHERE id_postagem = ${idPost};`;
+console.log("Executando a instrução SQL: \n" + instrucaoSql);
+        return database.executar(instrucaoSql);
 }
 module.exports = {
     postar,
@@ -84,5 +90,6 @@ module.exports = {
     exibiComentarios,
     comentar,
     curtir,
-    exibirContagemCurtida
+    exibirContagemCurtida,
+    deletePostagem
 };
