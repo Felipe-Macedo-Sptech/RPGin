@@ -38,13 +38,18 @@ body {
 }
 
 .acessoPerfil {
-    border: 2px solid black;
     border-radius: 50%;
     height: 70px;
     width: 70px;
     display: flex;
     align-items: center;
     justify-content: center;
+}
+.imgPadronizada {
+  width: 200px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 4px; 
 }
 
 .containerHome {
@@ -109,8 +114,10 @@ body {
 }
 
 .postagemNome {
-    font-weight: bold;
-    color: #2a2a2a;
+    font-size: 16px;
+  font-weight: bold;
+  color: #000;
+  margin: 8px 0;
 }
 
 .postagemData {

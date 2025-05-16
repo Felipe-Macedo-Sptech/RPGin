@@ -15,9 +15,7 @@
   <link rel="stylesheet" href="./CSS/areaUser.css">
   <script src="https://kit.fontawesome.com/9f7414eb10.js" crossorigin="anonymous"></script>
 </head>
-
 <body onload="exibrTodasPostagem();exibirOcultarAreaLateral();">
-
   <!--header inicio-->
   <div class="header">
     <div class="container">
@@ -68,6 +66,8 @@
   <button class="botaoFlultuante">+</button>
 </body>
 
+<div> <img src=""></div>
+
 </html>
 <script>
   const idSessao = sessionStorage.ID_USUARIO;
@@ -104,6 +104,10 @@
                             <div class="postagemTitulo">${post.titulo}</div>
                             <div class="postagemComentario">
                               <div class="postagemConteudo">${post.conteudo}</div>
+                                ${post.imagem
+                                  ? `<img src="data:image/png;base64,${post.imagem}" class="imgPadronizada"/>` 
+                                  : ''
+                                }
                               <div class="heart">
                                 <input type="checkbox" class="heart__checkbox" onclick="curtida(${idPostagem}, ${idInt})"> 
                                 <div class="heart__icon"></div>

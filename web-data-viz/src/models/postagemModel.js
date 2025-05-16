@@ -1,19 +1,23 @@
 var database = require("../database/config");
 
 function postar(titulo, conteudo, img, fkUser) {
-    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():", titulo, conteudo, img, fkUser);
-
-    var instrucaoSql = `
+    if(img == ""){
+        var instrucaoSql = `
+        INSERT INTO postagem(titulo, conteudo, data_postagem, id_user_fk) VALUES 
+            ('${titulo}', '${conteudo}', default, '${fkUser}');
+    `;
+    }else{
+          var instrucaoSql = `
         INSERT INTO postagem(titulo, conteudo, data_postagem, imagem, id_user_fk) VALUES 
             ('${titulo}', '${conteudo}', default, '${img}', '${fkUser}');
     `;
+    }
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql); 
 }
-
 function exibirPostagem(){
     var instrucaoSql = `
-   SELECT p.id_user_fk, p.id_postagem, u.nome, p.titulo, p.conteudo, p.data_postagem, IF(COUNT(c.id_postagem_fk) = 0, '0', COUNT(c.id_postagem_fk)) as curtida
+   SELECT p.id_user_fk, p.id_postagem, u.nome, p.titulo, p.conteudo, p.imagem, p.data_postagem, IF(COUNT(c.id_postagem_fk) = 0, '0', COUNT(c.id_postagem_fk)) as curtida
             FROM postagem AS p 
                    left join 
                 usuario as u 

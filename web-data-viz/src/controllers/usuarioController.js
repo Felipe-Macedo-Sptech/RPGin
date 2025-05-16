@@ -22,7 +22,8 @@ function autenticar(req, res) {
                             id_user: resultadoAutenticar[0].id_user,
                             nome: resultadoAutenticar[0].nome,
                             email: resultadoAutenticar[0].email,
-                            senha: resultadoAutenticar[0].senha
+                            senha: resultadoAutenticar[0].senha,
+                            bio: resultadoAutenticar[0].bio
                         })
                 
                     } else if (resultadoAutenticar.length == 0) {

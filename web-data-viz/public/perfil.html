@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Área do Usuário</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cascadia+Code:wght@400;700&family=Comic+Relief:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Cascadia+Code:wght@400;700&family=Comic+Relief:wght@400;700&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="./CSS/perfil.css" />
   <script src="./js/sessao.js"></script>
 </head>
@@ -16,58 +15,61 @@
   <div class="header">
     <div class="container">
       <a href="areaUser.html">
-        <div class="logo">
-            <img src="./img/4.png">                                                  
-        </div>
+      <div class="logo">
+        <img src="./img/4.png">
+      </div>
       </a>
-        <div class="pesquisa">
-            <input class="pesquisaAreaUser" type="text" placeholder="pesquisar no RPGin....">
-        </div>
+      <div class="pesquisa">
+        <input class="pesquisaAreaUser" type="text" placeholder="pesquisar no RPGin....">
+      </div>
     </div>
 </div>
   <div class="containerPerfil">
     <aside class="areaLateral">
       <nav class="acessoLateral">
-        <p>menu Lateral</p>
+        <p>Menu Lateral</p>
       </nav>
     </aside>
 
     <section class="areaUsuario">
       <div class="perfil">
-        <div class="bannerPerfl">
+        <div class="bannerPerfil">
           <div class="fotoUser"></div>
-        </div>
-
         <div class="nomeEpostar">
           <div id="n_user">Nome do usuário</div>
+          <div id="bio_user">Bio do usuário</div>
           <div class="buttonPostar">
+            <button onclick="update(idUser)">Edit</button>
             <button onclick="postarModal()">Postar</button>
           </div>
+
           <dialog>
             <form id="formPostagem" onsubmit="event.preventDefault(); postar();">
-              <label>Título da Postagem:<br>
-                <input type="text" id="inp_titulo" required>
+              <label>
+                Título da Postagem:<br>
+                <input type="text" id="inp_titulo" required />
               </label><br><br>
-          
-              <label>Tipo de conteúdo:<br>
+
+              <label>
+                Tipo de conteúdo:<br>
                 <select id="tipoConteudo" onchange="tipo()">
                   <option value="texto">Texto</option>
                   <option value="imagem">Imagem</option>
                 </select>
               </label><br><br>
-          
+
               <div id="areaTexto">
-                <label>Conteúdo (Texto):<br>
+                <label>
+                  Conteúdo (Texto):<br>
                   <textarea id="inp_postagem" rows="4" cols="50"></textarea>
                 </label><br><br>
               </div>
-          
               <div id="areaImagem" style="display: none;">
-                <label>Imagem:<br>
-                  <input type="file" id="inp_imagem">
+                <label>
+                  Imagem:<br>
+                  <input type="file" id="inp_imagem" accept="image/png" onchange="converterImgBase64(event)" />
                 </label><br><br>
               </div>
-          
               <button type="submit">Publicar</button>
               <button type="button" onclick="fecharModal()">Fechar</button>
             </form>
@@ -81,52 +83,39 @@
       </div>
     </section>
   </div>
-  
 
   <script>
-    function iniciarPagina(){
-      validarSessao();
-      exibirPostagemPorId();
-
-    }
+    var img = '';
     const modal = document.querySelector("dialog");
     const idSessao = sessionStorage.ID_USUARIO;
     const idInt = Number(idSessao);
 
+    function iniciarPagina() {
+      validarSessao();
+      exibirPostagemPorId();
+    }
 
     function tipo() {
-  const tipo = document.getElementById("tipoConteudo").value;
-  const areaTexto = document.getElementById("areaTexto");
-  const areaImagem = document.getElementById("areaImagem");
-
-  if (tipo === "imagem") {
-    areaTexto.style.display = "none";
-    areaImagem.style.display = "block";
-  } else {
-    areaTexto.style.display = "block";
-    areaImagem.style.display = "none";
-  }
-}
-
-var img = null;
-  function converterImgBase64(event){
-    var arquivo = event.target.files[0];
-    const ler = new FileReader();
-
-    ler.onloadend = () =>{
-      img = ler.result.split(',')[1]
-      console.log(img)
+      const tipo = document.getElementById("tipoConteudo").value;
+      document.getElementById("areaTexto").style.display = tipo === "imagem" ? "none" : "block";
+      document.getElementById("areaImagem").style.display = tipo === "imagem" ? "block" : "none";
     }
-    if (arquivo) {
-    ler.readAsDataURL(arquivo);
-  }
-  }
 
-  function postar() { 
+    function converterImgBase64(event) {
+      const arquivo = event.target.files[0];
+      const leitor = new FileReader();
+
+      leitor.onloadend = () => {
+        img = leitor.result.split(',')[1];
+        console.log("Imagem convertida:", img);
+      };
+
+      if (arquivo) leitor.readAsDataURL(arquivo);
+    }
+
+    function postar() {
       const titulo = inp_titulo.value;
       const post = inp_postagem.value;
-      console.log(img);
-
       fetch('/postagem/postar', {
         method: 'POST',
         headers: { "Content-Type": "application/json" },
@@ -136,9 +125,8 @@ var img = null;
           id_userServer: idInt,
           imgServer: img
         })
-      }).then(resposta => {
-        if (resposta.ok) {
-          console.log("marcha papai");
+      }).then(res => {
+        if (res.ok) {
           exibirPostagemPorId();
           modal.close();
         }
@@ -153,60 +141,107 @@ var img = null;
       modal.close();
     }
 
- 
     function exibirPostagemPorId() {
-      var idUser = idInt
-      fetch(`/postagem/exibirPostagem/${idUser}`, {
+      fetch(`/postagem/exibirPostagem/${idInt}`, {
         method: "GET",
-        headers: {
-          "Content-Type": "application/json"
-        }
+        headers: { "Content-Type": "application/json" }
       })
-        .then(res => res.json())
-        .then(function (resultado) {
-          var postagem = document.getElementById("postagem");
-          postagem.innerHTML = ''; 
-          resultado.forEach(function (post) {
-            var dataCerta = new Date(post.data_postagem).toLocaleDateString('pt-BR', {
-              hour: "2-digit",
-              minute: "2-digit",
-              hour12: false,
-              timeZone: "America/Sao_Paulo"
-            });
-            var idPost = post.id_postagem
-            postagem.innerHTML += `
-        <div class="postagem">
-          <div class="emcima">
-            <span class="postagemNome">${post.nome}</span>
-            <span class="postagemData">${dataCerta}</span>
-          </div>
-          <div class="postagemTitulo">${post.titulo}</div>
-          <div class="postagemConteudo">${post.conteudo}</div>
-          <div class="botaoDelete"><button onclick="deletePostagem(${idPost})">
-    DELETE
-  </button></div>
-        </div>
-      `;
+      .then(res => res.json())
+      .then(posts => {
+        const postagemDiv = document.getElementById("postagem");
+        postagemDiv.innerHTML = "";
+        posts.forEach(post => {
+          const dataCerta = new Date(post.data_postagem).toLocaleDateString('pt-BR', {
+            hour: "2-digit",
+            minute: "2-digit",
+            hour12: false,
+            timeZone: "America/Sao_Paulo"
           });
-        })
-        .catch(erro => {
-          console.error("Erro ao exibir postagens:", erro);
+
+          postagemDiv.innerHTML += `
+            <div class="postagem">
+              <div class="emcima">
+                <span class="postagemNome">${post.nome}</span>
+                <span class="postagemData">${dataCerta}</span>
+              </div>
+              <div class="postagemTitulo">${post.titulo}</div>
+              <div class="postagemConteudo">
+                ${post.conteudo}
+              </div>
+              <div class="botaoDelete">
+                <button onclick="deletePostagem(${post.id_postagem})">DELETE</button>
+              </div>
+            </div>
+          `;
         });
+      })
+      .catch(erro => {
+        console.error("Erro ao exibir postagens:", erro);
+      });
     }
-    function deletePostagem(idPost){
+
+    function deletePostagem(idPost) {
       fetch(`/postagem/deletePostagem/${idPost}`, {
         method: "DELETE",
-        headers: {
-          "Content-Type": "application/json"
-        }
-      }).then(function (resposta){
-        if(resposta.ok){
-          console.log('toma trmoa') 
-          exibirPostagemPorId();        
-        }
-      })
+        headers: { "Content-Type": "application/json" }
+      }).then(res => {
+        if (res.ok) exibirPostagemPorId();
+      });
     }
-</script>
-</body>
 
+
+    function update(idUser) {
+        var emailVar = email_input.value;
+        var senhaVar = senha_input.value;
+
+        if (emailVar == "" || senhaVar == "") {
+            cardErro.style.display = "block"
+            mensagem_erro.innerHTML = "(Mensagem de erro para todos os campos em branco)";
+            return false;
+        }
+        else {
+            setInterval(sumirMensagem, 5000)
+        }
+
+        console.log("FORM LOGIN: ", emailVar);
+        console.log("FORM SENHA: ", senhaVar);
+
+        fetch("/usuarios/autenticar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                emailServer: emailVar,
+                senhaServer: senhaVar
+            })
+        }).then(function (resposta) {
+            console.log("ESTOU NO THEN DO entrar()!")
+
+            if (resposta.ok) {
+                console.log("essassasa: ",resposta);
+                resposta.json().then(json => {
+                    console.log(json);
+                    console.log(JSON.stringify(json));
+                    sessionStorage.EMAIL_USUARIO = json.email;
+                    sessionStorage.NOME_USUARIO = json.nome;
+                    sessionStorage.ID_USUARIO = json.id_user;
+                    sessionStorage.BIO_USUARIO = json.bio;
+                    setTimeout(function () {
+                        window.location = "areaUser.html";
+                    }, 1000); 
+                });
+            } else {
+                console.log("Houve um erro ao tentar realizar o login!");
+                resposta.text().then(texto => {
+                    console.error(texto);
+               });
+            }
+        }).catch(function (erro) {
+            console.log(erro);
+        })
+        return false;
+    }
+  </script>
+</body>
 </html>

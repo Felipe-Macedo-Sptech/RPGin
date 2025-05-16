@@ -1,18 +1,20 @@
-/* perfil.css */
 
 body {
-    margin: 0;
-    font-family: "Comic Relief", sans-serif;
-    background-color: #14213d;
-  }
-  
-  .header{
+  font-family: 'Comic Relief', cursive;
+  margin: 0;
+  padding: 0;
+  background-color: #14213d;
+  color: #333;
+}
+
+.header {
     height: 85px;
     width: 100%;
     background-color: #14213d;
-    border-bottom: solid 3px  #fca311;
+    border-bottom: solid 3px #fca311;
 }
-.header .container{
+
+.header .container {
     height: 100%;
     width: 100%;
     display: flex;
@@ -20,171 +22,193 @@ body {
     justify-content: space-between;
     align-items: center;
 }
-.logo{
+
+.logo {
     display: flex;
     height: 150px;
     width: 100px;
 }
 
-.pesquisaAreaUser{
+.pesquisa input{
     height: 35px;
-    width: 470px;
+    width: 500px;
     border-radius: 10px;
     border: 2px solid black;
 
 }
-  .containerPerfil {
-    display: flex;
-    max-width: 1200px;
-    margin: 20px auto;
-    gap: 20px;
-}
-  
-  .areaLateral {
-    flex: 1;
-    background-color: #f5d6ab;
-    padding: 20px;
-    border-radius: 10px;
-    height: fit-content;
-  }
-  
-  .areaUsuario {
-    flex: 3;
-    background-color: whitesmoke;
-    padding: 20px;
-    border-radius: 10px;
-  }
-  
-  .perfil {
-    background-color: #14213d;
-    padding: 20px;
-    border-radius: 10px;
-    color: white;
-  }
-  
-  .bannerPerfl {
-    background-color: #fca311;
-    padding: 20px;
-    display: flex;
-    align-items: flex-end;
-    border-radius: 10px;
-    margin-bottom: 10px;
-  }
-  
-  .fotoUser {
-    height: 80px;
-    width: 80px;
-    border-radius: 50%;
-    border: 3px solid #333;
-    background-color: #eee;
-  }
-  
-  .nomeEpostar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: aqua;
-    padding: 10px;
-    border-radius: 10px;
-    margin-top: 10px;
-  }
-  
-  .nomeEpostar button {
-    padding: 8px 12px;
-    background-color: navy;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-weight: bold;
-    cursor: pointer;
-  }
-  
-  .nomeEpostar button:hover {
-    background-color: #001f4d;
-  }
-  .postagemDoUser {
-    height: 500px;  
-    width: 980px;
-    display: flex;
-    justify-content: start;
-    align-items: center;
-    overflow-y: scroll;
+.containerPerfil {
+  display: flex;
+  max-width: 1200px;
+  margin: 30px auto;
+  gap: 20px;
 }
 
-.postagemDoUser::-webkit-scrollbar {
-    width: 5px;
+.areaLateral {
+  width: 250px;
+  background-color: #f5f5f5;
+  border-radius: 12px;
+  padding: 20px;
+  font-weight: bold;
+  color: #000;
+  box-shadow: 0 0 10px rgba(0,0,0,0.05);
 }
 
-.postagemDoUser::-webkit-scrollbar-track {
-    background: #0e1a34;
-    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+.areaUsuario {
+  flex: 1;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.05);
 }
 
-.postagemDoUser::-webkit-scrollbar-thumb {
-    background: #fca311;
-    border-radius: 5px;
+.bannerPerfl {
+  height: 180px;
+  background: linear-gradient(45deg, #4b0082, #8a2be2);
+  border-radius: 12px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+  padding: 15px;
+  color: #fff;
+  font-size: 24px;
 }
-  .postagem {
-    background-color: #ffffff;
-    border: 2px solid #ddd;
-    border-radius: 10px;
-    width: 900px;
-    padding: 15px 20px;
-    margin-bottom: 20px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-    font-family: "Comic Relief", sans-serif;
-    
-  }
-  
-  .emcima {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
-  }
-  
-  .postagemNome {
-    font-weight: bold;
-    color: navy;
-    font-size: 16px;
-  }
-  
-  .postagemData {
-    color: #888;
-    font-size: 14px;
-    font-style: italic;
-  }
-  
-  .postagemTitulo {
-    font-size: 18px;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 8px;
-  }
-  
-  .postagemConteudo {
-    font-size: 15px;
-    line-height: 1.5;
-    color: #444;
-    white-space: pre-wrap; 
-  }
-  
-  
-  dialog {
-    border: none;
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 0 15px rgba(0,0,0,0.3);
-    font-family: "Comic Relief", sans-serif;
-  }
-  
-  dialog form input,
-  dialog form textarea {
-    width: 100%;
-    padding: 8px;
-    margin-top: 5px;
-    border: 1px solid #888;
-    border-radius: 5px;
-    font-size: 14px;
-  }
-  
+
+.fotoUser {
+  width: 100px;
+  height: 100px;
+  background-color: #d8d8d8;
+  border-radius: 50%;
+  border: 3px solid #fff;
+}
+
+.nomeEpostar {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nomeEpostar #n_user {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.buttonPostar button {
+  background-color: #14213d;
+  border: none;
+  padding: 10px 18px;
+  font-size: 16px;
+  border-radius: 20px;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.5s;
+}
+
+.buttonPostar button:hover {
+  background-color: #fca311;
+}
+
+dialog {
+  padding: 20px;
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+  width: 400px;
+}
+
+dialog form label {
+  font-weight: bold;
+}
+
+dialog input[type="text"],
+dialog textarea,
+dialog select,
+dialog input[type="file"] {
+  width: 100%;
+  padding: 8px;
+  margin-top: 4px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+dialog button {
+  margin-top: 10px;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+dialog button[type="submit"] {
+  background-color: #14213d;
+  color: #fff;
+  border: none;
+}
+
+dialog button[type="button"] {
+  background-color: #ccc;
+  color: #000;
+  border: none;
+  margin-left: 10px;
+}
+
+.postagemDoUser {
+  margin-top: 30px;
+  overflow-y: scroll;
+  max-height: 450px;
+  width: 100%;
+}
+
+.postagem {
+  background-color: #f8f8ff;
+  border-left: 6px solid #14213d;
+  border-bottom: 4px solid #14213d;
+  padding: 15px;
+  border-radius: 12px;
+  margin-bottom: 15px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.05);
+
+}
+
+.postagem .emcima {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  color: #666;
+}
+
+.postagemNome{
+  font-size: 16px;
+  font-weight: bold;
+  color: #000;
+  margin: 8px 0;
+}
+.postagemTitulo {
+  font-size: 18px;
+  font-weight: bold;
+  color: #000080;
+  margin: 8px 0;
+}
+
+.postagemConteudo {
+  font-size: 16px;
+  color: #333;
+}
+.botaoDelete {
+  text-align: right;
+  margin-top: 10px;
+}
+.botaoDelete button {
+  background-color: #c62828;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: bold;
+}
+.botaoDelete button:hover {
+  background-color: #b71c1c;
+}
