@@ -40,9 +40,7 @@ function autenticar(req, res) {
                 }
             );
     }
-
 }
-
 function cadastrar(req, res) {
     // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
     var nome = req.body.nomeServer;
@@ -80,7 +78,28 @@ function cadastrar(req, res) {
     }
 }
 
+function edit (req, res){
+    var idUSer = req.params.idUser;
+    var nome = req.body.nomeServer;
+    var bio = req.body.bioServer;
+    usuarioModel.edit(idUSer,nome, bio)
+    .then(function (resultado){
+         res.status(200).json(resultado)
+         console.log('resultado o edit: ', resultado)
+    })
+}
+
+function dadosPerfil(req, res){
+    var idUSer = req.params.idUser;
+    usuarioModel.dadosPerfil(idUSer)
+    .then(function (resultado){
+         res.status(200).json(resultado)
+         console.log('resultado o dadosPerfil: ', resultado)
+    })
+}
 module.exports = {
     autenticar,
-    cadastrar
+    cadastrar,
+    edit,
+    dadosPerfil
 }

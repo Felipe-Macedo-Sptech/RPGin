@@ -11,6 +11,7 @@
   <script src="./js/sessao.js"></script>
 </head>
 
+
 <body onload="iniciarPagina()">
   <div class="header">
     <div class="container">
@@ -36,12 +37,28 @@
         <div class="bannerPerfil">
           <div class="fotoUser"></div>
         <div class="nomeEpostar">
-          <div id="n_user">Nome do usuário</div>
-          <div id="bio_user">Bio do usuário</div>
-          <div class="buttonPostar">
-            <button onclick="update(idUser)">Edit</button>
-            <button onclick="postarModal()">Postar</button>
+          <div id="parteEdit">
           </div>
+          <div class="buttonPostar">
+            <button onclick="editModal()">Edit</button>
+            <button onclick="postarModal()">Postar</button>
+          </div>        
+
+          <dialog id="dialogEdit">
+            <form id="formEdit" onsubmit="event.preventDefault();">
+              <div>
+                Nome:
+                <input type="text" id="inp_nomeEdit">
+              </div>
+              <div>
+                BIO:
+                <input type="text" id="inp_bioEdit" >  
+              </div>
+
+              <button type="submit" onclick="update()">Edit</button>
+              <button type="button" onclick="fecharModalEdit()">Fechar</button>
+            </form>
+          </dialog>
 
           <dialog>
             <form id="formPostagem" onsubmit="event.preventDefault(); postar();">
@@ -85,22 +102,23 @@
   </div>
 
   <script>
+     function iniciarPagina() {
+      dadosPerfil();
+      exibirPostagemPorId();
+      validarSessao();
+      
+}
     var img = '';
-    const modal = document.querySelector("dialog");
+    const modal = document.querySelector("#formPostagem").closest("dialog");
+    const modalEdit = document.querySelector("#dialogEdit");
     const idSessao = sessionStorage.ID_USUARIO;
     const idInt = Number(idSessao);
 
-    function iniciarPagina() {
-      validarSessao();
-      exibirPostagemPorId();
-    }
-
     function tipo() {
-      const tipo = document.getElementById("tipoConteudo").value;
+      const tipo = document.getElementById("x").value;
       document.getElementById("areaTexto").style.display = tipo === "imagem" ? "none" : "block";
       document.getElementById("areaImagem").style.display = tipo === "imagem" ? "block" : "none";
     }
-
     function converterImgBase64(event) {
       const arquivo = event.target.files[0];
       const leitor = new FileReader();
@@ -109,10 +127,8 @@
         img = leitor.result.split(',')[1];
         console.log("Imagem convertida:", img);
       };
-
       if (arquivo) leitor.readAsDataURL(arquivo);
     }
-
     function postar() {
       const titulo = inp_titulo.value;
       const post = inp_postagem.value;
@@ -132,7 +148,6 @@
         }
       });
     }
-
     function postarModal() {
       modal.showModal();
     }
@@ -179,7 +194,6 @@
         console.error("Erro ao exibir postagens:", erro);
       });
     }
-
     function deletePostagem(idPost) {
       fetch(`/postagem/deletePostagem/${idPost}`, {
         method: "DELETE",
@@ -189,59 +203,64 @@
       });
     }
 
+     function editModal() {
+      modalEdit.showModal();
+    }
 
-    function update(idUser) {
-        var emailVar = email_input.value;
-        var senhaVar = senha_input.value;
-
-        if (emailVar == "" || senhaVar == "") {
-            cardErro.style.display = "block"
-            mensagem_erro.innerHTML = "(Mensagem de erro para todos os campos em branco)";
-            return false;
-        }
-        else {
-            setInterval(sumirMensagem, 5000)
-        }
-
-        console.log("FORM LOGIN: ", emailVar);
-        console.log("FORM SENHA: ", senhaVar);
-
-        fetch("/usuarios/autenticar", {
-            method: "POST",
+    function fecharModalEdit() {
+      modalEdit.close();
+    }
+    function update() {
+        var nome = inp_nomeEdit.value;
+        var bio = inp_bioEdit.value;
+        fetch(`/usuarios/edit/${idInt}`, {
+            method: "PUT",
             headers: {
                 "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                emailServer: emailVar,
-                senhaServer: senhaVar
-            })
-        }).then(function (resposta) {
-            console.log("ESTOU NO THEN DO entrar()!")
-
-            if (resposta.ok) {
-                console.log("essassasa: ",resposta);
-                resposta.json().then(json => {
-                    console.log(json);
-                    console.log(JSON.stringify(json));
-                    sessionStorage.EMAIL_USUARIO = json.email;
-                    sessionStorage.NOME_USUARIO = json.nome;
-                    sessionStorage.ID_USUARIO = json.id_user;
-                    sessionStorage.BIO_USUARIO = json.bio;
-                    setTimeout(function () {
-                        window.location = "areaUser.html";
-                    }, 1000); 
-                });
-            } else {
-                console.log("Houve um erro ao tentar realizar o login!");
-                resposta.text().then(texto => {
-                    console.error(texto);
-               });
             }
-        }).catch(function (erro) {
+            ,
+            body: JSON.stringify({
+                nomeServer: nome,
+                bioServer: bio
+            })
+        }).then(res => {
+          if(res.ok){
+            fecharModalEdit();
+            iniciarPagina();
+            inp_nomeEdit.value = "";
+            inp_bioEdit.value = ""; 
+          }
+        })
+        .catch(function (erro) {
             console.log(erro);
         })
         return false;
     }
-  </script>
+    function dadosPerfil() {
+  fetch(`/usuarios/dadosPerfil/${idInt}`, {
+    method: 'GET',
+    headers: {
+      "Content-Type": "application/json"
+    }
+  })
+    .then(res => res.json())
+    .then(function (resultado) {
+      var edit = document.getElementById('parteEdit');
+      if (resultado.length === 1) {
+        edit.innerHTML = `
+          <div class="nome">${resultado[0].nome}</div>
+          ${resultado[0].bio ? `<div class="bio">${resultado[0].bio}</div>` : ''}
+        `;
+      } else {
+        edit.innerHTML = "<div class='bio'>Usuário não encontrado</div>";
+      }
+    })
+    .catch(err => {
+      console.error("Erro ao buscar dados do perfil:", err);
+    });
+}
+
+
+</script>
 </body>
 </html>
