@@ -1,13 +1,11 @@
 var postagemModel = require("../models/postagemModel");
 
 function postar(req, res) {
- 
-    var fkUser = req.body.id_userServer;
-    var titulo = req.body.tituloServer;
-    var post = req.body.postServer;
-    var img = req.body.imgServer;
-
-        postagemModel.postar(titulo, post, img, fkUser)
+    
+    var img = req.file  ? req.file.filename : '';
+    var {titulo, conteudo, fkUser} = req.body
+    var postagem = {titulo, conteudo, img, fkUser}
+        postagemModel.postar(postagem)
             .then(
                 function (resultado) {
                     res.json(resultado);

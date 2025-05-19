@@ -1,6 +1,6 @@
 var express = require("express");
 var router = express.Router();
-
+const upload = require('../config/imagemUpload'); 
 var usuarioController = require("../controllers/usuarioController");
 
 //Recebendo os dados do html e direcionando para a função cadastrar de usuarioController.js
@@ -12,7 +12,7 @@ router.post("/autenticar", function (req, res) {
     usuarioController.autenticar(req, res);
 });
 
-router.put("/edit/:idUser", function (req, res) {
+router.put("/edit/:idUser", upload.single('imagemEdit') ,function (req, res) {
     usuarioController.edit(req, res);
 });
 router.get("/dadosPerfil/:idUser", function (req, res) {

@@ -9,14 +9,15 @@ CREATE TABLE usuario(
     telefone CHAR(11),
     email VARCHAR(100),
     senha CHAR(8),
-    bio TEXT	
+    bio TEXT,
+    imagem LONGTEXT
 );
 CREATE TABLE postagem(
 	id_postagem INT PRIMARY KEY AUTO_INCREMENT,
     titulo VARCHAR(45),
     conteudo TEXT,
     data_postagem DATETIME DEFAULT CURRENT_TIMESTAMP,
-    imagem BLOB,
+    imagem LONGTEXT,
     id_user_fk INT,
 		FOREIGN KEY(id_user_fk) REFERENCES usuario(id_user)
 );

@@ -1,10 +1,10 @@
 var express = require("express");
 var router = express.Router();
+const upload = require('../config/imagemUpload'); 
+const postagemController = require("../controllers/postagemController");
 
-var postagemController = require("../controllers/postagemController");
 
-
-router.post("/postar", function (req, res) {
+router.post("/postar", upload.single('imagem'), function (req, res) {
     postagemController.postar(req, res);
 }),
 

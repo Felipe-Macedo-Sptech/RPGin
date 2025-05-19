@@ -20,10 +20,17 @@ function cadastrar(nome, email, senha, telefone) {
     return database.executar(instrucaoSql);
 }
 
-    function edit(idUSer, nome, bio){
-        var instrucaoSql = `
-            UPDATE usuario SET bio = '${bio}', nome = '${nome}' WHERE id_user = ${idUSer};  
+    function edit(update){
+
+        if(update.img == ''){
+            var instrucaoSql = `
+            UPDATE usuario SET bio = '${update.bio}', nome = '${update.nome}' WHERE id_user = ${update.idUSer};  
         `;
+        }else{
+        var instrucaoSql = `
+            UPDATE usuario SET bio = '${update.bio}', nome = '${update.nome}', imagem = ${update.img} WHERE id_user = ${update.idUSer};  
+        `;
+        }
         console.log("Executando a instrução SQL: \n" + instrucaoSql);
         return database.executar(instrucaoSql);
     }

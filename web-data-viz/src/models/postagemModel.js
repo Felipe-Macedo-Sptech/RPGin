@@ -1,15 +1,15 @@
 var database = require("../database/config");
 
-function postar(titulo, conteudo, img, fkUser) {
-    if(img == ""){
+function postar(postagem) {
+    if(postagem.img == ""){
         var instrucaoSql = `
         INSERT INTO postagem(titulo, conteudo, data_postagem, id_user_fk) VALUES 
-            ('${titulo}', '${conteudo}', default, '${fkUser}');
+            ('${postagem.titulo}', '${postagem.conteudo}', default, '${postagem.fkUser}');
     `;
     }else{
           var instrucaoSql = `
         INSERT INTO postagem(titulo, conteudo, data_postagem, imagem, id_user_fk) VALUES 
-            ('${titulo}', '${conteudo}', default, '${img}', '${fkUser}');
+            ('${postagem.titulo}', '${postagem.conteudo}', default, '${postagem.img}', '${postagem.fkUser}');
     `;
     }
     console.log("Executando a instrução SQL: \n" + instrucaoSql);

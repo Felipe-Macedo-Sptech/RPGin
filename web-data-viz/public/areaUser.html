@@ -30,7 +30,6 @@
       </div>
     </div>
   </div>
-
   <div class="containerHome">
     <div class="areaPostagem">
       <div id="postagem"></div>
@@ -52,7 +51,6 @@
           <p>Denuncie</p>
           <p>Logout</p>
         </div>
-
       </div>
     </div>
     <dialog>
@@ -65,8 +63,6 @@
   </div>
   <button class="botaoFlultuante">+</button>
 </body>
-
-<div> <img src=""></div>
 
 </html>
 <script>
@@ -105,7 +101,7 @@
                             <div class="postagemComentario">
                               <div class="postagemConteudo">${post.conteudo}</div>
                                 ${post.imagem
-                                  ? `<img src="data:image/png;base64,${post.imagem}" class="imgPadronizada"/>` 
+                                  ? `<img src="./assets/imgPostagem/${post.imagem}" class="imgPadronizada"/>` 
                                   : ''
                                 }
                               <div class="heart">
@@ -121,7 +117,6 @@
         });
       })
   }
-
   var idPostagemAtual = null
   var idDonoPostAtual = null
   const modal = document.querySelector("dialog");

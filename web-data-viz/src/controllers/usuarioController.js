@@ -80,9 +80,10 @@ function cadastrar(req, res) {
 
 function edit (req, res){
     var idUSer = req.params.idUser;
-    var nome = req.body.nomeServer;
-    var bio = req.body.bioServer;
-    usuarioModel.edit(idUSer,nome, bio)
+    var img = req.file ? req.file.filename : '';
+    var {nome, bio} = req.body
+    var update = {idUSer, nome, bio, img}
+    usuarioModel.edit(update)
     .then(function (resultado){
          res.status(200).json(resultado)
          console.log('resultado o edit: ', resultado)

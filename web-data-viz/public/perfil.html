@@ -1,263 +1,240 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Área do Usuário</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Cascadia+Code:wght@400;700&family=Comic+Relief:wght@400;700&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="./CSS/perfil.css" />
-  <script src="./js/sessao.js"></script>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Área do Usuário</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Cascadia+Code:wght@400;700&family=Comic+Relief:wght@400;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="./CSS/perfil.css" />
+<script src="./js/sessao.js"></script>
 </head>
 
 
 <body onload="iniciarPagina()">
-  <div class="header">
-    <div class="container">
-      <a href="areaUser.html">
-      <div class="logo">
-        <img src="./img/4.png">
+<div class="header">
+  <div class="container">
+    <a href="areaUser.html">
+    <div class="logo">
+      <img src="./img/4.png">
+    </div>
+    </a>
+    <div class="pesquisa">
+      <input class="pesquisaAreaUser" type="text" placeholder="pesquisar no RPGin....">
+    </div>
+  </div>
+</div>
+<div class="containerPerfil">
+  <aside class="areaLateral">
+    <nav class="acessoLateral">
+      <p>Menu Lateral</p>
+    </nav>
+  </aside>
+
+  <section class="areaUsuario">
+    <div class="perfil">
+      <div class="bannerPerfil">
+        <div class="fotoUser">
+          <div id="fotinha"></div>
+        </div>
+      <div class="nomeEpostar">
+        <div id="parteEdit">
+        </div>
+        <div class="buttonPostar">
+          <button onclick="editModal()">Edit</button>
+          <button onclick="postarModal()">Postar</button>
+        </div>        
+
+        <dialog id="dialogEdit">
+          <form id="formEdit" onsubmit="event.preventDefault();">
+            <div>
+              Nome:
+              <input type="text" id="inp_nomeEdit">
+            </div>
+            <div>
+              BIO:
+              <input type="text" id="inp_bioEdit" >  
+            </div>
+            FOTO DE PERFIL
+            <div>
+              <input type="file" id="inp_fotinhaEdit" name="imagem">
+            </div>
+            <button type="submit" onclick="update()">Edit</button>
+            <button type="button" onclick="fecharModalEdit()">Fechar</button>
+          </form>
+        </dialog>
+
+        <dialog id="dialogPostar"> 
+      <form id="formPostagem">
+        <label>
+          Título da Postagem:<br>
+          <input name="titulo" type="text" id="inp_titulo" required />
+        </label><br><br>
+
+        Conteudo:
+        <div>
+          <textarea name="conteudo" id="inp_postagem"></textarea>
+        </div>
+
+        imagem:
+        <div>
+          <input type="file" id="inp_imagem">
+        </div>
+        <button type="submit" onclick="postar()">Publicar</button>
+        <button type="button" onclick="fecharModal()">Fechar</button>
+      </form>
+</dialog>
+
       </div>
-      </a>
-      <div class="pesquisa">
-        <input class="pesquisaAreaUser" type="text" placeholder="pesquisar no RPGin....">
+
+      <h2>Suas Postagens:</h2>
+      <div class="postagemDoUser">
+        <div id="postagem"></div>
       </div>
     </div>
+  </section>
 </div>
-  <div class="containerPerfil">
-    <aside class="areaLateral">
-      <nav class="acessoLateral">
-        <p>Menu Lateral</p>
-      </nav>
-    </aside>
 
-    <section class="areaUsuario">
-      <div class="perfil">
-        <div class="bannerPerfil">
-          <div class="fotoUser"></div>
-        <div class="nomeEpostar">
-          <div id="parteEdit">
-          </div>
-          <div class="buttonPostar">
-            <button onclick="editModal()">Edit</button>
-            <button onclick="postarModal()">Postar</button>
-          </div>        
-
-          <dialog id="dialogEdit">
-            <form id="formEdit" onsubmit="event.preventDefault();">
-              <div>
-                Nome:
-                <input type="text" id="inp_nomeEdit">
-              </div>
-              <div>
-                BIO:
-                <input type="text" id="inp_bioEdit" >  
-              </div>
-
-              <button type="submit" onclick="update()">Edit</button>
-              <button type="button" onclick="fecharModalEdit()">Fechar</button>
-            </form>
-          </dialog>
-
-          <dialog>
-            <form id="formPostagem" onsubmit="event.preventDefault(); postar();">
-              <label>
-                Título da Postagem:<br>
-                <input type="text" id="inp_titulo" required />
-              </label><br><br>
-
-              <label>
-                Tipo de conteúdo:<br>
-                <select id="tipoConteudo" onchange="tipo()">
-                  <option value="texto">Texto</option>
-                  <option value="imagem">Imagem</option>
-                </select>
-              </label><br><br>
-
-              <div id="areaTexto">
-                <label>
-                  Conteúdo (Texto):<br>
-                  <textarea id="inp_postagem" rows="4" cols="50"></textarea>
-                </label><br><br>
-              </div>
-              <div id="areaImagem" style="display: none;">
-                <label>
-                  Imagem:<br>
-                  <input type="file" id="inp_imagem" accept="image/png" onchange="converterImgBase64(event)" />
-                </label><br><br>
-              </div>
-              <button type="submit">Publicar</button>
-              <button type="button" onclick="fecharModal()">Fechar</button>
-            </form>
-          </dialog>
-        </div>
-
-        <h2>Suas Postagens:</h2>
-        <div class="postagemDoUser">
-          <div id="postagem"></div>
-        </div>
-      </div>
-    </section>
-  </div>
-
-  <script>
-     function iniciarPagina() {
-      dadosPerfil();
-      exibirPostagemPorId();
-      validarSessao();
-      
+<script>
+  function iniciarPagina() {
+    dadosPerfil();
+    exibirPostagemPorId();
+    validarSessao();
+    
 }
-    var img = '';
-    const modal = document.querySelector("#formPostagem").closest("dialog");
-    const modalEdit = document.querySelector("#dialogEdit");
-    const idSessao = sessionStorage.ID_USUARIO;
-    const idInt = Number(idSessao);
+  var img = '';
+  const modal = document.getElementById("dialogPostar");
+  const modalEdit = document.querySelector("#dialogEdit");
+  const idSessao = sessionStorage.ID_USUARIO;
+  const idInt = Number(idSessao);
 
-    function tipo() {
-      const tipo = document.getElementById("x").value;
-      document.getElementById("areaTexto").style.display = tipo === "imagem" ? "none" : "block";
-      document.getElementById("areaImagem").style.display = tipo === "imagem" ? "block" : "none";
+  function postar() {
+    const formData = new FormData();
+    if(inp_imagem.files.length > 0){
+      formData.append('imagem', inp_imagem.files[0]);
     }
-    function converterImgBase64(event) {
-      const arquivo = event.target.files[0];
-      const leitor = new FileReader();
+    formData.append('conteudo', inp_postagem.value);
+    formData.append('titulo', inp_titulo.value);
+    formData.append('fkUser', idInt);
+    fetch('/postagem/postar', {
+      method: 'POST',
+      body: formData
+    }).then(res => {
+      if (res.ok) { 
+        exibirPostagemPorId();
+        modal.close();
+      }
+    });
+  }
+  function postarModal() {
+    modal.showModal();
+  }
 
-      leitor.onloadend = () => {
-        img = leitor.result.split(',')[1];
-        console.log("Imagem convertida:", img);
-      };
-      if (arquivo) leitor.readAsDataURL(arquivo);
-    }
-    function postar() {
-      const titulo = inp_titulo.value;
-      const post = inp_postagem.value;
-      fetch('/postagem/postar', {
-        method: 'POST',
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          tituloServer: titulo,
-          postServer: post,
-          id_userServer: idInt,
-          imgServer: img
-        })
-      }).then(res => {
-        if (res.ok) {
-          exibirPostagemPorId();
-          modal.close();
-        }
-      });
-    }
-    function postarModal() {
-      modal.showModal();
-    }
+  function fecharModal() {
+    modal.close();
+  }
 
-    function fecharModal() {
-      modal.close();
-    }
-
-    function exibirPostagemPorId() {
-      fetch(`/postagem/exibirPostagem/${idInt}`, {
-        method: "GET",
-        headers: { "Content-Type": "application/json" }
-      })
-      .then(res => res.json())
-      .then(posts => {
-        const postagemDiv = document.getElementById("postagem");
-        postagemDiv.innerHTML = "";
-        posts.forEach(post => {
-          const dataCerta = new Date(post.data_postagem).toLocaleDateString('pt-BR', {
-            hour: "2-digit",
-            minute: "2-digit",
-            hour12: false,
-            timeZone: "America/Sao_Paulo"
-          });
-
-          postagemDiv.innerHTML += `
-            <div class="postagem">
-              <div class="emcima">
-                <span class="postagemNome">${post.nome}</span>
-                <span class="postagemData">${dataCerta}</span>
-              </div>
-              <div class="postagemTitulo">${post.titulo}</div>
-              <div class="postagemConteudo">
-                ${post.conteudo}
-              </div>
-              <div class="botaoDelete">
-                <button onclick="deletePostagem(${post.id_postagem})">DELETE</button>
-              </div>
-            </div>
-          `;
+  function exibirPostagemPorId() {
+    fetch(`/postagem/exibirPostagem/${idInt}`, {
+      method: "GET",
+      headers: { "Content-Type": "application/json" }
+    })
+    .then(res => res.json())
+    .then(posts => {
+      const postagemDiv = document.getElementById("postagem");
+      postagemDiv.innerHTML = "";
+      posts.forEach(post => {
+        const dataCerta = new Date(post.data_postagem).toLocaleDateString('pt-BR', {
+          hour: "2-digit",
+          minute: "2-digit",
+          hour12: false,
+          timeZone: "America/Sao_Paulo"
         });
-      })
-      .catch(erro => {
-        console.error("Erro ao exibir postagens:", erro);
+
+        postagemDiv.innerHTML += `
+          <div class="postagem">
+            <div class="emcima">
+              <span class="postagemNome">${post.nome}</span>
+              <span class="postagemData">${dataCerta}</span>
+            </div>
+            <div class="postagemTitulo">${post.titulo}</div>
+            <div class="postagemConteudo">
+              ${post.conteudo}
+            </div>
+            <div class="botaoDelete">
+              <button onclick="deletePostagem(${post.id_postagem})">DELETE</button>
+            </div>
+          </div>
+        `;
       });
+    })
+    .catch(erro => {
+      console.error("Erro ao exibir postagens:", erro);
+    });
+  }
+  function deletePostagem(idPost) {
+    fetch(`/postagem/deletePostagem/${idPost}`, {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" }
+    }).then(res => {
+      if (res.ok) exibirPostagemPorId();
+    });
+  }
+
+  function editModal() {
+    modalEdit.showModal();
+  }
+
+  function fecharModalEdit() {
+    modalEdit.close();
+  }
+  function update() {
+
+      const formData = new FormData();
+  if(inp_fotinhaEdit.files.length > 0){
+      formData.append('imagemEdit', inp_fotinhaEdit.files[0]);
     }
-    function deletePostagem(idPost) {
-      fetch(`/postagem/deletePostagem/${idPost}`, {
-        method: "DELETE",
-        headers: { "Content-Type": "application/json" }
+    formData.append('nome', inp_nomeEdit.value)
+    formData.append('bio', inp_bioEdit.value)
+      fetch(`/usuarios/edit/${idInt}`, {
+          method: "PUT",
+          body: formData
       }).then(res => {
-        if (res.ok) exibirPostagemPorId();
-      });
-    }
-
-     function editModal() {
-      modalEdit.showModal();
-    }
-
-    function fecharModalEdit() {
-      modalEdit.close();
-    }
-    function update() {
-        var nome = inp_nomeEdit.value;
-        var bio = inp_bioEdit.value;
-        fetch(`/usuarios/edit/${idInt}`, {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json"
-            }
-            ,
-            body: JSON.stringify({
-                nomeServer: nome,
-                bioServer: bio
-            })
-        }).then(res => {
-          if(res.ok){
-            fecharModalEdit();
-            iniciarPagina();
-            inp_nomeEdit.value = "";
-            inp_bioEdit.value = ""; 
-          }
-        })
-        .catch(function (erro) {
-            console.log(erro);
-        })
-        return false;
-    }
-    function dadosPerfil() {
-  fetch(`/usuarios/dadosPerfil/${idInt}`, {
-    method: 'GET',
-    headers: {
-      "Content-Type": "application/json"
+        if(res.ok){
+          fecharModalEdit();
+          iniciarPagina();
+          inp_nomeEdit.value = "";
+          inp_bioEdit.value = ""; 
+        }
+      })
+      .catch(function (erro) {
+          console.log(erro);
+      })
+      return false;
+  }
+  function dadosPerfil() {
+fetch(`/usuarios/dadosPerfil/${idInt}`, {
+  method: 'GET',
+  headers: {
+    "Content-Type": "application/json"
+  }
+})
+  .then(res => res.json())
+  .then(function (resultado) {
+    var edit = document.getElementById('parteEdit');
+    if (resultado.length === 1) {
+      edit.innerHTML = `
+        <div class="nome">${resultado[0].nome}</div>
+        ${resultado[0].bio ? `<div class="bio">${resultado[0].bio}</div>` : ''}
+      `;
+    } else {
+      edit.innerHTML = "<div class='bio'>Usuário não encontrado</div>";
     }
   })
-    .then(res => res.json())
-    .then(function (resultado) {
-      var edit = document.getElementById('parteEdit');
-      if (resultado.length === 1) {
-        edit.innerHTML = `
-          <div class="nome">${resultado[0].nome}</div>
-          ${resultado[0].bio ? `<div class="bio">${resultado[0].bio}</div>` : ''}
-        `;
-      } else {
-        edit.innerHTML = "<div class='bio'>Usuário não encontrado</div>";
-      }
-    })
-    .catch(err => {
-      console.error("Erro ao buscar dados do perfil:", err);
-    });
+  .catch(err => {
+    console.error("Erro ao buscar dados do perfil:", err);
+  });
 }
 
 
