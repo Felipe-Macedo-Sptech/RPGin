@@ -35,8 +35,7 @@
   <section class="areaUsuario">
     <div class="perfil">
       <div class="bannerPerfil">
-        <div class="fotoUser">
-          <div id="fotinha"></div>
+        <div id="fotoUser">
         </div>
       <div class="nomeEpostar">
         <div id="parteEdit">
@@ -45,7 +44,6 @@
           <button onclick="editModal()">Edit</button>
           <button onclick="postarModal()">Postar</button>
         </div>        
-
         <dialog id="dialogEdit">
           <form id="formEdit" onsubmit="event.preventDefault();">
             <div>
@@ -223,11 +221,19 @@ fetch(`/usuarios/dadosPerfil/${idInt}`, {
   .then(res => res.json())
   .then(function (resultado) {
     var edit = document.getElementById('parteEdit');
+    var fotoPerfil = document.getElementById('fotoUser');
     if (resultado.length === 1) {
       edit.innerHTML = `
         <div class="nome">${resultado[0].nome}</div>
         ${resultado[0].bio ? `<div class="bio">${resultado[0].bio}</div>` : ''}
       `;
+      console.log(resultado[0].imagem)
+      fotoPerfil.innerHTML = `
+      ${resultado[0].imagem ? `  <div class="imagemPerfil">
+                <img src="./assets/imgPostagem/${resultado[0].imagem}" class="imgPerfil">
+            </div>
+            ` : ''}
+      `
     } else {
       edit.innerHTML = "<div class='bio'>Usuário não encontrado</div>";
     }

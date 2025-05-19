@@ -74,7 +74,7 @@ body {
   font-size: 24px;
 }
 
-.fotoUser {
+#fotoUser {
   width: 100px;
   height: 100px;
   background-color: #d8d8d8;
@@ -154,6 +154,25 @@ dialog button[type="button"] {
   margin-left: 10px;
 }
 
+#fotinha{
+    height: 100%;
+    width: 100%;
+    background-color: red;
+    border-radius: 50%;
+}
+
+.imagemPerfil{
+  display: flex;
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
+}
+.imgPerfil{
+   display: flex;
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
+}
 .postagemDoUser {
   margin-top: 30px;
   overflow-y: scroll;

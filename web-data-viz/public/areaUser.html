@@ -99,15 +99,18 @@
                             </div>
                             <div class="postagemTitulo">${post.titulo}</div>
                             <div class="postagemComentario">
-                              <div class="postagemConteudo">${post.conteudo}</div>
-                                ${post.imagem
-                                  ? `<img src="./assets/imgPostagem/${post.imagem}" class="imgPadronizada"/>` 
-                                  : ''
-                                }
+                             
+                            <div class="conteudoCurtida">
+                              <div class="postagemConteudo">${post.conteudo}</div> 
                               <div class="heart">
                                 <input type="checkbox" class="heart__checkbox" onclick="curtida(${idPostagem}, ${idInt})"> 
                                 <div class="heart__icon"></div>
-                              </div> 
+                              </div>
+                              </div>
+                                    ${post.imagem
+                                  ? `  <div class="postagemImagem"> <img src="./assets/imgPostagem/${post.imagem}" 
+                                      class="imgPadronizada"/></div>` 
+                                  : ''}
                             </div>
                             <button class="botao" onclick="comentariosModal(${idPostagem}, ${idDonoPostagem})">
                               Comentarios

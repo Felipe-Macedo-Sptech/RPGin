@@ -46,8 +46,8 @@ body {
     justify-content: center;
 }
 .imgPadronizada {
-  width: 200px;
-  height: 150px;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
   border-radius: 4px; 
 }
@@ -142,7 +142,7 @@ body {
     margin: 12px auto;
     width: 100%;
     max-width: 500px;
-    height: 400px;
+    height: 300px;
     border-radius: 12px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 }
@@ -158,7 +158,6 @@ dialog {
     max-height: 500px;
 }
 
-/* Estilo para a área de comentários */
 .containerComentarios {
     display: flex;
     flex-direction: column;
@@ -167,7 +166,9 @@ dialog {
     max-height: 400px;
     padding-right: 10px;
 }
-
+.conteudoCurtida{
+    display: flex;
+}
 .nomeComentario {
     font-weight: bold;
     font-size: 14px;
@@ -245,15 +246,17 @@ dialog::backdrop {
     flex-wrap: nowrap;
     justify-content: flex-start;
     width: 100%;
+    flex-direction: column;
 }
 
 .postagem {
     display: flex;
-    height: 90%;
+    height: 100%;
     width: 100%;
     background-color: white;
     color: white;
     align-items: flex-start;
+    flex-direction: column;
 }
 
 .heart {
