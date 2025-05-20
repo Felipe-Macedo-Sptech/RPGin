@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/dashboardCerta.css">
+</head>
+<body onload="inicarDashboard()">
+<div class="main">
+    <div class="areaDashboard">
+    <div class="indicadores">
+        <div class="cadastrados">
+            <span>Total de cadastros</span>
+            <div id="cadastrados"></div>
+        </div>
+
+
+        <div class="postagemCriadas">
+            <span>Postagens criadas</span>
+            <div id="postagemCriadas"></div>
+        </div>
+
+
+        <div class="curtidaPostagem">
+            <span>Media de curtida por postagem</span>
+            <div id="curtidaPostagem"></div>
+        </div>
+    </div>
+
+    <div class="graficos">
+        
+        <div class="linha">
+            <canvas id="linha"></canvas>
+        </div>
+        <div class="pizza">
+            <canvas id="pizza"></canvas>
+        </div>
+    </div>
+    </div>
+</div>
+</body>
+</html>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+
+  const ctx = document.getElementById('linha');
+  new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+      datasets: [{
+        label: '# of Votes',
+        data: [12, 19, 3, 5, 2, 3],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+
+ const ctx2 = document.getElementById('pizza');
+  new Chart(ctx2, {
+    type: 'pie',
+    data: {
+      labels: ['Red', 'Blue', 'Orange'],
+      datasets: [{
+        label: '# of Votes',
+        data: [12, 19, 3],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+
+  function inicarDashboard(){
+    exibirUsuariosCadastrados();
+    postagensCriadas();
+    curtidaPostagem();
+  }
+
+
+  function exibirUsuariosCadastrados(){
+    fetch('/dashboard/usuariosCadastrados',{
+        method: 'GET',
+         headers: {
+        "Content-Type": "application/json"
+      }
+    }).then(res => res.json())
+    .then(function (resultado) {
+    var cadastros = document.getElementById('cadastrados')
+        cadastros.innerHTML = `${resultado[0].cadastrados}`
+    });
+  }
+
+  function postagensCriadas(){
+     fetch('/dashboard/postagensCriadas',{
+        method: 'GET',
+         headers: {
+        "Content-Type": "application/json"
+      }
+    }).then(res => res.json())
+    .then(function (resultado) {
+    var postagem = document.getElementById('postagemCriadas')
+        postagem.innerHTML = `${resultado[0].postagem}`
+    });
+  }
+
+    function curtidaPostagem(){
+     fetch('/dashboard/curtidaPostagem',{
+        method: 'GET',
+         headers: {
+        "Content-Type": "application/json"
+      }
+    }).then(res => res.json())
+    .then(function (resultado) {
+    var curtida = document.getElementById('curtidaPostagem')
+        curtida.innerHTML = `${resultado[0].Media}`
+    });
+  }
+
+
+
+</script>
