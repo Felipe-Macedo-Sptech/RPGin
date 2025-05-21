@@ -14,4 +14,8 @@ router.get("/postagensCriadas", function (req, res) {
 router.get("/curtidaPostagem", function (req, res) {
     dashboardController.curtidaPostagem(req, res);
 });
+
+router.get("/usuarioPostagem", function (req, res) {
+    dashboardController.usuarioPostagem(req, res);
+});
 module.exports = router;

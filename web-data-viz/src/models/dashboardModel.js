@@ -27,8 +27,20 @@ function curtidaPostagem(){
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql)
 }
+
+
+function usuarioPostagem(){
+      var instrucaoSql = `
+       SELECT COUNT(u.id_user) as usuario, COUNT(p.id_postagem) as postagem FROM 
+	    usuario as u LEFT JOIN postagem as p ON p.id_user_fk = u.id_user;
+    `
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql)
+}
+
 module.exports = {
     usuariosCadastrados,
     postagensCriadas,
-    curtidaPostagem
+    curtidaPostagem,
+    usuarioPostagem
 };

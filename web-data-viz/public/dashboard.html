@@ -44,6 +44,12 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
 
+  function inicarDashboard(){
+    exibirUsuariosCadastrados();
+    postagensCriadas();
+    curtidaPostagem();
+    usuarioPostagem()
+  }
   const ctx = document.getElementById('linha');
   new Chart(ctx, {
     type: 'line',
@@ -51,7 +57,7 @@
       labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
       datasets: [{
         label: '# of Votes',
-        data: [12, 19, 3, 5, 2, 3],
+        data: [12, 19, 3, 5, 2, 23],
         borderWidth: 1
       }]
     },
@@ -64,33 +70,42 @@
     }
   });
 
- const ctx2 = document.getElementById('pizza');
-  new Chart(ctx2, {
-    type: 'pie',
-    data: {
-      labels: ['Red', 'Blue', 'Orange'],
-      datasets: [{
-        label: '# of Votes',
-        data: [12, 19, 3],
-        borderWidth: 1
-      }]
-    },
-    options: {
-      scales: {
-        y: {
-          beginAtZero: true
-        }
+function usuarioPostagem(){
+     fetch('/dashboard/usuarioPostagem',{
+        method: 'GET',
+         headers: {
+        "Content-Type": "application/json"
       }
-    }
-  });
+    }).then(res => res.json())
+    .then(function (resultado) {
+        var usuariosProporcao = Number(resultado[0].usuario)
+        var postagemProporcao = Number(resultado[0].postagem)
 
-  function inicarDashboard(){
-    exibirUsuariosCadastrados();
-    postagensCriadas();
-    curtidaPostagem();
+         const ctx2 = document.getElementById('pizza');
+            new Chart(ctx2, {
+                type: 'pie',
+                data: {
+                labels: ['Usuario', 'Postagem'],
+                datasets: [
+                    {
+                        label: 'Dataset 1',
+                        data: [usuariosProporcao, postagemProporcao],
+                        borderColor: '#36A2EB',
+                        backgroundColor: ['yellow', '#36A2EB']
+                    },
+            
+                 ]
+                },
+                options: {
+                scales: {
+                    y: {
+                    beginAtZero: true
+                    }
+                }
+                }
+            });
+    });
   }
-
-
   function exibirUsuariosCadastrados(){
     fetch('/dashboard/usuariosCadastrados',{
         method: 'GET',
@@ -129,6 +144,10 @@
         curtida.innerHTML = `${resultado[0].Media}`
     });
   }
+
+  
+
+  
 
 
 
