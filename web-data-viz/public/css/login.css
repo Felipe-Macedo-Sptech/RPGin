@@ -91,3 +91,24 @@ body {
     font-size: 1.3rem;
 }
 
+.alerta_erro{
+    display: flex;
+    justify-content: flex-start;
+  }
+
+  .card_erro {
+    display: none;
+    background-color: #fff;
+    color: black;
+    width: 230px;
+    position: fixed;
+    border-radius: 4px;
+    border: #000080 4   px solid;
+    padding: 10px;
+    margin-right: 10%;
+  }
+  
+  .card_erro #mensagem_erro{
+    font-weight: 500;
+    font-size: 20px;
+  } 

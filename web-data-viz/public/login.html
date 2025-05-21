@@ -8,7 +8,9 @@
     <link rel="stylesheet" href="./CSS/login.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cascadia+Code:ital,wght@0,200..700;1,200..700&family=Comic+Relief:wght@400;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cascadia+Code:ital,wght@0,200..700;1,200..700&family=Comic+Relief:wght@400;700&display=swap"
+        rel="stylesheet">
     <title>Document</title>
     <script src="./js/sessao.js"></script>
 </head>
@@ -16,18 +18,23 @@
 <body>
     <div class="header">
         <div class="container">
-          <div class="logo">
-            <img src="./img/3.png">
-         </div>
-         <div class="acessos">
-            <span><a href="index.html">Inicio</a></span>
-            <span><a href="#">Login</a></span>
-            <span><a href="cadastro.html">Cadastro</a></span>
-        </div>
-        </div>
+            <div class="alerta_erro">
+             <div class="card_erro" id="cardErro">
+        <span id="mensagem_erro"></span>
       </div>
+      </div>
+            <div class="logo">
+                <img src="./img/3.png">
+            </div>
+            <div class="acessos">
+                <span><a href="index.html">Inicio</a></span>
+                <span><a href="#">Login</a></span>
+                <span><a href="cadastro.html">Cadastro</a></span>
+            </div>
+        </div>
+    </div>
 
-      <div class="containerLogin">
+    <div class="containerLogin">
         <div class="formLogin">
             <p class="loginEmCima">LOGIN</p>
             <form>
@@ -42,8 +49,9 @@
                 </button>
             </form>
         </div>
-      </div>
+    </div>
 </body>
+
 </html>
 
 <script>
@@ -76,7 +84,7 @@
             console.log("ESTOU NO THEN DO entrar()!")
 
             if (resposta.ok) {
-                console.log("essassasa: ",resposta);
+                console.log("essassasa: ", resposta);
                 resposta.json().then(json => {
                     console.log(json);
                     console.log(JSON.stringify(json));
@@ -86,13 +94,15 @@
                     sessionStorage.BIO_USUARIO = json.bio;
                     setTimeout(function () {
                         window.location = "areaUser.html";
-                    }, 1000); 
+                    }, 1000);
                 });
             } else {
                 console.log("Houve um erro ao tentar realizar o login!");
+                cardErro.style.display = "block";
+                mensagem_erro.innerHTML = "(Senha ou email invalidos)";
                 resposta.text().then(texto => {
                     console.error(texto);
-               });
+                });
             }
         }).catch(function (erro) {
             console.log(erro);
