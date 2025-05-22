@@ -8,7 +8,7 @@ function postar(postagem) {
     `;
     }else{
           var instrucaoSql = `
-        INSERT INTO postagem(titulo, conteudo, data_postagem, imagem, id_user_fk) VALUES 
+        INSERT INTO postagem(titulo, conteudo, data_postagem, imagemPostagem, id_user_fk) VALUES 
             ('${postagem.titulo}', '${postagem.conteudo}', default, '${postagem.img}', '${postagem.fkUser}');
     `;
     }
@@ -17,7 +17,7 @@ function postar(postagem) {
 }
 function exibirPostagem(){
     var instrucaoSql = `
-   SELECT p.id_user_fk, p.id_postagem, u.nome, p.titulo, p.conteudo, p.imagem, p.data_postagem, IF(COUNT(c.id_postagem_fk) = 0, '0', COUNT(c.id_postagem_fk)) as curtida
+   SELECT p.id_user_fk, p.id_postagem, u.nome, p.titulo, p.conteudo,u.imagem, p.imagemPostagem, p.data_postagem, IF(COUNT(c.id_postagem_fk) = 0, '0', COUNT(c.id_postagem_fk)) as curtida
             FROM postagem AS p 
                    left join 
                 usuario as u 
@@ -37,7 +37,8 @@ function exibirPostagemPorId(idUser){
 	   p.id_postagem, 
 	   u.nome, p.titulo, 
 	   p.conteudo, 
-	   p.data_postagem 
+	   p.data_postagem,
+       p.imagemPostagem
 	FROM postagem AS p 
 			join 
 		usuario as u 

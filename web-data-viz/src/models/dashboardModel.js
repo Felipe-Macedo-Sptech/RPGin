@@ -27,8 +27,6 @@ function curtidaPostagem(){
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql)
 }
-
-
 function usuarioPostagem(){
       var instrucaoSql = `
        SELECT COUNT(u.id_user) as usuario, COUNT(p.id_postagem) as postagem FROM 

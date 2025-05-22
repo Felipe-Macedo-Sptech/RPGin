@@ -204,6 +204,13 @@ dialog button[type="button"] {
   color: #000;
   margin: 8px 0;
 }
+.postagemTitulo {
+  font-size: 18px;
+  font-weight: bold;
+  color: #000080;
+  margin: 8px 0;
+}
+
 .postagemImagem {
     display: block;
     margin: 12px auto;
@@ -213,17 +220,12 @@ dialog button[type="button"] {
     border-radius: 12px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 }
+
 .imgPadronizada {
   width: 100%;
   height: 100%;
   object-fit: cover;
   border-radius: 4px; 
-}
-.postagemTitulo {
-  font-size: 18px;
-  font-weight: bold;
-  color: #000080;
-  margin: 8px 0;
 }
 
 .postagemConteudo {

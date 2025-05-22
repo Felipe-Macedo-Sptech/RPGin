@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Área do Usuário</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Cascadia+Code:wght@400;700&family=Comic+Relief:wght@400;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="./CSS/areaVisitante.css" />
+<script src="./js/sessao.js"></script>
+</head>
+<body onload="iniciarPagina()"> 
+<div class="header">
+  <div class="container">
+    <a href="areaUser.html">
+    <div class="logo">
+      <img src="./img/4.png">
+    </div>
+    </a>
+    <div class="pesquisa">
+      <input class="pesquisaAreaUser" type="text" placeholder="pesquisar no RPGin....">
+    </div>
+  </div>
+</div>
+<div class="containerPerfil">
+  <aside class="areaLateral">
+    <nav class="acessoLateral">
+      <p>Menu Lateral</p>
+    </nav>
+  </aside>
+
+  <section class="areaUsuario">
+    <div class="perfil">
+      <div class="bannerPerfil">
+        <div id="fotoUser">
+        </div>
+      <div class="nomeEpostar">
+        <div id="parteEdit">
+        </div>
+        <div class="buttonPostar">
+          <button onclick="postarModal()">Seguir</button>
+        </div>        
+      </div>
+
+      <h2>Suas Postagens:</h2>
+      <div class="postagemDoUser">
+        <div id="postagem"></div>
+      </div>
+    </div>
+  </section>
+</div>
+<script>
+  var parametro = new URLSearchParams(window.location.search)
+  var idUSer = Number(parametro.get('id'))
+  
+  function iniciarPagina(){
+    exibirPostagemPorId();
+    dadosPerfil();
+  }
+  function exibirPostagemPorId() {
+    fetch(`/postagem/exibirPostagem/${idUSer}`, {
+      method: "GET",
+      headers: { "Content-Type": "application/json" }
+    })
+    .then(res => res.json())
+    .then(posts => {
+      const postagemDiv = document.getElementById("postagem");
+      postagemDiv.innerHTML = "";
+      posts.forEach(post => {
+        const dataCerta = new Date(post.data_postagem).toLocaleDateString('pt-BR', {
+          hour: "2-digit",
+          minute: "2-digit",
+          hour12: false,
+          timeZone: "America/Sao_Paulo"
+        });
+        postagemDiv.innerHTML += `
+            <div class="postagem">
+            <div class="emcima">
+              <span class="postagemNome">${post.nome}</span>
+              <span class="postagemData">${dataCerta}</span>
+            </div>
+            <div class="postagemTitulo">${post.titulo}</div>
+            <div class="postagemConteudo">
+              ${post.conteudo}
+            </div>
+             ${post.imagemPostagem ? `  <div class="postagemImagem"> <img src="./assets/imgPostagem/${post.imagemPostagem}"  class="imgPadronizada"/></div>` : ''}
+            <div class="botaoDelete">
+            </div>
+          </div>
+        `;
+      });
+    })
+    .catch(erro => {
+      console.error("Erro ao exibir postagens:", erro);
+    });
+  }
+
+
+function dadosPerfil() {
+fetch(`/usuarios/dadosPerfil/${idUSer}`, {
+  method: 'GET',
+  headers: {
+    "Content-Type": "application/json"
+  }
+})
+  .then(res => res.json())
+  .then(function (resultado) {
+    var edit = document.getElementById('parteEdit');
+    var fotoPerfil = document.getElementById('fotoUser');
+    if (resultado.length === 1) {
+      edit.innerHTML = `
+        <div class="nome">${resultado[0].nome}</div>
+        ${resultado[0].bio ? `<div class="bio">${resultado[0].bio}</div>` : ''}
+      `;
+      console.log(resultado[0].imagem)
+      fotoPerfil.innerHTML = `
+      ${resultado[0].imagem ? `  <div class="imagemPerfil">
+                <img src="./assets/imgPostagem/${resultado[0].imagem}" class="imgPerfil">
+            </div>
+            ` : ''}
+      `
+    } else {
+      edit.innerHTML = "<div class='bio'>Usuário não encontrado</div>";
+    }
+  })
+  .catch(err => {
+    console.error("Erro ao buscar dados do perfil:", err);
+  });
+}
+</script>

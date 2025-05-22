@@ -93,7 +93,6 @@
     </div>
   </section>
 </div>
-
 <script>
   function iniciarPagina() {
     dadosPerfil();
@@ -149,7 +148,6 @@
           hour12: false,
           timeZone: "America/Sao_Paulo"
         });
-
         postagemDiv.innerHTML += `
           <div class="postagem">
             <div class="emcima">
@@ -160,6 +158,7 @@
             <div class="postagemConteudo">
               ${post.conteudo}
             </div>
+             ${post.imagemPostagem ? `  <div class="postagemImagem"> <img src="./assets/imgPostagem/${post.imagemPostagem}"  class="imgPadronizada"/></div>` : ''}
             <div class="botaoDelete">
               <button onclick="deletePostagem(${post.id_postagem})">DELETE</button>
             </div>
