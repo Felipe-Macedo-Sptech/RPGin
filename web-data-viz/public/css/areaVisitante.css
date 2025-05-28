@@ -215,8 +215,8 @@ dialog button[type="button"] {
     display: block;
     margin: 12px auto;
     width: 100%;
-    max-width: 500px;
-    height: 300px;
+    max-width: 700px;
+    height: 500px;
     border-radius: 12px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 }
@@ -247,4 +247,9 @@ dialog button[type="button"] {
 }
 .botaoDelete button:hover {
   background-color: #b71c1c;
+}
+
+.seguidores{
+  display: flex;
+  flex-direction: row;
 }

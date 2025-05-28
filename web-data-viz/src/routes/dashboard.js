@@ -7,8 +7,8 @@ router.get("/usuariosCadastrados", function (req, res) {
     dashboardController.usuariosCadastrados(req, res);
 });
 
-router.get("/postagensCriadas", function (req, res) {
-    dashboardController.postagensCriadas(req, res);
+router.get("/postagemMaisCuritida", function (req, res) {
+    dashboardController.postagemMaisCuritida(req, res);
 });
 
 router.get("/curtidaPostagem", function (req, res) {

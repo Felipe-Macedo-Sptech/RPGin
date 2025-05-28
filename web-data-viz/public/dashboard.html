@@ -17,7 +17,7 @@
 
 
         <div class="postagemCriadas">
-            <span>Postagens criadas</span>
+            <span>Postagem mais curtida</span>
             <div id="postagemCriadas"></div>
         </div>
 
@@ -74,7 +74,6 @@
       }
     }
   });
-
 function usuarioPostagem(){
      fetch('/dashboard/usuarioPostagem',{
         method: 'GET',
@@ -83,20 +82,23 @@ function usuarioPostagem(){
       }
     }).then(res => res.json())
     .then(function (resultado) {
-        var usuariosProporcao = Number(resultado[0].usuario)
-        var postagemProporcao = Number(resultado[0].postagem)
+        var primeiro = Number(resultado[0].postagens)
+        var segundo = Number(resultado[1].postagens)
+        var terceiro = Number(resultado[2].postagens)
+        var quarto = Number(resultado[3].postagens)
+        var quinto = Number(resultado[4].postagens)
 
          const ctx2 = document.getElementById('pizza');
             new Chart(ctx2, {
-                type: 'pie',
+                type: 'bar',
                 data: {
-                labels: ['Usuario', 'Postagem'],
+                labels: [`${resultado[0].nome}`, `${resultado[1].nome}`, `${resultado[2].nome}`, `${resultado[3].nome}`, `${resultado[4].nome}`],
                 datasets: [
                     {
-                        label: 'Dataset 1',
-                        data: [usuariosProporcao, postagemProporcao],
+                        label: 'Postagens',
+                        data: [primeiro, segundo, terceiro, quarto, quinto],
                         borderColor: '#fff',
-                        backgroundColor: ['yellow', '#36A2EB']
+                        backgroundColor: ['#fca311', '#fff']
                     },
             
                  ]

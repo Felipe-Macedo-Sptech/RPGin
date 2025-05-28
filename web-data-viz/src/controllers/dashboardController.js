@@ -8,8 +8,8 @@ function usuariosCadastrados(req, res){
         })
 }
 
-function postagensCriadas(req, res){
-      dashboardModel.postagensCriadas()
+function postagemMaisCuritida(req, res){
+      dashboardModel.postagemMaisCuritida()
             .then(function (resultado){
                 res.status(200).json(resultado);
         })
@@ -30,7 +30,7 @@ function usuarioPostagem(req, res){
 }
 module.exports = {
     usuariosCadastrados,
-    postagensCriadas,
+    postagemMaisCuritida,
     curtidaPostagem,
     usuarioPostagem
 }

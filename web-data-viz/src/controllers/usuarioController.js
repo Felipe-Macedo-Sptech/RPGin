@@ -98,9 +98,29 @@ function dadosPerfil(req, res){
          console.log('resultado o dadosPerfil: ', resultado)
     })
 }
+
+
+function seguir(req, res){
+    var seguido = req.params.idSeguido;
+    var seguidor = req.params.idSeguidor;
+    usuarioModel.seguir(seguido, seguidor)
+    .then(function (resultado){
+         res.status(200).json(resultado)
+    })
+}
+
+function countSeguidor(req, res){
+    var idUser = req.params.idUSer;
+    usuarioModel.countSeguidor(idUser)
+    .then(function (resultado){
+         res.status(200).json(resultado)
+    })
+}
 module.exports = {
     autenticar,
     cadastrar,
     edit,
-    dadosPerfil
+    dadosPerfil,
+    seguir,
+    countSeguidor
 }

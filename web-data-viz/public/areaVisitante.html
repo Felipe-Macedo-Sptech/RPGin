@@ -24,24 +24,19 @@
   </div>
 </div>
 <div class="containerPerfil">
-  <aside class="areaLateral">
-    <nav class="acessoLateral">
-      <p>Menu Lateral</p>
-    </nav>
-  </aside>
-
   <section class="areaUsuario">
     <div class="perfil">
       <div class="bannerPerfil">
         <div id="fotoUser">
         </div>
-      <div class="nomeEpostar">
-        <div id="parteEdit">
-        </div>
-        <div class="buttonPostar">
-          <button onclick="postarModal()">Seguir</button>
-        </div>        
+      
+        <div class="seguidores">
+        
+          <button onclick="seguir()">Seguir</button>
+          <div class="buttonPostar">
+          <div id="seguimores"></div>
       </div>
+        </div>        
 
       <h2>Suas Postagens:</h2>
       <div class="postagemDoUser">
@@ -53,10 +48,13 @@
 <script>
   var parametro = new URLSearchParams(window.location.search)
   var idUSer = Number(parametro.get('id'))
-  
+  var idSessao = sessionStorage.ID_USUARIO;
+  var idInt = Number(idSessao);
+
   function iniciarPagina(){
     exibirPostagemPorId();
     dadosPerfil();
+    cuntSeguidores();
   }
   function exibirPostagemPorId() {
     fetch(`/postagem/exibirPostagem/${idUSer}`, {
@@ -75,7 +73,7 @@
           timeZone: "America/Sao_Paulo"
         });
         postagemDiv.innerHTML += `
-            <div class="postagem">
+          <div class="postagem">
             <div class="emcima">
               <span class="postagemNome">${post.nome}</span>
               <span class="postagemData">${dataCerta}</span>
@@ -85,8 +83,6 @@
               ${post.conteudo}
             </div>
              ${post.imagemPostagem ? `  <div class="postagemImagem"> <img src="./assets/imgPostagem/${post.imagemPostagem}"  class="imgPadronizada"/></div>` : ''}
-            <div class="botaoDelete">
-            </div>
           </div>
         `;
       });
@@ -127,5 +123,33 @@ fetch(`/usuarios/dadosPerfil/${idUSer}`, {
   .catch(err => {
     console.error("Erro ao buscar dados do perfil:", err);
   });
+}
+
+
+function seguir(){
+  fetch(`/usuarios/seguir/${idUSer}/${idInt}`, {
+  method: 'POST',
+  headers: {
+    "Content-Type": "application/json"
+  }
+}).then(res => {
+      if (res.ok) { 
+       console.log('seguiu essa bomba??')
+      }
+    });
+}
+
+function cuntSeguidores(){
+  fetch(`/usuarios/countSeguidor/${idUSer}`, {
+  method: 'GET',
+  headers: {
+    "Content-Type": "application/json"
+  }
+}).then(res => res.json())
+  .then(function (resposta){
+    var seguimores = document.getElementById('seguimores');
+    seguimores.innerHTML = `${resposta[0].seguidores}`
+    console.log(resposta[0].seguidores)
+})
 }
 </script>

@@ -142,7 +142,7 @@
       const postagemDiv = document.getElementById("postagem");
       postagemDiv.innerHTML = "";
       posts.forEach(post => {
-        const dataCerta = new Date(post.data_postagem).toLocaleDateString('pt-BR', {
+        var dataCerta = new Date(post.data_postagem).toLocaleDateString('pt-BR', {
           hour: "2-digit",
           minute: "2-digit",
           hour12: false,

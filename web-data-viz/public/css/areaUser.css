@@ -126,8 +126,8 @@ body {
 
 .fotoNomeCurtida{
     display: flex;
-    width: 12%;
-    justify-content: space-between;
+    width: 20%;
+    justify-content: space-evenly;
 }
 
 .postagemNome {

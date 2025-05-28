@@ -40,9 +40,30 @@ function cadastrar(nome, email, senha, telefone) {
         return database.executar(instrucaoSql);
     }
 
+
+    function seguir(seguido, seguidor){
+        var instrucaoSql =
+         `INSERT INTO seguidor (id_seguido, id_seguidor) VALUES (${seguido}, ${seguidor})`
+             console.log("Executando a instrução SQL: \n" + instrucaoSql);
+        return database.executar(instrucaoSql);
+    }
+
+    function countSeguidor(idUser){
+         var instrucaoSql =
+         `SELECT sr.id_seguido as seguido, COUNT(sr.id_seguidor) as seguidores FROM
+            seguidor as sr JOIN usuario as u ON sr.id_seguidor = u.id_user
+                WHERE sr.id_seguido = ${idUser}
+                group by seguido;
+`
+             console.log("Executando a instrução SQL: \n" + instrucaoSql);
+        return database.executar(instrucaoSql);
+    }
+
 module.exports = {
     autenticar,
     cadastrar,
     edit,
-    dadosPerfil
+    dadosPerfil,
+    seguir,
+    countSeguidor
 };

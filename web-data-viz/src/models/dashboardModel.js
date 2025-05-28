@@ -8,9 +8,15 @@ function usuariosCadastrados(){
     return database.executar(instrucaoSql)
 }
 
-function postagensCriadas(){
+function postagemMaisCuritida(){
       var instrucaoSql = `
-        SELECT 	COUNT(id_postagem) as postagem FROM postagem;
+       SELECT id_postagem as idPostagem, max(curtidas) as curtidas, nome as autorPostagem, id_user as idUsuario FROM (
+SELECT p.id_postagem, count(c.id_postagem_fk)as curtidas, u.nome, u.id_user FROM 
+	postagem as p JOIN curtida as c ON c.id_postagem_fk = p.id_postagem
+    JOIN usuario as u ON p.id_user_fk = u.id_user
+		group by  p.id_postagem LIMIT 1
+) subzinha
+group by id_postagem, nome, id_user;
     `
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql)
@@ -18,19 +24,23 @@ function postagensCriadas(){
 
 function curtidaPostagem(){
       var instrucaoSql = `
-        SELECT AVG(totalCurtidaPorPostagem) as Media FROM (
-    SELECT p.id_postagem , COUNT(*) as totalCurtidaPorPostagem FROM 
-	postagem as p JOIN curtida as c ON c.id_postagem_fk = p.id_postagem 
-		group by  p.id_postagem
-) as subQuerry
+ SELECT id_postagem as idPostagem, max(curtidas) as curtidas, nome as autorPostagem, id_user as idUsuario, titulo as tituloPostagem FROM (
+SELECT p.id_postagem, count(c.id_postagem_fk)as curtidas, u.nome, u.id_user, p.titulo FROM 
+	postagem as p JOIN curtida as c ON c.id_postagem_fk = p.id_postagem
+    JOIN usuario as u ON p.id_user_fk = u.id_user
+		group by  p.id_postagem LIMIT 1
+) subzinha
+group by id_postagem, nome, id_user, titulo;
     `
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql)
 }
 function usuarioPostagem(){
       var instrucaoSql = `
-       SELECT COUNT(u.id_user) as usuario, COUNT(p.id_postagem) as postagem FROM 
-	    usuario as u LEFT JOIN postagem as p ON p.id_user_fk = u.id_user;
+      SELECT u.id_user, u.nome, count(p.id_postagem) as postagens FROM
+	usuario as u JOIN postagem as p ON p.id_user_fk = u.id_user
+		GROUP BY u.id_user
+			ORDER BY count(p.id_postagem) DESC LIMIT 5; 
     `
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql)
@@ -38,7 +48,7 @@ function usuarioPostagem(){
 
 module.exports = {
     usuariosCadastrados,
-    postagensCriadas,
+    postagemMaisCuritida,
     curtidaPostagem,
     usuarioPostagem
 };
