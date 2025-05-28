@@ -116,11 +116,19 @@ function countSeguidor(req, res){
          res.status(200).json(resultado)
     })
 }
+
+function validarSeguidor(req, res){
+     usuarioModel.validarSeguidor()
+    .then(function (resultado){
+         res.status(200).json(resultado)
+    })
+}
 module.exports = {
     autenticar,
     cadastrar,
     edit,
     dadosPerfil,
     seguir,
-    countSeguidor
+    countSeguidor,
+    validarSeguidor
 }

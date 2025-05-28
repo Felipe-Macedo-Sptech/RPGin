@@ -20,6 +20,10 @@ router.get("/dadosPerfil/:idUser", function (req, res) {
     usuarioController.dadosPerfil(req, res);
 });
 
+router.get("/validarSeguidor", function (req, res) {
+    usuarioController.validarSeguidor(req, res);
+});
+
 router.post("/seguir/:idSeguido/:idSeguidor", function (req, res) {
     usuarioController.seguir(req, res);
 });

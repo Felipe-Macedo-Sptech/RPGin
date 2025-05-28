@@ -32,7 +32,9 @@
   </div>
   <div class="containerHome">
     <div class="areaPostagem">
-      <div id="postagem"></div>
+      <div id="postagem">
+          
+      </div>
     </div>
     <div class="areaLateral ocultarAreaLateral">
       <div class="informacaoLateral">
@@ -109,7 +111,7 @@
                             <div class="conteudoCurtida">
                               <div class="postagemConteudo">${post.conteudo}</div> 
                               <div class="heart">
-                                <input type="checkbox" class="heart__checkbox" onclick="curtida(${idPostagem}, ${idInt})"> 
+                                <input type="checkbox" class="heart__checkbox" onclick="validarCurtida( ${idInt}, ${idPostagem})"> 
                                 <div class="heart__icon"></div>
                               </div>
                               </div>
@@ -180,6 +182,32 @@
     modal.close();
   }
 
+
+  function validarCurtida(idint, idPost){
+     fetch("/postagem/validarCurtida", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json"
+      },
+    })
+     .then(res => res.json())
+    .then(function (resposta){
+      debugger
+      var jaCurtiu = true
+      for(var i = 0; i < resposta.length; i++){
+        var idPostAtual = resposta[i].idPostagem;
+        var idUserAtual = resposta[i].idUsuario;
+        if(idInt == idUserAtual && idPost == idPostAtual){
+          jaCurtiu = false
+          alert('ai não paizaooo')
+          break;
+        }
+      }
+      if(jaCurtiu){
+        curtida(idInt, idPost)
+      }
+    })
+  }
   function curtida(idPostagem, idInt) {
     fetch(`/postagem/curtir/${idPostagem}/${idInt}`, {
       method: 'POST',

@@ -41,6 +41,13 @@ function cadastrar(nome, email, senha, telefone) {
     }
 
 
+    function validarSeguidor(){
+         var instrucaoSql =
+         `SELECT id_seguido as seguido, id_seguidor as seguidor from seguidor;`
+             console.log("Executando a instrução SQL: \n" + instrucaoSql);
+        return database.executar(instrucaoSql);
+    }
+
     function seguir(seguido, seguidor){
         var instrucaoSql =
          `INSERT INTO seguidor (id_seguido, id_seguidor) VALUES (${seguido}, ${seguidor})`
@@ -50,10 +57,7 @@ function cadastrar(nome, email, senha, telefone) {
 
     function countSeguidor(idUser){
          var instrucaoSql =
-         `SELECT sr.id_seguido as seguido, COUNT(sr.id_seguidor) as seguidores FROM
-            seguidor as sr JOIN usuario as u ON sr.id_seguidor = u.id_user
-                WHERE sr.id_seguido = ${idUser}
-                group by seguido;
+         `SELECT COUNT(id_seguidor) as seguidores FROM seguidor where id_seguido = ${idUser};
 `
              console.log("Executando a instrução SQL: \n" + instrucaoSql);
         return database.executar(instrucaoSql);
@@ -65,5 +69,6 @@ module.exports = {
     edit,
     dadosPerfil,
     seguir,
-    countSeguidor
+    countSeguidor,
+    validarSeguidor
 };

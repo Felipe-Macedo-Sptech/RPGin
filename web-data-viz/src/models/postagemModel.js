@@ -67,9 +67,17 @@ console.log("Executando a instrução SQL: \n" + instrucaoSql);
 return database.executar(instrucaoSql);
 }
 
+function validarCurtida(){
+        var instrucaoSql = `
+    SELECT id_user_fk as idUsuario, id_postagem_fk as idPostagem FROM curtida;
+`;
+console.log("Executando a instrução SQL: \n" + instrucaoSql);
+return database.executar(instrucaoSql);
+}
+
 function curtir(idPost, idUser){
     var instrucaoSql = `
-    INSERT INTO curtida (id_user_fk, id_postagem_fk) VALUES (${idPost}, ${idUser});
+    INSERT INTO curtida (id_user_fk, id_postagem_fk) VALUES (${idUser}, ${idPost});
 `;
 console.log("Executando a instrução SQL: \n" + instrucaoSql);
 return database.executar(instrucaoSql);
@@ -96,5 +104,6 @@ module.exports = {
     comentar,
     curtir,
     exibirContagemCurtida,
-    deletePostagem
+    deletePostagem,
+    validarCurtida
 };

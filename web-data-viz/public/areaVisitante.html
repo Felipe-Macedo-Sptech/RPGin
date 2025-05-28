@@ -32,7 +32,7 @@
       
         <div class="seguidores">
         
-          <button onclick="seguir()">Seguir</button>
+          <button onclick="validarSeguida()">Seguir</button>
           <div class="buttonPostar">
           <div id="seguimores"></div>
       </div>
@@ -125,6 +125,32 @@ fetch(`/usuarios/dadosPerfil/${idUSer}`, {
   });
 }
 
+
+ function validarSeguida(){
+     fetch("/usuarios/validarSeguidor", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json"
+      },
+    })
+     .then(res => res.json())
+    .then(function (resposta){
+      debugger
+      var jaSeguiu = true
+      for(var i = 0; i < resposta.length; i++){
+        var idSeguido = resposta[i].seguido;
+        var idSeguidor = resposta[i].seguidor;
+        if(idUSer == idSeguido && idInt == idSeguidor){
+          jaSeguiu = false
+          alert('ai não paizaooo')
+          break;
+        }
+      }
+      if(jaSeguiu){
+        seguir()
+      }
+    })
+  }
 
 function seguir(){
   fetch(`/usuarios/seguir/${idUSer}/${idInt}`, {

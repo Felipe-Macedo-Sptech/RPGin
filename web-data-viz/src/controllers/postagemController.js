@@ -82,6 +82,13 @@ function deletePostagem(req, res){
     })
 }
 
+function validarCurtida(req, res){
+    postagemModel.validarCurtida()
+        .then(function (resultado){
+            res.status(200).json(resultado);
+        })
+}
+
 module.exports = {
     postar,
     exibirPostagem,
@@ -90,5 +97,6 @@ module.exports = {
     comentar,
     curtir,
     exibirContagemCurtida,
-    deletePostagem
+    deletePostagem,
+    validarCurtida
 }

@@ -252,4 +252,13 @@ dialog button[type="button"] {
 .seguidores{
   display: flex;
   flex-direction: row;
+  margin-top: 10px;
+  justify-content: space-between;
+  align-items: center;
+  width: 100px;
+}
+
+.seguidores .segui{
+  font-size: 1.2rem;
+  font-weight: bolder;
 }

@@ -24,6 +24,10 @@ router.get("/exibirComentario/:idPostagem", function (req, res) {
     postagemController.comentar(req, res);
 });
 
+router.get("/validarCurtida", function (req, res) {
+    postagemController.validarCurtida(req, res);
+});
+
 router.post("/curtir/:idPost/:idUser", function (req, res) {
     postagemController.curtir(req, res);
 });
