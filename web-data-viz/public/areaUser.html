@@ -93,12 +93,11 @@
           sessionStorage.CURTIDA_USUARIO = post.curtida;
           var idPostagem = post.id_postagem;
           var idDonoPostagem = post.id_user_fk;
-          console.log(idPostagem);
           postagem.innerHTML += `
                         <div class="postagem">
                             <div class="emcima">
                               <div class="fotoNomeCurtida">
-                          ${post.imagem ? `<div class="fotoUsuario"> <a href="areaVisitante.html?id=${idDonoPostagem}" onclick="paginaVisitante()"> <img src="./assets/imgPostagem/${post.imagem}" 
+                          ${post.imagem ? `<div class="fotoUsuario"> <a href="areaVisitante.html?id=${idDonoPostagem}"> <img src="./assets/imgPostagem/${post.imagem}" 
                             class="fotoUserPadronizada"></a></div>`
                                      : ''}
                               <span class="postagemNome"> <a href="areaVisitante.html?id=${idDonoPostagem}">${post.nome} </a></span>
@@ -111,7 +110,7 @@
                             <div class="conteudoCurtida">
                               <div class="postagemConteudo">${post.conteudo}</div> 
                               <div class="heart">
-                                <input type="checkbox" class="heart__checkbox" onclick="validarCurtida( ${idInt}, ${idPostagem})"> 
+                                <input type="checkbox" class="heart__checkbox" onclick="validarCurtida(${idInt}, ${idPostagem})"> 
                                 <div class="heart__icon"></div>
                               </div>
                               </div>
@@ -182,7 +181,6 @@
     modal.close();
   }
 
-
   function validarCurtida(idint, idPost){
      fetch("/postagem/validarCurtida", {
       method: "GET",
@@ -199,7 +197,7 @@
         var idUserAtual = resposta[i].idUsuario;
         if(idInt == idUserAtual && idPost == idPostAtual){
           jaCurtiu = false
-          alert('ai não paizaooo')
+          deleteCurtida(idInt, idPost)
           break;
         }
       }
@@ -222,6 +220,25 @@
       }
     })
   };
+
+  function deleteCurtida(idInt, idPostagem){
+     fetch(`/postagem/deleteCurtida/${idInt}/${idPostagem}`, {
+      method: 'DELETE',
+      headers: { "Content-Type": "application/json" },
+    }).then(resposta => {
+      if (resposta.ok) {
+        console.log('toma');
+        setTimeout(() => {
+          exibrTodasPostagem()
+        }, "1000");
+        
+      }
+    })
+  }
+
+
+
+
 
 
   document.querySelector('.botaoFlultuante').addEventListener('click', function(e) {

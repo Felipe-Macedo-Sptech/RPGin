@@ -29,9 +29,10 @@
       <div class="bannerPerfil">
         <div id="fotoUser">
         </div>
+
+        <div id="dadosPerfil"></div>
       
         <div class="seguidores">
-        
           <button onclick="validarSeguida()">Seguir</button>
           <div class="buttonPostar">
           <div id="seguimores"></div>
@@ -102,10 +103,10 @@ fetch(`/usuarios/dadosPerfil/${idUSer}`, {
 })
   .then(res => res.json())
   .then(function (resultado) {
-    var edit = document.getElementById('parteEdit');
+    var dados = document.getElementById('dadosPerfil');
     var fotoPerfil = document.getElementById('fotoUser');
     if (resultado.length === 1) {
-      edit.innerHTML = `
+      dados.innerHTML = `
         <div class="nome">${resultado[0].nome}</div>
         ${resultado[0].bio ? `<div class="bio">${resultado[0].bio}</div>` : ''}
       `;
@@ -125,7 +126,6 @@ fetch(`/usuarios/dadosPerfil/${idUSer}`, {
   });
 }
 
-
  function validarSeguida(){
      fetch("/usuarios/validarSeguidor", {
       method: "GET",
@@ -142,7 +142,7 @@ fetch(`/usuarios/dadosPerfil/${idUSer}`, {
         var idSeguidor = resposta[i].seguidor;
         if(idUSer == idSeguido && idInt == idSeguidor){
           jaSeguiu = false
-          alert('ai não paizaooo')
+          deixarDeSeguir();
           break;
         }
       }
@@ -166,9 +166,22 @@ function seguir(){
     });
 }
 
+function deixarDeSeguir(){
+  fetch(`/usuarios/deixarDeSeguir/${idUSer}/${idInt}`, {
+  method: 'DELETE',
+  headers: {
+    "Content-Type": "application/json"
+  }
+}).then(res => {
+      if (res.ok) { 
+       cuntSeguidores();
+      }
+    });
+}
+
 function cuntSeguidores(){
   fetch(`/usuarios/countSeguidor/${idUSer}`, {
-  method: 'GET',
+  method: 'GET',  
   headers: {
     "Content-Type": "application/json"
   }

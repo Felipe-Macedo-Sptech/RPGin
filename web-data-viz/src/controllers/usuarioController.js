@@ -123,6 +123,16 @@ function validarSeguidor(req, res){
          res.status(200).json(resultado)
     })
 }
+
+function deixarDeSeguir(req, res){
+    var idUserSeguido = req.params.idUserSeguido;
+    var idUserSeguidor = req.params.idUserSeguidor;
+     usuarioModel.deixarDeSeguir(idUserSeguido, idUserSeguidor)
+    .then(function (resultado){
+         res.status(200).json(resultado)
+    })
+}
+
 module.exports = {
     autenticar,
     cadastrar,
@@ -130,5 +140,6 @@ module.exports = {
     dadosPerfil,
     seguir,
     countSeguidor,
-    validarSeguidor
+    validarSeguidor,
+    deixarDeSeguir
 }

@@ -32,6 +32,10 @@ router.get("/countSeguidor/:idUSer", function (req, res) {
     usuarioController.countSeguidor(req, res);
 });
 
+router.delete("/deixarDeSeguir/:idUserSeguido/:idUserSeguidor", function (req, res) {
+    usuarioController.deixarDeSeguir(req, res);
+});
+
 
 
 module.exports = router;

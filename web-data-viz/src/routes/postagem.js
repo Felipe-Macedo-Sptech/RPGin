@@ -36,6 +36,10 @@ router.get("/exibirContagemCurtida/:idPost", function (req, res) {
     postagemController.exibirContagemCurtida(req, res);
 });
 
+router.delete("/deleteCurtida/:idUser/:idPostagem", function (req, res) {
+    postagemController.deleteCurtida(req, res);
+});
+
 router.delete("/deletePostagem/:idPost", function (req, res) {
     postagemController.deletePostagem(req, res);
 })

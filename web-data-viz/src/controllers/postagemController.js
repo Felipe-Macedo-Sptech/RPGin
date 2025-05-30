@@ -89,14 +89,24 @@ function validarCurtida(req, res){
         })
 }
 
+function deleteCurtida(req, res){
+    var idUser = req.params.idUser
+    var idPostagem = req.params.idPostagem
+    postagemModel.deleteCurtida(idUser, idPostagem)
+        .then(function (resultado){
+            res.status(200).json(resultado);
+        })
+}
+
 module.exports = {
     postar,
     exibirPostagem,
     exibirPostagemPorId,
+    deletePostagem,
     exibirComentario,
     comentar,
+    validarCurtida,
     curtir,
     exibirContagemCurtida,
-    deletePostagem,
-    validarCurtida
+    deleteCurtida,
 }

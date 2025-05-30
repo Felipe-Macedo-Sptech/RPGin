@@ -63,6 +63,14 @@ function cadastrar(nome, email, senha, telefone) {
         return database.executar(instrucaoSql);
     }
 
+    function deixarDeSeguir(idUserSeguido, idUserSeguidor){
+     var instrucaoSql = `
+        DELETE FROM seguidor WHERE id_seguido = ${idUserSeguido} AND id_seguidor = ${idUserSeguidor};
+    `
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql)
+}
+
 module.exports = {
     autenticar,
     cadastrar,
@@ -70,5 +78,6 @@ module.exports = {
     dadosPerfil,
     seguir,
     countSeguidor,
-    validarSeguidor
+    validarSeguidor,
+    deixarDeSeguir
 };

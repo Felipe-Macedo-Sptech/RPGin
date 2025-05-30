@@ -83,6 +83,14 @@ console.log("Executando a instrução SQL: \n" + instrucaoSql);
 return database.executar(instrucaoSql);
 }
 
+function deleteCurtida(idUser, idPostagem){
+    var instrucaoSql = `
+    DELETE FROM curtida WHERE id_user_fk = ${idUser} AND id_postagem_fk = ${idPostagem};
+`;
+console.log("Executando a instrução SQL: \n" + instrucaoSql);
+return database.executar(instrucaoSql);
+}
+
 function exibirContagemCurtida(idPost){
     var instrucaoSql = `
             SELECT COUNT(id_postagem_fk) FROM curtida WHERE id_postagem_fk = ${idPost};`;
@@ -100,10 +108,11 @@ module.exports = {
     postar,
     exibirPostagem,
     exibirPostagemPorId,
+    deletePostagem,
     exibiComentarios,
     comentar,
+    validarCurtida,
     curtir,
     exibirContagemCurtida,
-    deletePostagem,
-    validarCurtida
+    deleteCurtida
 };
