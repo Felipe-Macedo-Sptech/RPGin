@@ -18,4 +18,17 @@ router.get("/curtidaPostagem", function (req, res) {
 router.get("/usuarioPostagem", function (req, res) {
     dashboardController.usuarioPostagem(req, res);
 });
+
+router.get("/postagemMaisCurtida", function (req, res) {
+    dashboardController.postagemMaisCurtida(req, res);
+});
+
+router.get("/mediaComentarioPostagem", function (req, res) {
+    dashboardController.mediaComentarioPostagem(req, res);
+});
+
+router.get("/postagemDaSemana", function (req, res) {
+    dashboardController.postagemDaSemana(req, res);
+});
+
 module.exports = router;

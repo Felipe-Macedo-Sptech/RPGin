@@ -28,9 +28,33 @@ function usuarioPostagem(req, res){
                 res.status(200).json(resultado);
         })
 }
+
+function postagemMaisCurtida(req, res){
+        dashboardModel.postagemMaisCurtida()
+            .then(function (resultado){
+                res.status(200).json(resultado);
+        }) 
+}
+
+function mediaComentarioPostagem(req, res){
+         dashboardModel.mediaComentarioPostagem()
+            .then(function (resultado){
+                res.status(200).json(resultado);
+        })
+}
+
+function postagemDaSemana(req, res){
+          dashboardModel.postagemDaSemana()
+            .then(function (resultado){
+                res.status(200).json(resultado);
+        })
+}
 module.exports = {
     usuariosCadastrados,
     postagemMaisCuritida,
     curtidaPostagem,
-    usuarioPostagem
+    usuarioPostagem,
+    postagemMaisCurtida,
+    mediaComentarioPostagem,
+    postagemDaSemana
 }

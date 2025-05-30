@@ -11,7 +11,7 @@
     <div class="areaDashboard">
     <div class="indicadores">
         <div class="cadastrados">
-            <span>Total de cadastros</span>
+            <span>Rank top 3 mais seguidos</span>
             <div id="cadastrados"></div>
         </div>
 
@@ -43,6 +43,9 @@
         </div>
     </div>
     </div>
+
+    <a href="./areaVisitante.html"></a>
+    
 </div>
 </body>
 </html>
@@ -50,30 +53,53 @@
 <script>
 
   function inicarDashboard(){
-    exibirUsuariosCadastrados();
-    postagensCriadas();
+    rankDeMaisSeguidos();
     curtidaPostagem();
-    usuarioPostagem()
+    usuarioPostagem();
+    postagemMaisCurtida();
+    mediaComentarioPostagem();
+    postagemDaSemana();
   }
-  const ctx = document.getElementById('linha');
-  new Chart(ctx, {
-    type: 'line',
-    data: {
-      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-      datasets: [{
-        label: '# of Votes',
-        data: [12, 19, 3, 5, 2, 23],
-        borderWidth: 1
-      }]
-    },
-    options: {
-      scales: {
-        y: {
-          beginAtZero: true
-        }
+
+function postagemDaSemana(){
+    fetch('/dashboard/postagemDaSemana',{
+        method: 'GET',
+         headers: {
+        "Content-Type": "application/json"
       }
-    }
-  });
+    }).then(res => res.json())
+    .then(function (resultado) {
+      var postagens = []
+      var dataPostagem = []
+      for(var i = 0;i<resultado.length;i++){
+        var dataAtual = resultado[i].dataPostagem
+        var qtdAtual = resultado[i].postagem;
+        postagens.push(qtdAtual)
+        dataPostagem.push(dataAtual)
+      }
+      const ctx = document.getElementById('linha');
+      new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: dataPostagem,
+          datasets: [{
+            label: 'Quantidade de postagem na semana',
+            data: postagens,
+            borderWidth: 1
+          }]
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          }
+        }
+      });
+          
+    });
+  }
+
 function usuarioPostagem(){
      fetch('/dashboard/usuarioPostagem',{
         method: 'GET',
@@ -113,7 +139,8 @@ function usuarioPostagem(){
             });
     });
   }
-  function exibirUsuariosCadastrados(){
+
+  function rankDeMaisSeguidos(){
     fetch('/dashboard/usuariosCadastrados',{
         method: 'GET',
          headers: {
@@ -122,24 +149,15 @@ function usuarioPostagem(){
     }).then(res => res.json())
     .then(function (resultado) {
     var cadastros = document.getElementById('cadastrados')
-        cadastros.innerHTML = `${resultado[0].cadastrados}`
+        cadastros.innerHTML = `
+        ${resultado[0].nome} Seguires: ${resultado[0].seguidores}<br>
+        ${resultado[1].nome} Seguires: ${resultado[1].seguidores}<br>
+        ${resultado[2].nome} Seguires: ${resultado[2].seguidores}<br>
+        `
     });
   }
 
-  function postagensCriadas(){
-     fetch('/dashboard/postagensCriadas',{
-        method: 'GET',
-         headers: {
-        "Content-Type": "application/json"
-      }
-    }).then(res => res.json())
-    .then(function (resultado) {
-    var postagem = document.getElementById('postagemCriadas')
-        postagem.innerHTML = `${resultado[0].postagem}`
-    });
-  }
-
-    function curtidaPostagem(){
+  function curtidaPostagem(){
      fetch('/dashboard/curtidaPostagem',{
         method: 'GET',
          headers: {
@@ -148,14 +166,39 @@ function usuarioPostagem(){
     }).then(res => res.json())
     .then(function (resultado) {
     var curtida = document.getElementById('curtidaPostagem')
-        curtida.innerHTML = `${resultado[0].Media}`
+        curtida.innerHTML = `${resultado[0].mediaDeCurtidaPorPost}`
     });
   }
 
-  
+  function postagemMaisCurtida(){
+    fetch('/dashboard/postagemMaisCurtida',{
+        method: 'GET',
+         headers: {
+        "Content-Type": "application/json"
+      }
+    }).then(res => res.json())
+    .then(function (resultado) {
+    var postagemCriada = document.getElementById('postagemCriadas')
+        postagemCriada.innerHTML = `
+        ${resultado[0].curtidas}<br>
+        <a href="areaVisitante.html?id=${resultado[0].idUsuario}">${resultado[0].usuario}</a>`
+    });
+  }
 
-  
 
-
+  function mediaComentarioPostagem(){
+    fetch('/dashboard/mediaComentarioPostagem',{
+        method: 'GET',
+         headers: {
+        "Content-Type": "application/json"
+      }
+    }).then(res => res.json())
+    .then(function (resultado) {
+    var comenPorPostagem = document.getElementById('comenPorPostagem')
+        comenPorPostagem.innerHTML = `
+                    ${resultado[0].mediaDeComentarioPorPost}
+        `
+    });
+  }
 
 </script>
