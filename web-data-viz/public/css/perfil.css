@@ -246,3 +246,64 @@ dialog button[type="button"] {
 .botaoDelete button:hover {
   background-color: #b71c1c;
 }
+
+#auxilarRPG {
+  padding: 20px;
+  border: none;
+  border-radius: 16px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  width: 620px;
+  background-color: #ffffff;
+}
+
+#auxilarRPG h1 {
+  font-size: 22px;
+  margin-top: 10px;
+  border-bottom: 2px solid #fca311;
+  padding-bottom: 4px;
+}
+
+#auxilarRPG input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0 16px 0;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  transition: border 0.3s;
+}
+
+#auxilarRPG button {
+  background-color: #14213d;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+#auxilarRPG button:hover {
+  background-color: #fca311;
+  color: #000;
+}
+
+.infoAuxiliarRpg{
+  display: flex;
+}
+
+
+.imagemDoD20{
+  height: 230px;
+  width: 400px;
+}
+.d20{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+   position: relative;
+}
+#div_dado{
+ position: absolute;
+ font-weight: bold;
+ color: #000;
+}

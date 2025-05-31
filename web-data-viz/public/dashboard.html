@@ -150,9 +150,9 @@ function usuarioPostagem(){
     .then(function (resultado) {
     var cadastros = document.getElementById('cadastrados')
         cadastros.innerHTML = `
-        ${resultado[0].nome} Seguires: ${resultado[0].seguidores}<br>
-        ${resultado[1].nome} Seguires: ${resultado[1].seguidores}<br>
-        ${resultado[2].nome} Seguires: ${resultado[2].seguidores}<br>
+        ${resultado[0].nome} Seguidores: ${resultado[0].seguidores}<br>
+        ${resultado[1].nome} Seguidores: ${resultado[1].seguidores}<br>
+        ${resultado[2].nome} Seguidores: ${resultado[2].seguidores}<br>
         `
     });
   }

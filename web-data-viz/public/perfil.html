@@ -29,6 +29,9 @@
   <aside class="areaLateral">
     <nav class="acessoLateral">
       <p>Menu Lateral</p>
+      <button onclick="modalAuxiliar()">
+        Auxiliar
+      </button>
     </nav>
   </aside>
 
@@ -63,7 +66,7 @@
           </form>
         </dialog>
 
-        <dialog id="dialogPostar"> 
+      <dialog id="dialogPostar"> 
       <form id="formPostagem">
         <label>
           Título da Postagem:<br>
@@ -82,6 +85,35 @@
         <button type="submit" onclick="postar()">Publicar</button>
         <button type="button" onclick="fecharModal()">Fechar</button>
       </form>
+</dialog>
+
+<dialog id="auxilarRPG">
+  <button onclick="fecharAuxiliar()">
+    <
+  </button>
+  <div class="jogador">
+  <h1>Você</h1>
+  Vida: <input type="text" id="inp_vida"><br>
+  Sua defesa: <input type="text" id="inp_defesa"><br>
+  Força de ataque: <input type="text" id="inp_forcaDeAtaque"><br>
+</div>
+<div class="adversario">
+  <h1>Adversário</h1>
+  Vida do adversário: <input type="text" id="inp_vidaAdversario"><br>
+  Defesa do adversário: <input type="text" id="inp_defesaAdversario"><br>
+  Força de ataque do adversário: <input type="text" id="inp_forcaDeAtaqueAdversario"><br>
+</div>
+
+  <button onclick="salvar()">Salvar</button>
+  <button onclick="rolarDado()">Rolar Dado</button>
+
+  <div class="d20">
+  <img src="./img/4.png" class="imagemDoD20">
+  <div id="div_dado"></div>
+  </div><br>
+
+  <div id="div_status"></div>
+  <div id="div_mensagem"></div>
 </dialog>
 
       </div>
@@ -103,6 +135,7 @@
   var img = '';
   const modal = document.getElementById("dialogPostar");
   const modalEdit = document.querySelector("#dialogEdit");
+  const modalAuxiliarRPG = document.getElementById("auxilarRPG")
   const idSessao = sessionStorage.ID_USUARIO;
   const idInt = Number(idSessao);
 
@@ -240,6 +273,169 @@ fetch(`/usuarios/dadosPerfil/${idInt}`, {
   .catch(err => {
     console.error("Erro ao buscar dados do perfil:", err);
   });
+}
+
+
+    var dadosUser = [];
+    var dadosAdversario = [];
+    var mensagemStatus = ''
+
+    function salvar() {
+      var vida = Number(inp_vida.value);
+      var defesa = Number(inp_defesa.value);
+      var forcaAtaque = Number(inp_forcaDeAtaque.value);
+      var vidaAdversario = Number(inp_vidaAdversario.value);
+      var defesaAdversario = Number(inp_defesaAdversario.value);
+      var forcaAtaqueAdversario = Number(inp_forcaDeAtaqueAdversario.value);
+
+      if(vida == 0 || defesa == 0 || forcaAtaque == 0 || vidaAdversario == 0 || defesaAdversario == 0 || forcaAtaqueAdversario == 0){
+        alert('Por favor preencha todas as informações')
+      }else if(dadosUser.length == 0 || dadosAdversario.length == 0){
+          dadosUser.push(vida, defesa, forcaAtaque);
+          dadosAdversario.push(vidaAdversario, defesaAdversario, forcaAtaqueAdversario);
+      }else{
+        dadosUser.splice(0, dadosUser.length);
+        dadosAdversario.splice(0, dadosAdversario.length)
+        dadosUser.push(vida, defesa, forcaAtaque);
+        dadosAdversario.push(vidaAdversario, defesaAdversario, forcaAtaqueAdversario);
+      }
+     
+    }
+    function resest(quemVenceu){
+      alert(`O ${quemVenceu} ganhou`);
+      inp_vida.value = ''
+      inp_defesa.value = ''
+      inp_forcaDeAtaque.value = ''
+      inp_vidaAdversario.value = ''
+      inp_defesaAdversario.value = ''
+      inp_forcaDeAtaqueAdversario.value = ''
+      div_mensagem.innerHTML = ''
+      div_status.innerHTML = '';
+      div_dado.innerHTML = '';
+      mensagemStatus = ''
+      dadosUser.splice(0, dadosUser.length);
+      dadosAdversario.splice(0, dadosAdversario.length)
+    }
+    var rodada = false;
+
+    function rolarDado() {
+      if(dadosUser.length == 0){
+        alert('Prencha os dados antes de começar o duelo⚔️')
+      }else{
+      var mensagem = '';
+      div_status.innerHTML = ''
+      var rolada = parseInt(Math.random() * 20 + 1);
+      var vidaDeterminada = Number(inp_vida.value);
+      var vidaDeterminadaAdversario = Number(inp_vidaAdversario.value);
+      var vidaDiminuida = 0;
+      var defesaDiminuida = 0;
+      var danoCritico = 0;
+      vidaAtual = dadosUser[0];
+      defesaAtual = dadosUser[1];
+      danoAtaque = dadosUser[2];
+
+      vidaAtualAdversario = dadosAdversario[0];
+      defesaAtualAdversario = dadosAdversario[1];
+      danoDoAdversario = dadosAdversario[2];
+
+      if (rodada) {
+        if (rolada > 18) {
+          var danoCritico = danoDoAdversario * 2;
+          if (danoCritico > defesaAtual) {
+            vidaDiminuida = vidaAtual - danoCritico;
+            dadosUser[0] = vidaDiminuida;
+            mensagem = `O adversário tirou ${rolada} no dado: ataque CRÍTICO, removendo ${danoCritico} da sua vida.`;
+          } else {
+            defesaDiminuida = defesaAtual - danoCritico;
+            dadosUser[1] = defesaDiminuida;
+            mensagem = `O adversário tirou ${rolada} no dado: ataque CRÍTICO, removendo ${danoCritico} da sua defesa.`;
+          }
+        } else if (rolada >= 3) {
+          var dano = danoDoAdversario;
+          if (dano > defesaAtual) {
+            vidaDiminuida = vidaAtual - dano;
+            dadosUser[0] = vidaDiminuida;
+            mensagem = `O adversário tirou ${rolada} no dado: ataque normal, removendo ${dano} da sua vida.`;
+          } else {
+            defesaDiminuida = defesaAtual - dano;
+            dadosUser[1] = defesaDiminuida;
+            mensagem = `O adversário tirou ${rolada} no dado: ataque normal, removendo ${dano} da sua defesa.`;
+          }
+        } else {
+          mensagem = `O adversário tirou ${rolada} no dado: ataque falhou.`;
+        }
+
+        if (vidaAtual > 0) {
+          div_dado.innerHTML = rolada;
+          div_mensagem.innerHTML = mensagem;
+          div_status.innerHTML = mensagemStatus;
+        } else {
+          dadosUser.slice(0, dadosUser.length)
+          dadosAdversario.slice(0, dadosAdversario.length)
+          dadosUser[0] = 0
+          var nome = 'Adversario'
+          resest(nome)
+        }
+        mensagemStatus = `
+          Sua vida atual: ${parseInt((dadosUser[0] / vidaDeterminada) * 100)}%, Defesa atual: ${dadosUser[1]}<br>
+          Vida do adversário: ${parseInt((dadosAdversario[0] / vidaDeterminadaAdversario) * 100)}%, Defesa atual do adversário: ${dadosAdversario[1]}
+        `;
+        rodada = false;
+
+      } else {
+        if (rolada > 18) {
+          danoCritico = danoAtaque * 2;
+          if (danoCritico > defesaAtualAdversario) {
+            vidaDiminuida = vidaAtualAdversario - danoCritico;
+            dadosAdversario[0] = vidaDiminuida;
+            mensagem = `O jogador tirou ${rolada} no dado: ataque CRÍTICO, removendo ${danoCritico} pontos de vida do adversário.`;
+          } else {
+            defesaDiminuida = defesaAtualAdversario - danoCritico;
+            dadosAdversario[1] = defesaDiminuida;
+            mensagem = `O jogador tirou ${rolada} no dado: ataque CRÍTICO, removendo ${danoCritico} pontos de defesa do adversário.`;
+          }
+        } else if (rolada >= 3) {
+          var dano = danoAtaque;
+          if (dano > defesaAtualAdversario) {
+            vidaDiminuida = vidaAtualAdversario - dano;
+            dadosAdversario[0] = vidaDiminuida;
+            mensagem = `O jogador tirou ${rolada} no dado: ataque normal, removendo ${dano} pontos de vida do adversário.`;
+          } else {
+            defesaDiminuida = defesaAtualAdversario - dano;
+            dadosAdversario[1] = defesaDiminuida;
+            mensagem = `O jogador tirou ${rolada} no dado: ataque normal, removendo ${dano} pontos de defesa do adversário.`;
+          }
+        } else {
+          mensagem = `O jogador tirou ${rolada} no dado: ataque falhou.`;
+        }
+
+        if (vidaAtualAdversario > 0) {
+          div_dado.innerHTML = rolada;
+          div_mensagem.innerHTML = mensagem;
+          div_status.innerHTML = mensagemStatus
+        } else {
+          dadosUser.slice(0, dadosUser.length)
+          dadosAdversario.slice(0, dadosAdversario.length)
+          dadosAdversario[0] = 0
+          var nome = 'Jogador'
+          resest(nome)
+        }
+
+        mensagemStatus = `
+          Sua vida atual: ${parseInt((dadosUser[0] / vidaDeterminada) * 100)}%, Defesa atual: ${dadosUser[1]}<br>
+          Vida do adversário: ${parseInt((dadosAdversario[0] / vidaDeterminadaAdversario) * 100)}%, Defesa atual do adversário: ${dadosAdversario[1]}
+        `;
+
+        rodada = true;
+       }
+      }
+    }
+function modalAuxiliar(){
+  modalAuxiliarRPG.showModal();
+}
+
+function fecharAuxiliar(){
+  modalAuxiliarRPG.close()
 }
 
 
