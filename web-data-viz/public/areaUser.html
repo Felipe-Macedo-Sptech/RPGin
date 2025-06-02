@@ -35,6 +35,7 @@
       <div id="postagem">
           
       </div>
+      
     </div>
     <div class="areaLateral ocultarAreaLateral">
       <div class="informacaoLateral">
@@ -102,26 +103,29 @@
                                      : ''}
                               <span class="postagemNome"> <a href="areaVisitante.html?id=${idDonoPostagem}">${post.nome} </a></span>
                               </div>
-                              <span class="postagemData">${post.id_postagem},${post.curtida} ${dataCerta}</span>
+                              <span class="postagemData">${post.id_postagem},  ${dataCerta}</span>
                             </div>
                             <div class="postagemTitulo">${post.titulo}</div>
                             <div class="postagemComentario">
                              
                             <div class="conteudoCurtida">
                               <div class="postagemConteudo">${post.conteudo}</div> 
-                              <div class="heart">
-                                <input type="checkbox" class="heart__checkbox" onclick="validarCurtida(${idInt}, ${idPostagem})"> 
-                                <div class="heart__icon"></div>
-                              </div>
                               </div>
                                     ${post.imagemPostagem
                                   ? `  <div class="postagemImagem"> <img src="./assets/imgPostagem/${post.imagemPostagem}" 
                                       class="imgPadronizada"/></div>` 
                                   : ''}
                             </div>
-                            <button class="botao" onclick="comentariosModal(${idPostagem}, ${idDonoPostagem})">
+                            <div class="comenCurtida">
+                            <button class="botao" onclick="comentariosModal(${idPostagem})">
                               Comentarios
                             </button>
+                            <div class="curtida">
+                              <button onclick="validarCurtida(${idInt}, ${idPostagem})">Curtir</button>
+                              <span>${post.curtida}</span>
+                            </div>
+                              </div>
+                            </div>
                         </div>
                     `;
         });
@@ -130,9 +134,8 @@
   var idPostagemAtual = null
   var idDonoPostAtual = null
   const modal = document.querySelector("dialog");
-  function comentariosModal(idPostagem, idDonoPostagem) {
+  function comentariosModal(idPostagem) {
     idPostagemAtual = idPostagem
-    idDonoPostAtual = idDonoPostagem
     var comentarios = document.getElementById('comentarios');
     comentarios.innerHTML = ''
     fetch(`/postagem/exibirComentario/${idPostagem}`, {
@@ -172,7 +175,7 @@
     }).then(resposta => {
       if (resposta.ok) {
         inp_comentario.value = ""
-        comentariosModal(idPostagemAtual, idDonoPostAtual)
+        comentariosModal(idPostagemAtual)
       }
     })
   }
@@ -202,11 +205,12 @@
         }
       }
       if(jaCurtiu){
-        curtida(idInt, idPost)
+        curtida(idPost)
       }
     })
   }
-  function curtida(idPostagem, idInt) {
+  function curtida(idPostagem) {
+    debugger
     fetch(`/postagem/curtir/${idPostagem}/${idInt}`, {
       method: 'POST',
       headers: { "Content-Type": "application/json" },

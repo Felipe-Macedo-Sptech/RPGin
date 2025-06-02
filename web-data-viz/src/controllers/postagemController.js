@@ -60,7 +60,7 @@ function comentar(req, res){
 function curtir (req, res){
     var idPost = req.params.idPost;
     var idUser = req.params.idUser;
-    postagemModel.curtir(idUser, idPost)
+    postagemModel.curtir(idPost, idUser)
     .then(function (resultado){
         res.status(200).json(resultado)
     })

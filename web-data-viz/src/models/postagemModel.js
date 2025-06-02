@@ -32,19 +32,12 @@ function exibirPostagem(){
 
 function exibirPostagemPorId(idUser){
     var instrucaoSql =`
-    SELECT 
-       p.id_user_fk,
-	   p.id_postagem, 
-	   u.nome, p.titulo, 
-	   p.conteudo, 
-	   p.data_postagem,
-       p.imagemPostagem
-	FROM postagem AS p 
-			join 
-		usuario as u 
-			on 
-	p.id_user_fk = u.id_user WHERE u.id_user = ${idUser}
-		ORDER BY p.id_postagem DESC;
+    SELECT p.id_user_fk, p.id_postagem as idPostagem, u.nome, p.titulo, p.conteudo, p.data_postagem,p.imagemPostagem, IF(COUNT(c.id_postagem_fk) = 0, '0', COUNT(c.id_postagem_fk)) as curtidas
+    FROM 
+	postagem AS p left JOIN usuario as u ON p.id_user_fk = u.id_user left JOIN curtida as c ON c.id_postagem_fk = p.id_postagem
+	WHERE u.id_user = ${idUser}
+    GROUP BY p.id_postagem,p.id_user_fk, u.nome, p.titulo, p.conteudo, p.data_postagem, p.imagemPostagem
+	ORDER BY p.id_postagem DESC;
 `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);

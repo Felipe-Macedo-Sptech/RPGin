@@ -1,3 +1,5 @@
+@import url('./botao.css');
+
 
 body {
   font-family: 'Comic Relief', cursive;
@@ -110,50 +112,6 @@ body {
   background-color: #fca311;
 }
 
-dialog {
-  padding: 20px;
-  border: none;
-  border-radius: 12px;
-  box-shadow: 0 0 15px rgba(0,0,0,0.2);
-  width: 400px;
-}
-
-dialog form label {
-  font-weight: bold;
-}
-
-dialog input[type="text"],
-dialog textarea,
-dialog select,
-dialog input[type="file"] {
-  width: 100%;
-  padding: 8px;
-  margin-top: 4px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-}
-
-dialog button {
-  margin-top: 10px;
-  padding: 8px 16px;
-  border-radius: 20px;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-dialog button[type="submit"] {
-  background-color: #14213d;
-  color: #fff;
-  border: none;
-}
-
-dialog button[type="button"] {
-  background-color: #ccc;
-  color: #000;
-  border: none;
-  margin-left: 10px;
-}
-
 #fotinha{
     height: 100%;
     width: 100%;
@@ -262,3 +220,80 @@ dialog button[type="button"] {
   font-size: 1.2rem;
   font-weight: bolder;
 }
+
+.butaoSeguir{
+  background-color: #14213d;
+  color: #fff;
+  font-weight: bold;
+  border-radius: 3px;
+  height: 30px;
+  width: 70px;
+}
+
+
+#ModalDosComentarios {
+    border: none;
+    border-radius: 12px;
+    padding: 20px;
+    background-color: #14213d;
+    color: white;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+    width: 640px;
+    max-height: 500px;
+}
+
+.containerComentarios {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    overflow-y: auto;
+    max-height: 400px;
+    padding-right: 10px;
+}
+.nomeComentario {
+    font-weight: bold;
+    font-size: 14px;
+    color: #fca311;
+    margin-bottom: 4px;
+}
+
+.mensagemComentario {
+    font-size: 15px;
+    color: #e0e0e0;
+    background-color: #2d3a5e;
+    padding: 12px;
+    border-radius: 8px;
+    white-space: pre-line;
+}
+
+#inp_comentario {
+    margin-top: 12px;
+    padding: 10px;
+    width: 95%;
+    border-radius: 8px;
+    border: 1px solid #fca311;
+    background-color: #14213d;
+    color: white;
+    font-size: 14px;
+}
+
+.areaComentario {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 16px;
+}
+
+.buttonComentario button {
+    padding: 10px 15px;
+    background-color: #fca311;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.buttonComentario button:hover {
+    background-color: #ff8f00;
+}
+

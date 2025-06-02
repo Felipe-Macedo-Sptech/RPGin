@@ -427,3 +427,15 @@ dialog::backdrop {
     align-items: center;
     flex-direction: column;
 }
+
+.comenCurtida{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* background-color: #0e1a34; */
+    width: 100%;
+}
+
+.curtida span{
+  color: #000;
+}

@@ -29,11 +29,10 @@
       <div class="bannerPerfil">
         <div id="fotoUser">
         </div>
-
         <div id="dadosPerfil"></div>
       
         <div class="seguidores">
-          <button onclick="validarSeguida()">Seguir</button>
+          <button onclick="validarSeguida()" class="butaoSeguir">Seguir</button>
           <div class="buttonPostar">
           <div id="seguimores"></div>
       </div>
@@ -45,12 +44,21 @@
       </div>
     </div>
   </section>
+   <dialog id="ModalDosComentarios">
+      <div class="containerComentarios">
+        <div id="comentarios">
+        </div>
+      </div>
+    </dialog>
 </div>
+
+
 <script>
   var parametro = new URLSearchParams(window.location.search)
   var idUSer = Number(parametro.get('id'))
   var idSessao = sessionStorage.ID_USUARIO;
   var idInt = Number(idSessao);
+  var comentarios = document.getElementById('ModalDosComentarios');
 
   function iniciarPagina(){
     exibirPostagemPorId();
@@ -73,17 +81,22 @@
           hour12: false,
           timeZone: "America/Sao_Paulo"
         });
+        var idPostagem = post.idPostagem
         postagemDiv.innerHTML += `
           <div class="postagem">
             <div class="emcima">
-              <span class="postagemNome">${post.nome}</span>
+              <span class="postagemNome">${post.nome} </span>
               <span class="postagemData">${dataCerta}</span>
             </div>
             <div class="postagemTitulo">${post.titulo}</div>
             <div class="postagemConteudo">
               ${post.conteudo}
             </div>
-             ${post.imagemPostagem ? `  <div class="postagemImagem"> <img src="./assets/imgPostagem/${post.imagemPostagem}"  class="imgPadronizada"/></div>` : ''}
+            ${post.imagemPostagem ? `  <div class="postagemImagem"> <img src="./assets/imgPostagem/${post.imagemPostagem}"  class="imgPadronizada"/></div>` : ''}
+                <div class="">
+               <button class="botao" onclick="comentarioModal(${idPostagem})"> Comentarios </button>
+               <button onclick="validarCurtida(${idPostagem})">Curtir</button> ${post.curtidas}
+               </div>
           </div>
         `;
       });
@@ -100,7 +113,7 @@ fetch(`/usuarios/dadosPerfil/${idUSer}`, {
   headers: {
     "Content-Type": "application/json"
   }
-})
+})  
   .then(res => res.json())
   .then(function (resultado) {
     var dados = document.getElementById('dadosPerfil');
@@ -192,4 +205,104 @@ function cuntSeguidores(){
     console.log(resposta[0].seguidores)
 })
 }
+
+
+  function validarCurtida(idPostagem){
+     fetch("/postagem/validarCurtida", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json"
+      },
+    })
+     .then(res => res.json())
+    .then(function (resposta){
+      var jaCurtiu = true
+      for(var i = 0; i < resposta.length; i++){
+        var idPostAtual = resposta[i].idPostagem;
+        var idUserAtual = resposta[i].idUsuario;
+        if(idInt == idUserAtual && idPostagem == idPostAtual){
+          jaCurtiu = false
+          deleteCurtida(idPostagem)
+          break;
+        }
+      }
+      if(jaCurtiu){
+        curtida(idPostagem)
+      }
+    })
+  }
+  function curtida(idPostagem) {
+    fetch(`/postagem/curtir/${idPostagem}/${idInt}`, {
+      method: 'POST',
+      headers: { "Content-Type": "application/json" },
+    }).then(resposta => {
+      if (resposta.ok) {
+        console.log('toma');
+        setTimeout(() => {
+          exibirPostagemPorId()
+        }, "1000");
+        
+      }
+    })
+  };
+
+  function deleteCurtida(idPostagem){
+     fetch(`/postagem/deleteCurtida/${idInt}/${idPostagem}`, {
+      method: 'DELETE',
+      headers: { "Content-Type": "application/json" },
+    }).then(resposta => {
+      if (resposta.ok) {
+        console.log('toma');
+        setTimeout(() => {
+        exibirPostagemPorId()
+        }, "1000");
+        
+      }
+    })
+  }
+  
+
+  var idPostagemAtual = null
+  function comentarioModal(idPostagem) {
+    var modalComentario = document.querySelector("#ModalDosComentarios");
+    idPostagemAtual = idPostagem
+    comentarios.innerHTML = ''
+    fetch(`/postagem/exibirComentario/${idPostagem}`, {
+      method: 'GET',
+      headers: {
+        "Content-Type": "application/json"
+      },
+    }).then(res => res.json())
+      .then(function (resultado) {
+
+        resultado.forEach(function (comen) {
+          comentarios.innerHTML += `
+                   <div class="nomeComentario">${comen.nome}</div><br>
+                    <div class="mensagemComentario">${comen.mensagem}</div>
+                    <br>
+                `
+        })
+        comentarios.innerHTML += `<div class="areaComentario">
+            <div class="inputComentario"><input type="text" id="inp_comentario"></div>
+            <div class="buttonComentario"><button onclick="comentar(${idPostagem})"> Comentar</button></div>
+            </div>`
+      })
+    modalComentario.showModal();
+  }
+  function comentar(idPost) {
+    var comentario = inp_comentario.value;
+    fetch(`/postagem/comentar/${idPost}`, {
+      method: 'POST',
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        mensagemServer: comentario,
+        idUserServer: idInt
+      })
+    }).then(resposta => {
+      if (resposta.ok) {
+        inp_comentario.value = ""
+        comentarioModal(idPostagemAtual)
+      }
+    })
+  }
 </script>
