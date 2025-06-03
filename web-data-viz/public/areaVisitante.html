@@ -36,7 +36,10 @@
           <div class="buttonPostar">
           <div id="seguimores"></div>
       </div>
-        </div>        
+        </div> 
+        <div>
+          <button onclick="chat()">Conversar</button>
+        </div>       
 
       <h2>Suas Postagens:</h2>
       <div class="postagemDoUser">
@@ -59,6 +62,10 @@
   var idSessao = sessionStorage.ID_USUARIO;
   var idInt = Number(idSessao);
   var comentarios = document.getElementById('ModalDosComentarios');
+
+  function chat(){
+    window.location.href = `chat.html?idReceptor=${idUSer}&idEnviador=${idInt}`
+  }
 
   function iniciarPagina(){
     exibirPostagemPorId();

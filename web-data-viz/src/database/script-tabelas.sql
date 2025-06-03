@@ -46,6 +46,15 @@ CREATE TABLE curtida(
     FOREIGN KEY(id_postagem_fk) REFERENCES postagem(id_postagem) ON DELETE CASCADE
 );
 
+CREATE TABLE chat(
+	id_chat INT PRIMARY KEY AUTO_INCREMENT,
+    id_receptor INT,
+    id_enviador INT,
+    mensagem VARCHAR(200),
+    foreign key (id_receptor) REFERENCES usuario(id_user),
+    foreign key (id_enviador) REFERENCES usuario(id_user)
+);
+
 -- Inserir usuários
 INSERT INTO usuario (nome, telefone, email, senha, bio) VALUES
 ('Ana Silva', '11999999999', 'ana@email.com', 'senha123', 'Amante de RPG medieval.'),

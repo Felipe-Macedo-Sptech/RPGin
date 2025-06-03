@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/chat.css">
+    <title>Document</title>
+</head>
+<body onload="exibirMensagens()">
+    <div id="mensagem"></div>
+    <input type="text" id="inp_mensagem">
+    <button onclick="mensagem()"> 
+        Enviar
+    </button>
+</body>
+</html>
+
+<script>
+    var parametro = new URLSearchParams(window.location.search)
+    var idReceptor = Number(parametro.get('idReceptor'))
+    var idEnviador = Number(parametro.get('idEnviador'))
+
+
+    function mensagem(){
+      var mensagem = inp_mensagem.value;
+      fetch(`/chat/postarMensagem/${idReceptor}/${idEnviador}`, {
+      method: 'POST',
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        mensagem: mensagem
+      })
+    }).then(resposta => {
+      if (resposta.ok) {   
+        inp_mensagem.value = "";
+        exibirMensagens()
+      }
+    })  
+    }
+
+    function exibirMensagens(){
+      fetch(`/chat/exibirChat/${idReceptor}/${idEnviador}`, {
+      method: 'POST',
+      headers: { "Content-Type": "application/json" },
+    }).then(res => res.json())
+      .then(function (resposta){
+        var chat = document.getElementById('mensagem');
+        for(var i = 0; i < resposta.length; i++){
+            chat.innerHTML += `${resposta[i].chat}<br>`
+        } 
+      })
+    }
+
+</script>
