@@ -6,9 +6,16 @@
     <link rel="stylesheet" href="./css/chat.css" />
     <title>Document</title>
   </head>
-  <body onload="exibirMensagens()">
+  <body onload="iniciarChat()">
     <div class="container">
-      <div class="header"></div>
+      <div class="header">
+        <div class="fotoDePerfil">
+          <div id="foto"></div>
+        </div>
+        <div class="nomeReceptor">
+        <div id="nome"></div>
+        </div>
+      </div>
       <div class="mensagem">
         <div id="mensagem"></div>
       </div>
@@ -21,7 +28,12 @@
   </body>
 </html>
 
+
 <script>
+  function iniciarChat(){
+    exibirMensagens()
+    dadosPerfil()
+  }
   var parametro = new URLSearchParams(window.location.search);
   var idReceptor = Number(parametro.get("idReceptor"));
   var idEnviador = Number(parametro.get("idEnviador"));
@@ -62,4 +74,27 @@
         }
       });
   }
+
+function dadosPerfil() {
+fetch(`/usuarios/dadosPerfil/${idReceptor}`, {
+  method: 'GET',
+  headers: {
+    "Content-Type": "application/json"
+  }
+})
+  .then(res => res.json())
+  .then(function (resultado) {
+    var nome = document.getElementById('nome');
+    var fotoDePerfil = document.getElementById('foto');
+    if (resultado.length === 1) {
+      nome.innerHTML = `
+        <div class="nome">${resultado[0].nome}</div>`;
+    } else {
+      nome.innerHTML = "<div class='bio'>Usuário não encontrado</div>";
+    }
+    fotoDePerfil.innerHTML = `
+      ${resultado[0].imagem ? `<img src="./assets/imgPostagem/${resultado[0].imagem}" class="imagemTratada">` : ''}
+    `
+  })
+}
 </script>
