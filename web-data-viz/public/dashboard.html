@@ -15,7 +15,6 @@
             <div id="cadastrados"></div>
         </div>
 
-
         <div class="postagemCriadas">
             <span>Postagem mais curtida</span>
             <div id="postagemCriadas"></div>
@@ -23,22 +22,22 @@
 
 
         <div class="curtidaPostagem">
-            <span>Media de curtida por postagem</span>
+            <span>Media de curtida</span>
             <div id="curtidaPostagem"></div>
         </div>
 
           <div class="comenPorPostagem">
-            <span>Media de comentario por postagem</span>
+            <span>Media de comentario</span>
             <div id="comenPorPostagem"></div>
         </div>
     </div>
 
     <div class="graficos">
         
-        <div class="linha">
+        <div class="linhaPostagem">
             <canvas id="linha"></canvas>
         </div>
-        <div class="pizza">
+        <div class="barraRank">
             <canvas id="pizza"></canvas>
         </div>
     </div>
@@ -50,6 +49,7 @@
 </body>
 </html>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
 <script>
 
   function inicarDashboard(){
@@ -74,8 +74,12 @@ function postagemDaSemana(){
       for(var i = 0;i<resultado.length;i++){
         var dataAtual = resultado[i].dataPostagem
         var qtdAtual = resultado[i].postagem;
+            var dataCerta = new Date(dataAtual).toLocaleDateString('pt-BR', {
+            hour12: false,
+            timeZone: "America/Sao_Paulo"
+          });
         postagens.push(qtdAtual)
-        dataPostagem.push(dataAtual)
+        dataPostagem.push(dataCerta)
       }
       const ctx = document.getElementById('linha');
       new Chart(ctx, {
@@ -85,16 +89,29 @@ function postagemDaSemana(){
           datasets: [{
             label: 'Quantidade de postagem na semana',
             data: postagens,
-            borderWidth: 1
+            borderWidth: 2,
+            borderColor: '#14213d',
+            backgroundColor: ['#fca311']
           }]
         },
         options: {
+          plugins: {
+      datalabels: {
+        color: '#000',
+        anchor: 'end',
+        align: 'top',
+        font: {
+          weight: 'bold'
+        }
+      }
+    },
           scales: {
             y: {
               beginAtZero: true
             }
           }
-        }
+        },
+        plugins: [ChartDataLabels]
       });
           
     });
@@ -107,7 +124,7 @@ function usuarioPostagem(){
         "Content-Type": "application/json"
       }
     }).then(res => res.json())
-    .then(function (resultado) {
+      .then(function (resultado) {
         var primeiro = Number(resultado[0].postagens)
         var segundo = Number(resultado[1].postagens)
         var terceiro = Number(resultado[2].postagens)
@@ -121,22 +138,32 @@ function usuarioPostagem(){
                 labels: [`${resultado[0].nome}`, `${resultado[1].nome}`, `${resultado[2].nome}`, `${resultado[3].nome}`, `${resultado[4].nome}`],
                 datasets: [
                     {
-                        label: 'Postagens',
+                        label: 'Top 5 usuarios com mais Postagens',
                         data: [primeiro, segundo, terceiro, quarto, quinto],
                         borderColor: '#fff',
-                        backgroundColor: ['#fca311', '#fff']
+                        backgroundColor: ['#fca311', '#14213d']
                     },
-            
                  ]
                 },
                 options: {
+                      plugins: {
+      datalabels: {
+        color: '#000',
+        anchor: 'end',
+        align: 'top',
+        font: {
+          weight: 'bold'
+        }
+      }
+    },
                 scales: {
                     y: {
                     beginAtZero: true
                     }
                 }
-                }
-            });
+              },
+            plugins: [ChartDataLabels]
+        });
     });
   }
 
@@ -150,9 +177,9 @@ function usuarioPostagem(){
     .then(function (resultado) {
     var cadastros = document.getElementById('cadastrados')
         cadastros.innerHTML = `
-        ${resultado[0].nome} Seguidores: ${resultado[0].seguidores}<br>
-        ${resultado[1].nome} Seguidores: ${resultado[1].seguidores}<br>
-        ${resultado[2].nome} Seguidores: ${resultado[2].seguidores}<br>
+        <div class="nomeRank">🥇  1º ${resultado[0].nome}</div> Seguidores: ${resultado[0].seguidores}<br>
+        <div class="nomeRank">🥈  2º ${resultado[1].nome}</div> Seguidores: ${resultado[1].seguidores}<br>
+        <div class="nomeRank">🥉  3º ${resultado[2].nome}</div> Seguidores: ${resultado[2].seguidores}<br>
         `
     });
   }
@@ -166,7 +193,7 @@ function usuarioPostagem(){
     }).then(res => res.json())
     .then(function (resultado) {
     var curtida = document.getElementById('curtidaPostagem')
-        curtida.innerHTML = `${resultado[0].mediaDeCurtidaPorPost}`
+        curtida.innerHTML = `<div class="mediaCurtida">${resultado[0].mediaDeCurtidaPorPost}</div>`
     });
   }
 
@@ -180,8 +207,10 @@ function usuarioPostagem(){
     .then(function (resultado) {
     var postagemCriada = document.getElementById('postagemCriadas')
         postagemCriada.innerHTML = `
-        ${resultado[0].curtidas}<br>
-        <a href="areaVisitante.html?id=${resultado[0].idUsuario}">${resultado[0].usuario}</a>`
+        Autor: <a href="areaVisitante.html?id=${resultado[0].idUsuario}" class="autor">${resultado[0].usuario}</a><br>
+        Curtida: <span class="">${resultado[0].curtidas}</span><br>
+        Titulo: <span class="tituloPostagemCurtida">${resultado[0].titulo}</span><br>
+        `
     });
   }
 
@@ -196,7 +225,7 @@ function usuarioPostagem(){
     .then(function (resultado) {
     var comenPorPostagem = document.getElementById('comenPorPostagem')
         comenPorPostagem.innerHTML = `
-                    ${resultado[0].mediaDeComentarioPorPost}
+          <div class="mediaPostagem">${resultado[0].mediaDeComentarioPorPost}</div>
         `
     });
   }

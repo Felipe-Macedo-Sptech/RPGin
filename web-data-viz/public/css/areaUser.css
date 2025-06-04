@@ -127,7 +127,6 @@ body {
 .fotoNomeCurtida{
     display: flex;
     width: 20%;
-    justify-content: space-evenly;
 }
 
 .postagemNome {
@@ -432,10 +431,24 @@ dialog::backdrop {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    /* background-color: #0e1a34; */
     width: 100%;
 }
 
 .curtida span{
   color: #000;
+}
+
+.botaoCurtida{
+    border-radius: 20px;
+    color: #fff;
+    background-color: navy;
+    font-weight: bold;
+}
+
+.nome{
+    text-decoration: none;
+    color: #000;
+}
+.numeroDeCurtida{
+    font-weight: bold;
 }

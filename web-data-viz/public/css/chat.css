@@ -1,0 +1,85 @@
+* { 
+  box-sizing: border-box;
+}
+
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: Arial, sans-serif;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+.header{
+    height: 10%;
+    background-color: #14213d;
+}
+
+.mensagem {
+  height: 80%;
+  padding: 25px;
+  overflow-y: auto;
+  background-color: #f5f5f5;
+}
+
+.enviar {
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: white;
+  padding: 10px;
+  display: flex;
+  box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+  height: 10%;
+}
+
+#inp_mensagem {
+  flex: 1;
+  padding: 10px;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #fca311;
+  color: white;
+  border: none;
+  border-radius: 4px;
+}
+
+.containerEnviador{
+    height: 45px;
+    display: flex;
+    justify-content: end;
+
+}
+.enviador{
+    display: flex;
+    background-color: #fca311;
+    width: fit-content;
+    height: fit-content;
+    padding: 10px;
+    border-radius: 15px;
+    align-items: center;
+    justify-content: center;
+}
+
+.containerReceptor{
+    height: 45px;
+    display: flex;
+
+}
+.receptor{
+    display: flex;
+    background-color: #14213d;
+    width: fit-content;
+    height: fit-content;
+    padding: 10px;
+    border-radius: 15px;
+    align-items: center;
+    justify-content: center;
+    color: #f5f5f5;
+}

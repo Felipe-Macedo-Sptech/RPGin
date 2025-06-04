@@ -35,8 +35,8 @@ function usuarioPostagem(){
 
 function postagemMaisCurtida(){
     var instrucaoSql = `
-    SELECT p.id_postagem as idPostagem, 
-      u.nome as usuario, u.id_user as idUsuario, COUNT(c.id_user_fk) as curtidas FROM postagem as p JOIN curtida as c ON c.id_postagem_fk = p.id_postagem
+     SELECT p.id_postagem as idPostagem, 
+      u.nome as usuario, u.id_user as idUsuario, COUNT(c.id_user_fk) as curtidas, p.titulo as titulo FROM postagem as p JOIN curtida as c ON c.id_postagem_fk = p.id_postagem
 	JOIN usuario as u ON p.id_user_fk = u.id_user
     GROUP BY p.id_postagem, usuario
     ORDER BY curtidas DESC LIMIT 1;

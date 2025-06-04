@@ -7,7 +7,7 @@ body{
     height: 100vh;
     width: 100vw;
     display: flex;
-    background-color: #14213d;
+    background-color: #FFF9DB;
    
 }
 .areaDashboard{
@@ -23,10 +23,15 @@ body{
     display: flex;
     justify-content: space-around;
     align-items: center;
+    
 }
-.indicadores div{
+.indicadores .cadastrados, .postagemCriadas, .curtidaPostagem, .comenPorPostagem{
     background-color: #fca311;
     border-radius: 10%;
+    box-shadow: 10px 10px 10px #a6aec1;
+}
+.indicadores div{
+    width: 300px;
 }
 
 
@@ -74,11 +79,73 @@ body{
     align-items: center;
 }
 
-.linha{
-    height: 400px; 
+
+
+.linhaPostagem{
+    background-color:bisque;
     width: 650px;
+    height: 300px;
+    box-shadow: 10px 10px 10px #a6aec1;
 }
-.pizza{
-    height: 400px;
+
+.barraRank{
+    background-color:bisque;
+    border-color: #000;
     width: 650px;
+    height: 300px;
+    box-shadow: 10px 10px 10px #a6aec1;
+}
+.cadastrados span{
+    font-size: 1.5rem;
+}
+.nomeRank{
+    font-size: 1.5rem;
+}
+#cadastrados div{
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    align-items: center;
+}
+#cadastrados{
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    align-items: center;
+}
+#curtidaPostagem .mediaCurtida{
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.curtidaPostagem span{
+    font-size: 1.5rem;
+}
+
+.mediaCurtida{
+    font-size: 2.5rem;
+}
+
+
+.comenPorPostagem span{
+    font-size: 1.5rem;
+}
+
+.comenPorPostagem .mediaPostagem{
+    font-size: 2.5rem;
+}
+
+#comenPorPostagem .mediaPostagem{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+
+.postagemCriadas span{
+    font-size: 1.5rem;
 }

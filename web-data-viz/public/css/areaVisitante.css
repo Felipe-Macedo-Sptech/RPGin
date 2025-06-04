@@ -297,3 +297,19 @@ body {
     background-color: #ff8f00;
 }
 
+.comenCurtida{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+.botaoCurtida{
+    border-radius: 20px;
+    color: #fff;
+    background-color: navy;
+    font-weight: bold;
+}
+.numeroDeCurtida{
+    font-weight: bold;
+    color: #000;
+}

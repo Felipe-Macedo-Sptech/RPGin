@@ -100,9 +100,12 @@
               ${post.conteudo}
             </div>
             ${post.imagemPostagem ? `  <div class="postagemImagem"> <img src="./assets/imgPostagem/${post.imagemPostagem}"  class="imgPadronizada"/></div>` : ''}
-                <div class="">
+              <div class="comenCurtida">
                <button class="botao" onclick="comentarioModal(${idPostagem})"> Comentarios </button>
-               <button onclick="validarCurtida(${idPostagem})">Curtir</button> ${post.curtidas}
+               <div>
+               <button onclick="validarCurtida(${idPostagem})" class="botaoCurtida">Curtir</button> 
+                <span class="numeroDeCurtida">${post.curtidas}</span>
+               </div>
                </div>
           </div>
         `;

@@ -101,9 +101,9 @@
                           ${post.imagem ? `<div class="fotoUsuario"> <a href="areaVisitante.html?id=${idDonoPostagem}"> <img src="./assets/imgPostagem/${post.imagem}" 
                             class="fotoUserPadronizada"></a></div>`
                                      : ''}
-                              <span class="postagemNome"> <a href="areaVisitante.html?id=${idDonoPostagem}">${post.nome} </a></span>
+                              <span class="postagemNome"> <a href="areaVisitante.html?id=${idDonoPostagem}" class="nome">${post.nome} </a></span>
                               </div>
-                              <span class="postagemData">${post.id_postagem},  ${dataCerta}</span>
+                              <span class="postagemData">${dataCerta}</span>
                             </div>
                             <div class="postagemTitulo">${post.titulo}</div>
                             <div class="postagemComentario">
@@ -121,8 +121,8 @@
                               Comentarios
                             </button>
                             <div class="curtida">
-                              <button onclick="validarCurtida(${idInt}, ${idPostagem})">Curtir</button>
-                              <span>${post.curtida}</span>
+                              <button onclick="validarCurtida(${idInt}, ${idPostagem})" class="botaoCurtida">Curtir</button>
+                              <span class="numeroDeCurtida">${post.curtida}</span>
                             </div>
                               </div>
                             </div>

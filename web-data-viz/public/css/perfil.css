@@ -307,3 +307,11 @@ dialog button[type="button"] {
  font-weight: bold;
  color: #000;
 }
+
+.botaoAuxiliar{
+  height: 30px;
+  background-color: #14213d;
+  color: #fff;
+  border-radius: 10px;
+  font-weight: bold;
+}
