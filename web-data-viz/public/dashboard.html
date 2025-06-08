@@ -9,31 +9,34 @@
 <body onload="inicarDashboard()">
 <div class="main">
     <div class="areaDashboard">
+
+      <div class="areaLateral">
+        <div class="areaAdm">
+          Olá, ADM
+        </div>
+        <div class="areaRank">
+        <div class="tituloRankSeguidor"> RANK mais seguidos</div>
+            <div id="cadastrados" class="rank"></div>
+        </div>
+      </div>
+      <div class="kipEgrafico">
     <div class="indicadores">
-        <div class="cadastrados">
-            <span>Rank top 3 mais seguidos</span>
-            <div id="cadastrados"></div>
-        </div>
-
-        <div class="postagemCriadas">
-            <span>Postagem mais curtida</span>
-            <div id="postagemCriadas"></div>
-        </div>
-
-
-        <div class="curtidaPostagem">
-            <span>Media de curtida</span>
-            <div id="curtidaPostagem"></div>
-        </div>
-
-          <div class="comenPorPostagem">
-            <span>Media de comentario</span>
-            <div id="comenPorPostagem"></div>
-        </div>
+    <div class="postagemCriadas kpiBox">
+        <span>Postagem mais curtida</span>
+        <div id="postagemCriadas"></div>
+    </div>
+    <div class="curtidaPostagem kpiBox">
+        <span>Média de curtidas</span>
+        <div id="curtidaPostagemCurtida"></div>
     </div>
 
+    <div class="comenPorPostagem kpiBox">
+        <span>Média de comentários</span>
+        <div id="comenPorPostagem"></div>
+    </div>
+    
+</div>
     <div class="graficos">
-        
         <div class="linhaPostagem">
             <canvas id="linha"></canvas>
         </div>
@@ -41,10 +44,8 @@
             <canvas id="pizza"></canvas>
         </div>
     </div>
-    </div>
-
+  </div>
     <a href="./areaVisitante.html"></a>
-    
 </div>
 </body>
 </html>
@@ -67,7 +68,8 @@ function postagemDaSemana(){
          headers: {
         "Content-Type": "application/json"
       }
-    }).then(res => res.json())
+    })
+    .then(res => res.json())
     .then(function (resultado) {
       var postagens = []
       var dataPostagem = []
@@ -147,15 +149,15 @@ function usuarioPostagem(){
                 },
                 options: {
                       plugins: {
-      datalabels: {
-        color: '#000',
-        anchor: 'end',
-        align: 'top',
-        font: {
-          weight: 'bold'
-        }
-      }
-    },
+                      datalabels: {
+                        color: '#000',
+                        anchor: 'end',
+                        align: 'top',
+                        font: {
+                          weight: 'bold'
+                        }
+                      }
+                    },
                 scales: {
                     y: {
                     beginAtZero: true
@@ -177,9 +179,9 @@ function usuarioPostagem(){
     .then(function (resultado) {
     var cadastros = document.getElementById('cadastrados')
         cadastros.innerHTML = `
-        <div class="nomeRank">🥇  1º ${resultado[0].nome}</div> Seguidores: ${resultado[0].seguidores}<br>
-        <div class="nomeRank">🥈  2º ${resultado[1].nome}</div> Seguidores: ${resultado[1].seguidores}<br>
-        <div class="nomeRank">🥉  3º ${resultado[2].nome}</div> Seguidores: ${resultado[2].seguidores}<br>
+        <a href="areaVisitante.html?id=${resultado[0].idUsuario}" class="hrefRank"><div class="nomeRank">🥇  1º ${resultado[0].nome} <div class="numSeguidores">Seguidores: ${resultado[0].seguidores}</div></div></a><br>
+        <a href="areaVisitante.html?id=${resultado[0].idUsuario}" class="hrefRank"><div class="nomeRank"><div class="nomeRank">🥈  2º ${resultado[1].nome} <div class="numSeguidores">Seguidores: ${resultado[1].seguidores}</div></div></a><br>
+        <a href="areaVisitante.html?id=${resultado[0].idUsuario}" class="hrefRank"><div class="nomeRank"><div class="nomeRank">🥉  3º ${resultado[2].nome} <div class="numSeguidores">Seguidores: ${resultado[2].seguidores}</div></div></a><br>
         `
     });
   }
@@ -191,9 +193,9 @@ function usuarioPostagem(){
         "Content-Type": "application/json"
       }
     }).then(res => res.json())
-    .then(function (resultado) {
-    var curtida = document.getElementById('curtidaPostagem')
-        curtida.innerHTML = `<div class="mediaCurtida">${resultado[0].mediaDeCurtidaPorPost}</div>`
+    .then(function (resultado) { 
+    var curtida = document.getElementById('curtidaPostagemCurtida')
+        curtida.innerHTML = `<div class="mediaCurtidaC">${resultado[0].mediaDeCurtidaPorPost}</div>`
     });
   }
 
@@ -207,8 +209,8 @@ function usuarioPostagem(){
     .then(function (resultado) {
     var postagemCriada = document.getElementById('postagemCriadas')
         postagemCriada.innerHTML = `
-        Autor: <a href="areaVisitante.html?id=${resultado[0].idUsuario}" class="autor">${resultado[0].usuario}</a><br>
-        Curtida: <span class="">${resultado[0].curtidas}</span><br>
+        Autor: <a href="areaVisitante.html?id=${resultado[0].idUsuario}" class="autor"> ${resultado[0].usuario}</a><br>
+        Curtida: <span class="qtdCurtida">${resultado[0].curtidas}</span><br>
         Titulo: <span class="tituloPostagemCurtida">${resultado[0].titulo}</span><br>
         `
     });

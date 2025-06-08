@@ -12,26 +12,48 @@ body{
 }
 .areaDashboard{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     height: 100%;
     width: 100%;
 }
 
-.indicadores{
-    height: 35%;
-    width: 100%;
+
+.kpiBox {
+    background-color: #fff;
+    border: 2px solid #fca311;
+    border-radius: 5px;
+    box-shadow: 8px 8px 8px #a6aec1; 
+    width: 90%;
+    padding: 20px;
     display: flex;
-    justify-content: space-around;
-    align-items: center;
-    
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+    font-family: sans-serif;
 }
-.indicadores .cadastrados, .postagemCriadas, .curtidaPostagem, .comenPorPostagem{
-    background-color: #fca311;
-    border-radius: 10%;
-    box-shadow: 10px 10px 10px #a6aec1;
+
+.kpiBox span:first-child {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #14213d;
+    text-align: center;
 }
-.indicadores div{
-    width: 300px;
+
+.kpiBox .autor,
+.kpiBox .qtdCurtida,
+.kpiBox .tituloPostagemCurtida,
+.kpiBox .mediaPostagem {
+    font-size: 1rem;
+    font-weight: bolder;
+    color: #fca311;
+    text-align: center;
+    text-decoration: none;
+}
+
+.kpiBox .mediaCurtidaC{
+     font-size: 2rem;
+     font-weight: bolder;
+     color: #fca311;
 }
 
 
@@ -45,7 +67,7 @@ body{
 }
 
 .postagemCriadas{
-    height: 200px;
+    height: 100px;
     width: 200px;
     display: flex;
     align-items: center;
@@ -54,7 +76,7 @@ body{
 }
 
 .curtidaPostagem{
-    height: 200px;
+    height: 100px;
     width: 200px;
     display: flex;
     align-items: center;
@@ -63,7 +85,7 @@ body{
 }
 
 .comenPorPostagem{
-    height: 200px;
+    height: 100px;
     width: 200px;
     display: flex;
     align-items: center;
@@ -72,8 +94,6 @@ body{
 }
 
 .graficos{
-    height: 65%;
-    width: 100%; 
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -83,23 +103,44 @@ body{
 
 .linhaPostagem{
     background-color:bisque;
-    width: 650px;
-    height: 300px;
+    width: 500px;
+    height: 270px;
     box-shadow: 10px 10px 10px #a6aec1;
 }
 
 .barraRank{
     background-color:bisque;
     border-color: #000;
-    width: 650px;
-    height: 300px;
+    width: 500px;
+    height: 270px;
     box-shadow: 10px 10px 10px #a6aec1;
 }
 .cadastrados span{
     font-size: 1.5rem;
 }
+.hrefRank{
+    text-decoration: none;
+    color: #000;
+}
 .nomeRank{
+    background-color: #fff;
+    width: 300px;
+    height: 70px;
     font-size: 1.5rem;
+    font-weight: bolder;
+    box-shadow: 10px 10px 10px #a6aec1;
+}
+
+.numSeguidores{
+    font-size: 20px;
+    font-weight: lighter;
+}
+
+.tituloRankSeguidor{
+    font-size: 1.5rem;
+    font-weight: bolder;
+    margin-bottom: 20px;
+
 }
 #cadastrados div{
     display: flex;
@@ -112,9 +153,9 @@ body{
     flex-direction: column;
     justify-items: center;
     align-items: center;
+    margin-left: 20px;
 }
 #curtidaPostagem .mediaCurtida{
-    margin-top: 20px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -126,7 +167,7 @@ body{
 }
 
 .mediaCurtida{
-    font-size: 2.5rem;
+    font-size: 2rem;
 }
 
 
@@ -135,17 +176,54 @@ body{
 }
 
 .comenPorPostagem .mediaPostagem{
-    font-size: 2.5rem;
+    font-size: 2rem;
 }
 
 #comenPorPostagem .mediaPostagem{
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 20px;
 }
 
 
 .postagemCriadas span{
     font-size: 1.5rem;
+}
+
+.areaLateral{
+    width: 20%;
+}
+
+.areaRank {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 85%;
+    width: 100%;
+}
+.areaAdm{
+    height: 15%;
+    width: 100%;
+}
+
+.kipEgrafico{
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+}
+
+.kipEgrafico .graficos{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.kipEgrafico .indicadores{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 100%;
+    width: 100%;
 }
