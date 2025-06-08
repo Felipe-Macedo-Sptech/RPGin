@@ -452,3 +452,9 @@ dialog::backdrop {
 .numeroDeCurtida{
     font-weight: bold;
 }
+
+.acessoDashboard{
+    text-decoration: none;
+    color: #fff;
+    
+}

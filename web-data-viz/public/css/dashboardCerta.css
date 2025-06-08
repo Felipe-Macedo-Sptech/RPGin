@@ -17,6 +17,35 @@ body{
     width: 100%;
 }
 
+.voltar {
+    display: inline-block;
+    margin-top: 10px;
+    margin-left: 10px;
+    padding: 8px 12px;
+    font-size: 16px;
+    font-family: sans-serif;
+    color: white;
+    background-color: #fca311;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.voltar:hover {
+    background-color: #e5920c;
+}
+
+.bemVindo{
+    height: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    font-weight: bolder;
+    
+}
+
 
 .kpiBox {
     background-color: #fff;
@@ -196,7 +225,6 @@ body{
 
 .areaRank {
     display: flex;
-    justify-content: center;
     align-items: center;
     flex-direction: column;
     height: 85%;

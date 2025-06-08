@@ -99,7 +99,6 @@ function dadosPerfil(req, res){
     })
 }
 
-
 function seguir(req, res){
     var seguido = req.params.idSeguido;
     var seguidor = req.params.idSeguidor;

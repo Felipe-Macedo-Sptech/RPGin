@@ -4,7 +4,7 @@ function usuariosCadastrados(){
     var instrucaoSql = `
         SELECT u.nome, COUNT(s.id_seguidor) as seguidores, u.id_user as idUsuario FROM seguidor as s JOIN usuario as u ON s.id_seguido = u.id_user	
 	    GROUP BY u.nome, idUsuario
-        ORDER BY seguidores DESC LIMIT 3;
+        ORDER BY seguidores DESC LIMIT 5;
     `
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql)

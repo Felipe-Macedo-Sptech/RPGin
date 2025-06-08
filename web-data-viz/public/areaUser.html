@@ -6,7 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="./CSS/style.css">
   <link
     href="https://fonts.googleapis.com/css2?family=Cascadia+Code:ital,wght@0,200..700;1,200..700&family=Comic+Relief:wght@400;700&display=swap"
     rel="stylesheet">
@@ -15,7 +14,7 @@
   <link rel="stylesheet" href="./CSS/areaUser.css">
   <script src="https://kit.fontawesome.com/9f7414eb10.js" crossorigin="anonymous"></script>
 </head>
-<body onload="exibrTodasPostagem();exibirOcultarAreaLateral();">
+<body onload="iniciarPagina()">
   <!--header inicio-->
   <div class="header">
     <div class="container">
@@ -41,9 +40,9 @@
       <div class="informacaoLateral">
         <div class="inicialLateral">
           <p>Pagina inicial</p>
+          <p id="acessoDashboard" class="acessoDashboard"></p>
           <p>Populares</p>
           <p>Explorar</p>
-          <p>Tudo</p>
         </div>
         <div class="meioLateral">
           <p>Assuntos</p>
@@ -66,12 +65,31 @@
   <button class="botaoFlultuante">+</button>
   
 </body>
-<a href="" ></a>
 
 </html>
 <script>
+
   const idSessao = sessionStorage.ID_USUARIO;
   const idInt = Number(idSessao);
+  const senhaUser = sessionStorage.SENHA_USUARIO;
+  const emailUser = sessionStorage.EMAIL_USUARIO;
+
+
+  function iniciarPagina(){
+    exibrTodasPostagem();
+    validacaoAdm();
+  }
+
+  function validacaoAdm(){
+    debugger
+    var dash = document.getElementById('acessoDashboard');
+    if(senhaUser == 'adm123' && emailUser == 'adm@gmail.com'){
+      dash.innerHTML = `<a href="dashboard.html" class="acessoDashboard">Dashboard</a>`
+    }else{
+      dash.innerHTML = `Tudo`
+    }
+  }
+
   function exibrTodasPostagem() {
     var postagem = document.getElementById("postagem");
     postagem.innerHTML = ''
@@ -239,9 +257,6 @@
       }
     })
   }
-
-
-
 
 
 
