@@ -1,6 +1,5 @@
 
 body {
-  font-family: 'Comic Relief', cursive;
   margin: 0;
   padding: 0;
   background-color: #14213d;
@@ -314,4 +313,15 @@ dialog button[type="button"] {
   color: #fff;
   border-radius: 10px;
   font-weight: bold;
+}
+
+.nome{
+  font-weight: bolder;
+  color: #000;
+  font-size: 1.5rem;
+}
+
+.bio{
+  font-size: 1.2rem;
+  color: #000;
 }

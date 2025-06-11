@@ -2,7 +2,6 @@
 
 
 body {
-  font-family: 'Comic Relief', cursive;
   margin: 0;
   padding: 0;
   background-color: #14213d;
@@ -312,4 +311,19 @@ body {
 .numeroDeCurtida{
     font-weight: bold;
     color: #000;
+}
+
+.separar{
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+}
+
+.butaoConversar{
+    background-color: #14213d;
+  color: #fff;
+  font-weight: bold;
+  border-radius: 3px;
+  height: 35px;
+  width: 90px;
 }

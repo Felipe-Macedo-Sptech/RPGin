@@ -3,7 +3,6 @@
 body {
     margin: 0;
     padding: 0;
-    font-family: "Comic Relief", system-ui;
     background-color: #14213d;
 }
 
@@ -200,57 +199,28 @@ footer {
     padding: 40px 0;
     box-shadow: 0 20px 25px rgba(0, 0, 0, 0.3);
 }
-
-form {
-    width: fit-content;
-    height: fit-content;
+.sobreMim{
+    
+    height: 100%;
+    width: 27%;
     display: flex;
-    flex-direction: column;
-    color: #fff;
-    width: 25vw;
+    justify-content: center;
+    align-items: center;
+    background-image: url('../img/WhatsApp\ Image\ 2025-06-09\ at\ 23.51.34.jpeg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    border: 3px solid #fca311;
 }
 
-form label {
-    font-size: 1.2rem;
-}
-
-form button {
-    color: black;
-    background-color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 15px 0;
-    cursor: pointer;
-    font-size: 1.2rem;
-    border-radius: 10px;
-    font-weight: bolder;
-    border: 2px solid #fff;
-}
-
-form button:hover {
-    background-color: #14213d;
-    color: white;
-    transition: 1.5s;
-}
-
-footer form input {
-    width: 100%;
-    height: 30px;
-    background-color: #e5e5e5;
-    border: 2px solid #000080;
-    color: black;
-    font-size: 1rem;
-    margin-bottom: 30px;
-    border-radius: 10px;
-}
-
-footer form input:focus {
-    outline: none;
-    border-bottom: 1px solid white;
+.imgEu{
+    width: 300px;
+    height: 450px;
+    background-image: url();
 }
 
 .faleConosco {
-    width: 35vw;
+    height: 100%;
+    width: 50%;
     color: #fff;
 }
 

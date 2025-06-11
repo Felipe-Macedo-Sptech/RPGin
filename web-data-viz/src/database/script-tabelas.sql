@@ -55,58 +55,49 @@ CREATE TABLE chat(
     foreign key (id_enviador) REFERENCES usuario(id_user)
 );
 
--- Inserir usuários
+INSERT INTO usuario (id_user, nome, telefone, email, senha, bio) VALUES
+(-1, 'ADM', '99999999999', 'adm@gmail.com', 'adm123', 'EU MANDO AQUI');
+    
+-- Inserindo usuários
 INSERT INTO usuario (nome, telefone, email, senha, bio) VALUES
-('Ana Silva', '11999999999', 'ana@email.com', 'senha123', 'Amante de RPG medieval.'),
-('Bruno Souza', '21988888888', 'bruno@email.com', 'senha456', 'Narrador de campanhas há 5 anos.'),
-('Carla Mendes', '31977777777', 'carla@email.com', 'senha789', 'Jogadora de RPG investigativo.');
+('Thiago Gomes', '11999999999', 'thiago@gmail.com', 'thi123', 'Mestre de RPG há 10 anos'),
+('Vivian Silva', '21988888888', 'vivian@gmail.com', 'vi123', 'Mestre em D&D'),
+('JP', '31977777777', 'JP@gmail.com', 'jp123', 'RPGista iniciante'),
+('Mateus', '41966666666', 'mateus@gmail.com', 'teteu321', 'Narrador de campanhas sombrias'),
+('Marcio', '51955555555', 'marcio@email.com', 'mar123', 'Fanática por mundos medievais'),
+('Felipe', '77777777777', 'felipe@gmail.com', 'lipe123', 'Novo na comunidade!!');
 
--- Inserir postagens
-INSERT INTO postagem (titulo, conteudo, id_user_fk) VALUES
-('Primeira aventura', 'Começando minha primeira aventura em D&D!', 1),
-('Sistema de regras novo', 'Alguém conhece o sistema Savage Worlds?', 2),
-('Preciso de grupo', 'Procuro grupo para jogar RPG online.', 3);
-
--- Inserir comentários
-INSERT INTO comentario (id_user_fk, id_postagem_fk, mensagem) VALUES
-(2, 1, 'Boa sorte na aventura!'),
-(3, 1, 'Se precisar de dicas, chama!'),
-(1, 2, 'Já ouvi falar, é muito rápido!');
-
--- Inserir curtidas
-INSERT INTO curtida (id_user_fk, id_postagem_fk) VALUES
-(2, 1),
-(3, 1),
+INSERT INTO seguidor (id_seguido, id_seguidor) VALUES
 (1, 2),
-(3, 2),
-(1, 3);
+(2, 3),
+(3, 4),
+(4, 5),
+(5, 1),
+(1, 3),
+(2, 4);
 
-SELECT * FROM postagem;
-SELECT * FROM usuario;
-SELECT * FROM curtida;
+-- Postagens (4 postagens feitas por diferentes usuários)
+INSERT INTO postagem (titulo, conteudo, id_user_fk) VALUES
+('Introdução ao D&D', 'Dicas para iniciantes no mundo de Dungeons & Dragons.', 1),
+('Construindo Mundos', 'Como criar seu próprio universo de RPG.', 2),
+('Narrativas Imersivas', 'Torne sua campanha mais envolvente.', 3),
+('Vilões Memoráveis', 'Como criar antagonistas interessantes.', 4);
 
-SELECT AVG(totalCurtidaPorPostagem) FROM (
-SELECT p.id_postagem, COUNT(c.id_postagem_fk) as totalCurtidaPorPostagem FROM 
-	postagem as p JOIN curtida as c ON c.id_postagem_fk = p.id_postagem 
-		group by  p.id_postagem
-) as subQuerry;
+INSERT INTO comentario (id_user_fk, id_postagem_fk, mensagem) VALUES
+(2, 1, 'Muito útil para iniciantes!'),
+(3, 1, 'Adorei as dicas!'),
+(1, 2, 'Excelente conteúdo!'),
+(5, 2, 'Vou usar essas ideias na próxima campanha.'),
+(2, 3, 'Realmente imersivo!'),
+(4, 3, 'Gostei do exemplo da floresta mágica.'),
+(1, 4, 'Os vilões fazem toda a diferença.'),
+(3, 4, 'Top demais, parabéns!');
 
-SELECT COUNT(u.id_user) FROM usuario as u;
-
-
-SELECT u.id_user, COUNT(u.id_user) as usuario, COUNT(p.id_postagem) as postagem FROM 
-	usuario as u LEFT JOIN postagem as p ON p.id_user_fk = u.id_user
-		GROUP BY u.id_user;
-
-
-SELECT id_postagem as idPostagem, max(curtidas) as curtidas, nome as autorPostagem, id_user as idUsuario, titulo as tituloPostagem FROM (
-SELECT p.id_postagem, count(c.id_postagem_fk)as curtidas, u.nome, u.id_user, p.titulo FROM 
-	postagem as p JOIN curtida as c ON c.id_postagem_fk = p.id_postagem
-    JOIN usuario as u ON p.id_user_fk = u.id_user
-		group by  p.id_postagem LIMIT 1
-) subzinha
-group by id_postagem, nome, id_user, titulo;
-
-
+INSERT INTO curtida (id_user_fk, id_postagem_fk) VALUES
+(1, 2),
+(2, 1),
+(3, 3),
+(4, 4),
+(5, 1);
 
 
